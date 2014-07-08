@@ -1,0 +1,38 @@
+<!-- REMOVE THIS CODE WHEN ADDING TO OPENX (for testing purposes) -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script>var j = jQuery.noConflict();</script>
+<!-- REMOVE END -->
+
+<!-- GA Showcase Event Tracking -->
+<script>
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-23103987-1', 'auto', {'name': 'showcase'});
+
+</script>
+
+<!-- Transparent Leaderboard (usually 1260 x 110) -->
+<a href="{clickurl}AD_URL_GOES_HERE" target="_blank"><img src="http://images.eurogamer.net/2014/takeovers/Transparent-Leaderboard-EG11.png" width="300" height="600" alt="Halfpage" /></a>
+
+<!-- Hotspot for Fancybox2 link (absolutely positioned) -->
+<a style="display: block; position: absolute; top: 200px; left: 0px; background-color: red; opacity:0;" class="fancybox" data-fancybox-type="swf" href="http://images.eurogamer.net/2011/eg-creative/scripts/jwplayer/player-5.10.swf?file=http://images.eurogamer.net/2014/takeovers/watch-dogs-us/portrait/Watchdogs_US_small.mp4&autostart=true&controlbar=false" onclick="ga('showcase.send', 'event', 'GAME NAME', 'ACTION', {line.id});"><img src="http://images.eurogamer.net/2014/takeovers/Transparent-Leaderboard-EG11.png" width="300" height="200" /></a>
+
+<!-- Fancybox2 Code -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="http://images.eurogamer.net/2014/ads/plugins/fancybox2/jquery.fancybox.css" type="text/css" media="screen" />
+<script src="http://static.eurogamer.net/scripts/Eurogamer/jwplayer/jwplayer.js?v11.9-gamedb-v2-15"></script>
+
+<script type="text/javascript">
+	 jQuery(document).ready(function() {
+      jQuery(".fancybox").fancybox({
+          margin: 0,
+          padding: 0,
+          width: 644,
+          height: 362
+      });
+	});
+</script>

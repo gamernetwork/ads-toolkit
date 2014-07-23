@@ -1,6 +1,8 @@
-Code examples for different types of video ads...
+Code examples for different types of video takeover ads...
 
-- Youtube (youtube.html) lightbox using fancybox2
+- Youtube (youtube.html) lightbox using fancybox2.  Uses a transparent leaderboard with an absolutely positioned link to open fancybox2.
 
-- JWPlayer (jqplayer.html) custom HTML lightbox with JWPlayer Flash player.
+- Twitch (twitch.html) is the same as Youtube but calls the Twitch Flash player instead.
+
+- JWPlayer (jwplayer.html) lightbox using fancybox2.  Uses a transparent halfpage with an absolutely positioned link to open fancybox2.
 

@@ -1,0 +1,37 @@
+<!-- Set background skin of page -->
+<style type="text/css">
+  #page-wrapper {
+    background: black url('IMAGE-URL') no-repeat top center;
+  }
+</style>
+
+<!-- Make skin clickable -->
+<script type="text/javascript">
+jQuery(document).ready(function () {
+
+        jQuery('html').bind('mousemove', function(e) {
+                if( (e.target == jQuery('#page-wrapper')[0]) && (e.pageY <= 1200 ) ) {
+                        jQuery('html').css({ 'cursor' : 'pointer' });
+                } else {
+                        jQuery('html').css({ 'cursor' : 'auto' });
+                }
+        });
+
+    jQuery('html').bind('click', function (e) { 
+        if( (e.target == jQuery('#page-wrapper')[0]) && (e.pageY <= 1200 ) ) {
+                        window.open('{clickurl}http://www.url.com{random}','_blank');
+        }
+    }); 
+
+});
+</script>
+
+<!-- Add .skin class to body to override any CSS -->
+<script type="text/javascript">document.body.className += ' skin';</script>
+
+<!-- Blank leaderboard with click-through -->
+<div style='display: inline;'>
+        <a href='{clickurl}http://voidexpanse.com/' target='_blank'>
+                <img src='http://images.eurogamer.net/2014/takeovers/blank_1260x110.png' width='1260' height='110' alt='' title='' border='0' />
+        </a>
+</div>

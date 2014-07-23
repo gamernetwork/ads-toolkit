@@ -1,0 +1,293 @@
+/*
+US Gamer 
+Landscape Ad CSS
+*/
+
+body #landscape-ad * {
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	}
+
+#landscape-ad {
+	position: relative;
+	background: #F1F1F1;
+	height: 270px;
+	box-sizing: border-box;
+	}
+
+#landscape-ad-media {
+	width: 100%;
+	max-width: 768px;
+	height: 0%;
+	overflow: hidden;
+	background: #F1F1F1;
+	float: right;
+	box-shadow: -3px 3px 8px -2px rgba(0, 0, 0, 0.2);
+	position: relative;
+	}
+
+#advert-media {
+	padding: 0 16px 16px 16px;
+	}
+
+#landscape-ad-media img {
+	position: absolute;
+	bottom: 16px;
+	padding: 0 16px;
+	left: 0;
+	max-width: 100%;
+	display: block;
+	box-sizing: border-box;
+	}
+
+#landscape-ad-media.active img {
+	position: static;
+	padding: 0;
+	}
+
+#landscape-ad-media.active #advert-screen {
+	display: none;
+	}
+
+#advert-cta-container {
+	width: auto;
+	height: 238px;
+	padding: 16px;
+	position: absolute;
+	width: 566px;
+	}
+
+#advert-cta-button {
+	width: 300px;
+	position: absolute;
+	right: 16px;
+	top: 0;
+	height: 270px;
+	z-index: 10;
+	background: url('../images/destiny-button.png') no-repeat right 50%;
+	}
+	
+#advert-cta-button a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	}
+
+#advert-cta-key-art {
+	background: blue;
+	width: 100%;
+	height: 238px;
+	background: url('../images/destiny-key-art.jpg') no-repeat top left;
+	}
+
+#advert-video-container {
+	padding: 16px;
+	position: relative;
+	margin-left: 846px;
+	}
+
+#advert-video {
+	width: 100%;
+	height: 238px;
+	background: url('../images/destiny-video.jpg') no-repeat 50% 50%;
+	}
+
+#advert-screens-container {
+	position: absolute;
+	width: auto;	
+	overflow: hidden;
+	padding: 16px 0 0 0;
+	top: 0;
+	overflow: hidden;
+	height: 238px;
+	width: 264px;
+	margin-left: 598px;	
+	}
+
+.advert-screen {
+	cursor: pointer;
+	width: 72px;
+	height: 68px;
+	background: rgba(0,0,0,0.1);
+	float: left;
+	margin-right: 16px;
+	margin-bottom: 17px;
+	}
+
+#advert-cta-char {
+	bottom: 0;
+	left: 0;
+	width: 300px;
+	height: 270px;
+	position: absolute;
+	background: url('../images/destiny-char.png') no-repeat bottom left;
+	}	
+
+#advert-media-close {
+	width: 26px;
+	height: 26px;
+	background: #1D1D1D url('../images/landscape-ad-close.png') no-repeat 50% 50%;
+	position: absolute;
+	top: -8px;
+	left: 8px;
+	border: 8px solid #F1F1F1;
+	cursor: pointer;
+	z-index: 10;
+	}
+	
+#advert-media-video_wrapper {
+	position: relative;
+	padding-bottom: 56.2%;
+	height: 0px;
+	overflow: hidden;
+	width: 100%;
+	}
+	
+#advert-media-video_wrapper > * {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	}
+	
+#advert-video-play-btn {
+	width: 120px;
+	height: 120px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	position: absolute;
+	cursor: pointer;
+	top: 50%;
+	left: 50%;
+	margin-left: -60px;
+	margin-top: -60px;
+	}
+
+@media screen and (max-width: 1124px) {
+
+	#advert-video-container {
+		margin-left: 758px;
+		}
+	
+	#advert-screens-container {
+		width: 176px;
+		}
+
+}
+
+@media screen and (max-width: 1023px) {
+
+	#advert-screens-container {
+		display: none;
+		}
+
+	#advert-video-container {
+		margin-left: 582px;
+		}
+	
+}
+
+@media screen and (max-width: 860px) {
+
+
+	#advert-video-container {
+		margin: 0;
+		width: 246px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		}		
+	
+	#advert-cta-container {
+		position: relative;
+		margin-right: 262px;
+		width: auto;
+		}
+
+}
+
+@media screen and (max-width: 768px) {
+
+	#landscape-ad-media {
+		box-shadow: 0px 3px 8px -2px rgba(0, 0, 0, 0.2);
+		}
+
+	#advert-video img {
+		position: static;
+		}
+
+	#advert, #landscape-ad {
+		height: 200px;
+		}
+
+	#advert-cta-key-art, #advert-video, #advert-cta-container, #advert-cta-button {
+		height: 168px; 
+		}
+	
+	#advert-cta-button {
+		background-size: 136px auto;
+		}
+	
+	#advert-cta-char {
+		background-size: 70%;
+		}
+
+}
+
+@media screen and (max-width: 540px) {
+
+	/* TEMP */
+	#advert-media {
+		padding: 0;
+		}
+	
+	#landscape-ad-media img {
+		padding: 0;
+		bottom: 0;
+		}
+	
+	#advert-media-close {
+		display: none;
+		}
+
+	#advert-video-container, #advert-cta-char {
+		display: none;
+		position: relative;
+		}
+
+	#advert {
+		height: auto;
+		margin: 0;
+		}
+	
+	#advert-cta-container {
+		padding: 0;
+		width: 100%;
+		margin: 0;
+		height: 100%;
+		}
+	
+	#advert-cta-key-art {
+		background-size: 100%;
+		height: 75px;
+		}
+	
+	#advert-cta-button {
+		height: 75px;
+		background: none;
+		}
+	
+	#advert-video {
+		height: 100%;
+		width: 100%;
+		}		
+	
+	#advert-video img {
+		width: 100%;
+		}	
+	
+	#landscape-ad {
+		height: auto;
+		}
+}

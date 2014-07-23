@@ -1,0 +1,194 @@
+/* This code is only meant for previewing your Reflow design. */
+.primaryContainer {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+    /*background-image:url("img/background-image.jpg");*/
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 100% 0%;
+    background-repeat: no-repeat no-repeat;
+}
+
+#box1 {
+    float: none;
+    height: 140px;
+    margin-left: auto;
+    margin-top: 0px;
+    clear: none;
+    width: 100%;
+    min-width: 0px;
+    background-color: rgba(255, 255, 255, 0.901961);
+    margin-right: auto;
+    min-height: 0px;
+}
+
+#box {
+    float: left;
+    height: 7.777778%;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: none;
+    width: 100%;
+    min-width: 0px;
+    min-height: 0px;
+}
+
+#box5 {
+    float: none;
+    height: 1000px;
+    margin-left: auto;
+    margin-top: 0px;
+    clear: none;
+    width: 1260px;
+    margin-right: auto;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+#box6 {
+    float: left;
+    height: 100%;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: none;
+    width: 960px;
+    min-height: 0px;
+    background-color: rgba(255, 255, 255, 0.901961);
+    margin-right: 0px;
+}
+
+#box2 {
+    float: none;
+    height: 120px;
+    margin-left: auto;
+    margin-top: 10px;
+    clear: none;
+    width: 1260px;
+    margin-right: auto;
+}
+
+#box3 {
+    float: left;
+    height: 120px;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: none;
+    width: 500px;
+    border-left-width: 3px;
+    border-left-style: double;
+    border-left-color: rgb(138, 138, 138);
+}
+
+#text {
+    float: left;
+    font-size: 3em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: 5.451459%;
+    margin-top: 12px;
+    clear: none;
+    min-height: 0px;
+    font-family: georgia;
+    font-style: italic;
+}
+
+#textspan {
+    float: none;
+    font-size: 0.7em;
+    line-height: 1em;
+}
+
+#box7 {
+    float: left;
+    height: 186px;
+    margin-left: 10px;
+    margin-top: 20px;
+    clear: none;
+    width: 940px;
+    border-top-color: rgb(130, 130, 130);
+    border-top-width: 3px;
+    border-top-style: double;
+}
+
+#text1 {
+    float: none;
+    font-size: 3em;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: auto;
+    margin-top: 27px;
+    clear: none;
+    min-height: 0px;
+    font-family: georgia;
+    font-style: italic;
+    margin-right: auto;
+}
+
+#textspan1 {
+    float: none;
+    font-size: 0.7em;
+    line-height: 1em;
+}
+
+#box4 {
+    float: none;
+    height: 160px;
+    margin-left: auto;
+    margin-top: 140px;
+    clear: none;
+    width: 1260px;
+    margin-right: auto;
+}
+
+#image {
+    float: left;
+    width: auto;
+    max-width: 40.47619%;
+    height: auto;
+    margin-left: 0%;
+    margin-top: 34px;
+    clear: none;
+    color: rgb(0, 0, 0);
+}
+
+div.halfpage-container {
+    bottom:10px;
+    display:block;
+    position:fixed;
+    margin-left: 1em;
+}
+div.halfpage-container img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    #box4 {
+        width: 100%;
+        height: auto;
+        min-height: 50px;
+    }
+
+    #image {
+        margin: 10px auto;
+        float: none;
+        clear: none;
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+
+    div.halfpage-container {
+        display: none;
+    }
+}
+

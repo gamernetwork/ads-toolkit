@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <!-- This code is only meant for previewing your Reflow design. -->
+    <head>
+	<link rel="stylesheet" href="boilerplate.css" />
+	<link rel="stylesheet" href="Page.css?v3" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">var jQuery = jQuery.noConflict();</script>
+
+    <script src="core.js?v3"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+
+    <style>
+        .primaryContainer {
+            /*background-image:url("http://images.eurogamer.net/2014/responsive/takeover/img/teso_bg.jpg");*/
+        }
+        #image {
+            margin: 0;
+        }
+        @media only screen and (max-width: 1024px) {
+            #image {
+                margin: 10px auto;
+            }
+        }
+    </style>
+    </head>
+    <body>
+
+        <div id="responsive-skin-takeover" data-original="http://images.eurogamer.net/2014/responsive/takeover/img/teso_bg.jpg"></div>
+        
+        <div id="primaryContainer" class="primaryContainer clearfix">
+            <div id="box" class="clearfix">
+                <div id="box1" class="clearfix">
+                    <div id="box2" class="clearfix">
+                        <div id="box3" class="clearfix">
+                            <p id="text">
+                            Main Nav<br /><span id="textspan">140px</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="box4" class="clearfix">
+                <img id="image" src="img/teso_logo.png" class="image" />
+            </div>
+            <div id="box5" class="clearfix">
+                <div id="box6" class="clearfix">
+                    <div id="box7" class="clearfix">
+                        <p id="text1">
+                        Site Content<br /><span id="textspan1">960px</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="halfpage-container">
+            <div class="halfpage-image">
+                <img src="img/teso_dates.png" />
+            </div>
+            <div class="halfpage_video video muted">
+                <video width="100%" autoplay="" loop="yes" muted="yes" id="video">
+                    <source src="http://images.eurogamer.net/2013/eso/mpu/TESO_ArrivalCinematic_UK-hi-res.mp4" type="video/mp4">
+                    <source src="http://images.eurogamer.net/2014/eso/mpu/TESO_ArrivalCinematic_UK-hi-res.webmsd.webm" type="video/webm">
+                </video>
+            </div>
+        </div>
+
+    </body>
+</html>

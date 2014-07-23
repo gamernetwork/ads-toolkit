@@ -1,0 +1,378 @@
+<!-- REMOVE THIS CODE WHEN ADDING TO OPENX (for testing purposes) -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script>var j = jQuery.noConflict();</script>
+<!-- REMOVE END -->
+
+<!-- Portrait Ad Includes -->
+<link rel="stylesheet" href="http://images.eurogamer.net/2012/portrait-ad/styles/portrait-ad-2.0.css" />
+
+<style type="text/css">
+#portrait-ad #portrait-ad-fb-like {
+	right: 12px;
+	top: 25px;
+}
+#portrait-ad div.portrait-ad-heading a {
+	position: relative;
+	right: auto;
+}
+#portrait-ad div.portrait-ad-heading a {
+	color: #51c5ee;
+	font-size: 14px;
+}
+#portrait-ad #portrait-ad-brand-logo {
+	padding-bottom: 0;
+}
+#portrait-ad img.splash-image {
+	height: auto;
+}
+#portrait-ad div.portrait-ad-twitter-heading {
+	margin-bottom: 10px;
+}
+#portrait-ad div.portrait-ad-twitter-heading a {
+	padding-left: 10px;
+	color: #7ec3ec;
+	font-size: 12px;
+}
+/* Base */
+#portrait-ad div.tile {
+	color: black;
+}
+#portrait-ad img.splash-image {
+	border-top: none;
+}
+#portrait-ad div.tile {
+	background-color: transparent;
+}
+#portrait-ad div.tile > div {
+	border-bottom: none;
+}
+#portrait-ad div.portrait-ad-heading {
+	position: relative;
+	bottom: auto;
+	right: auto;
+	height: auto;
+	padding: 0;
+	margin-top: 50px;
+}
+#portrait-ad div.portrait-ad-heading a {
+	color: #000000;
+}
+#portrait-ad table {
+	width: 100%;
+}
+#portrait-ad td {
+	vertical-align: top;
+}
+#portrait-ad td.heading-left {
+	text-align: left;
+}
+#portrait-ad td.heading-right {
+	text-align: right;
+}
+#portrait-ad a {
+	color: #681f25;
+}
+#portrait-ad #portrait-ad-brand-logo {
+	padding-bottom: 0;
+}
+#portrait-ad div.portrait-ad-heading a {
+	font-size: 14px;
+}
+#portrait-ad #portrait-ad-fb-like {
+	right: 12px;
+	top: 25px;
+}
+#portrait-ad div.portrait-ad-heading div.header-titles {
+	width: 50%;
+	float: left;
+}
+#portrait-ad div.video-info {
+	display: block;
+	opacity: 1;
+}
+#portrait-ad div.video-info {
+	bottom: 20px;
+	text-align: left;
+}
+#portrait-ad div.video-info div.video-info-title {
+	color: #c00d44;
+}
+#portrait-ad div.video-info div.video-info-strap {
+	font-size: 14px;
+}
+#portrait-ad div.portrait-ad-twitter-heading {
+	font-size: 16px;
+}
+#portrait-ad div.portrait-ad-twitter-heading a {
+	padding-left: 10px;
+	color: #ba0605;
+	font-size: 12px;
+}
+#portrait-ad div.portrait-ad-twitter-heading {
+	margin-bottom: 10px;
+}
+#portrait-ad div.youtube-play-symbol {
+}
+#portrait-ad div.play-symbol {
+	opacity: 0.9;
+}
+#portrait-ad div.play-symbol:hover {
+	opacity: 1;
+}
+#portrait-ad div.youtube-play-bg {
+	width: 100px;
+	height: 100px;
+	top: 1px;
+	left: 1px;
+	position: absolute;
+	z-index: 1;
+}
+#portrait-ad div.youtube-play-symbol a {
+
+}
+#portrait-ad div.play-symbol,
+#portrait-ad div.play-symbol:hover {
+	background: none;
+}
+#portrait-ad div.play-btn, #portrait-ad div.play-btn-temp {
+	left: 0;
+	margin-left: 0;
+	top: 0;
+	margin-top: 0;
+	width: 161px;
+	height: 158px;
+}
+#portrait-ad div.play-symbol {
+	width: 270px;
+	height: 352px;
+	position: absolute;
+	z-index: 2;
+}
+#portrait-ad div.youtube-play-symbol {
+	z-index: 2;
+}
+#portrait-ad div.youtube-play-btn, 
+#portrait-ad div.youtube-play-btn-temp {
+	cursor: pointer;
+	z-index: 10;
+	margin-left: 0;
+	margin-top: 0;
+}
+#portrait-ad span.red {
+	color: #681f25;
+}
+#portrait-ad-facebook-wrap {
+	clear: both;
+	margin-bottom: 20px;
+}
+#portrait-ad {
+	background: none;
+	border-left: none;
+}
+#portrait-ad div.pa-divider {
+	background: url(http://images.eurogamer.net/2014/eso/portrait-ad/ESO-PA-Divider.png) no-repeat 50% 0;
+	width: 100%;
+	height: 10px;
+}
+#portrait-ad div.portrait-ad-twitter-heading {
+	color: #000;
+}
+#portrait-ad div.portrait-ad-twitter-heading a {
+	color: #7ec3ec;
+}
+#portrait-ad a {
+	color: #7ec3ec;
+}
+#portrait-ad #portrait-ad-sidebar {
+	background: transparent;
+}
+div.portrait-ad-tile-video {
+	position: relative;
+}
+div.portrait-ad-tile-video,
+div.portrait-ad-tile-gallery {
+	margin-bottom: 0;
+}
+#portrait-ad div.portrait-ad-subheading {
+	text-align: center;
+}
+#portrait-ad div.portrait-ad-tile-single-image img {
+ width: auto; 
+ padding-bottom: 0;
+}
+#portrait-ad div.portrait-ad-subheading {
+color: black;
+}
+</style>
+<!-- Portrait Ad HTML -->
+<!-- Portrait Ad Container -->
+<div id="portrait-ad" class="box-shadow">
+	<!-- Sidebar -->
+	<div id="portrait-ad-sidebar">
+		<!-- Tiles -->
+		<div id="portrait-ad-tiles">
+			<div id="portrait-ad-tile-header" class="tile">
+				<!-- Head Tile -->
+				<div class="portrait-ad-tile-head">
+					<!-- Facebook Like -->
+					<!-- The source is that of the facebook page URL / Replace the text after www.facebook.com%2F -->
+					<iframe id="portrait-ad-fb-like" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fthewitcher&send=false&layout=button_count&width=92&show_faces=true&action=like&colorscheme=light&font=verdana&height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:92px; height:21px;" allowTransparency="true"></iframe>
+					<!-- Logo -->
+					<a href="{clickurl}http://ad.doubleclick.net/ddm/clk/281757165;108414655;l" title="Witcher 3" target="_blank">
+					</a>
+                	<div class="portrait-ad-heading">
+                		<table>
+                			<tr>
+                				<td class="header-titles heading-left"><a href="{clickurl}http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=10028896&PluID=0&ord={unique}" title="Official Site" target="_blank">The Witcher 3: Wild Hunt</a></td>
+                			</tr>
+                		</table>
+                	</div>
+				</div>
+			</div>
+			<div id="portrait-ad-tile-video" class="tile">
+				<!-- Video Tile -->
+				<div class="portrait-ad-tile-video">
+					<!-- Custom Play Button -->
+					<div class="youtube-play-btn">
+						<div class="youtube-play-symbol">
+							<a class="fancybox" data-fancybox-type="iframe" href="https://www.youtube.com/embed/WCKQcshNph0?autoplay=1" onclick="ga('showcase.send', 'event', 'Witcher 3', 'Open Trailer', {line.id});"><img class="splash-image" src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-video.jpg" alt="Witcher 3" style="padding:0;" /></a>
+						</div>
+					</div>
+					<a class="splash-video video-hidden" href="#"></a>
+				</div>
+			</div>
+			<div id="portrait-ad-tile-preorder-0" class="tile">
+				<!-- Single Image Tile -->
+				<div class="portrait-ad-tile-single-image">
+					<a href="{clickurl}http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=10028896&PluID=0&ord={unique}" target="_blank"><img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-ad.jpg" alt="Pre-order Now" /></a>
+				</div>
+			</div>
+			<div id="portrait-ad-tile-gallery" class="tile">
+				<!-- Gallery Tile -->
+				<div class="portrait-ad-tile-gallery">
+					<div class="portrait-ad-subheading">The Witcher 3: Wild Hunt up-close</div>
+					<div class="gallery-thumbs">
+						<!-- Use multiples of 3 -->
+						<!-- SRC = Thumb / REL = Full / Alt = Text -->
+						<div class="gallery-image">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-1.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-1.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="gallery-image">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-2.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-2.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="gallery-image last">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-3.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-3.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="gallery-image">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-4.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-4.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="gallery-image">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-5.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-5.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="gallery-image last">
+							<div class="gallery-border"></div>
+							<img src="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-thumb-6.jpg" rel="http://images.eurogamer.net/2014/takeovers/witcher3/pa/TW3-PA-Screen-6.jpg" alt="Screenshot Images" />
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div id="portrait-ad-tile-twitter" class="tile">
+				<!-- Twitter Tile -->
+				<div class="portrait-ad-tile-twitter">
+					<!-- Twidget -->
+					<div id="twitter-mask">
+						
+						<a class="twitter-timeline" href="https://twitter.com/witchergame" width="270" height="300" data-widget-id="477421366623227905">Tweets by @witchergame</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- Sidebar End -->
+	<!-- Portrait Ad Media Panel -->
+	<div id="portrait-ad-media">
+		<div class="close-mask box-shadow">
+			<div id="portrait-ad-media-close"><a href="#" title="Close">Close >></a></div>
+		</div>
+		<div id="close-fix"></div>
+		<div class="media-mask">
+			<div class="media-main">
+				<!-- Video & Image Appended By jQuery -->
+				<div id="portrait-ad-media-video"></div>
+				<img id="portrait-ad-media-image" src="http://images.eurogamer.net/2013/dk/ac4/black-pixel.gif" width="1000px" height="563px" alt="AC4" />
+			</div>
+		</div>
+	</div><!-- Portrait Media Panel End -->
+	<div id="border-fix"></div>
+</div>
+
+<script type="text/javascript"> var placementMargin = -14; var portraitName = 'Witcher 3'; </script>
+<script type="text/javascript" src="http://images.eurogamer.net/2013/portrait-ad/scripts/portrait-ad-2.1-ga.js"></script>
+<script  type="text/javascript" src="http://static.eurogamer.net/scripts/Eurogamer/jwplayer/jwplayer.js?v11.6.22"></script>
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="http://images.eurogamer.net/2014/ads/plugins/fancybox2/jquery.fancybox.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="http://images.eurogamer.net/2014/ads/plugins/fancybox2/jquery.fancybox.css" type="text/css" media="screen" />
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+	var j = jQuery;
+
+	j(".fancybox").fancybox();
+
+	j('#portrait-ad-sidebar').find('a.play-btn').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Open Video', '{line.id}');
+	});
+
+	j('div.gallery-image').each(function( index ) {
+		j(this).click(function() {
+			ga('showcase.send', 'event', 'Witcher 3', 'PA Open Image Gallery #' + index, '{line.id}');
+		});
+	});
+
+	j('#portrait-ad-media-close').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Close Image Gallery', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-preorder-0').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Pre-Order 0', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-preorder-1').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Pre-Order 1', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-preorder-2').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Pre-Order 2', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-preorder-3').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Pre-Order 3', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-preorder-4').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Pre-Order 4', '{line.id}');
+	});
+
+	j('#portrait-ad-tile-twitter').find('a').click(function() {
+		ga('showcase.send', 'event', 'Witcher 3', 'PA Click Twitter', '{line.id}');
+	});
+
+});
+
+</script>
+
+<!-- TRACKING PIXELS -->
+<div style="position: absolute; left: 0px; top: 0px; visibility: hidden;">
+	<img width='1' height='1' style='border:0' src='http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=19&mc=imp&pli=10028896&PluID=0&ord={unique}&rtu=-1'/>
+</div>

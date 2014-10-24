@@ -1,0 +1,19 @@
+<a href="YOUR_LINK_HERE" target="_blank"><img src="BOOMBOX_IMAGE_HERE" width="BOOMBOX_WIDTH" height="83" /></a>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+
+    var jQuery = jQuery.noConflict();
+
+    if(top!=self){ //escape the iframe and write the ad outside it
+        
+        var boombox_width = 'BOOMBOX_WIDTH_HERE';
+        frameElement.style.width = boombox_width + 'px';
+
+        parent.jQuery('ul#promos li:nth-child(2)').css({'display' : 'none'});
+        parent.jQuery('ul#promos li#boom-box').css({'width' : boombox_width + 'px'});
+        
+    }
+
+
+</script>

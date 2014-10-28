@@ -1,0 +1,96 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    IMAGE = "http://images.eurogamer.net/2014/pl/welcome_wd_may.jpg";
+
+    function hereDoc(f) {
+        return f.toString().
+        replace(/^[^\/]+\/\*!?/, '').
+        replace(/\*\/[^\/]+$/, '');
+    }
+
+    var content = hereDoc(function() {/*!
+        <style type="text/css">
+
+          #welcome-screen-header {
+            background: #f0f1f6;
+            width: 100%;
+            height: 75px;
+            clear: both;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+          }
+          #welcome-screen-advert {
+            background: black;
+          }
+          #welcome-screen-header-wrapper,
+          #welcome-screen-advert-wrapper {
+            width: 1200px;
+            margin: 0 auto;
+          }
+          #welcome-screen-header-left,
+          #welcome-screen-header-left img {
+            float: left;
+          }
+          #welcome-screen-header-left p {
+            float: left;
+            margin: 38px 0 0 20px;
+          }
+          #welcome-screen-header-right {
+            float: right;
+          }
+          #welcome-screen-header-right p {
+            float: right;
+            background: white url(http://images.eurogamer.net/2014/welcome-screen/welcome-close-btn.gif) no-repeat 65px 9px;
+            margin: 30px 0 0 0;
+            padding: 5px 23px 5px 5px;
+          }
+          .fancybox-close {
+            display: none;
+          }
+          .fancybox-skin {
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+            background: black;
+            }
+            
+        </style>
+        <div id="welcome-screen-overlay" style="height:100%;width:100%;position:fixed;top:0px;left:0px;z-index:9999;margin:0px;background-color:black;">
+            <div id="welcome-screen-content" style="height:100%;width:100%;">
+                <div id="welcome-screen-header" onclick="this.parentNode.parentNode.style.display='none'">
+                    <div id="welcome-screen-header-wrapper">
+                        <div id="welcome-screen-header-left">
+                            <img src="http://static.eurogamer.pl/img/EurogamerPage/logo/hd/pl.png" alt="" width="300" height="65">
+                            <p>To jest reklama. Kliknij tutaj, aby przejść na Eurogamer.pl</p>
+                        </div>
+                        <div id="welcome-screen-header-right">
+                            <p>ZAMKNIJ</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="welcome-screen-advert" >
+                    <div id="welcome-screen-advert-wrapper">
+                        <a href="%%CLICK_URL_ESC%%http://www.eurogamer.pl" target="_blank">
+                            <img src="__THE_IMAGE__" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    */});
+    parent.jQuery(document).ready(function() {
+    container = parent.document.createElement("div");
+    container.innerHTML = content.replace( "__THE_IMAGE__", IMAGE );
+
+    parent.document.body.insertBefore( container, parent.document.body.firstChild );
+    tOut = setTimeout(function(){
+        parent.document.getElementById('welcome-screen-overlay').style.display='none';
+    }, 40000);
+
+    });
+    
+</script>
+

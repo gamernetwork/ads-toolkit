@@ -10,9 +10,9 @@
  * @param {String}{Object} face4
  * @param {Boolean} desktopSupport
  */
-var CubeAd = function(targetNode, fallback, face1, face2, face3, face4, face5, face6, desktopSupport)
+var CubeAd = function(targetNode, fallback, face1, face2, face3, face4, desktopSupport)
 {
-    this.init(targetNode, fallback, face1, face2, face3, face4, face5, face6, desktopSupport);
+    this.init(targetNode, fallback, face1, face2, face3, face4, desktopSupport);
 };
 
 CubeAd.FPS = 30;
@@ -31,6 +31,7 @@ CubeAd.prototype.xDeg = 0;
 CubeAd.prototype.yDeg = 0;
 CubeAd.prototype.startX = 0;
 CubeAd.prototype.startY = 0;
+CubeAd.prototype.lockY = false;
 CubeAd.prototype.currentAngleX = 0;
 CubeAd.prototype.currentAngleY = 0;
 CubeAd.prototype.currentTouchX = 0;
@@ -41,6 +42,8 @@ CubeAd.prototype.oldDeltaY = 0;
 CubeAd.prototype.oldDeltaX = 0;
 CubeAd.prototype.momentumX = 0;
 CubeAd.prototype.momentumY = 0;
+CubeAd.prototype.startScrollY = 0;
+CubeAd.prototype.lastScrollTop = 0;
 CubeAd.prototype.touchStart = false;
 CubeAd.prototype.touchEnd = false;
 CubeAd.prototype.touching = false;
@@ -48,14 +51,14 @@ CubeAd.prototype.touching = false;
 /**
  * @method init
  * @param {Object} targetNode
- * @param {String}{Object} fallback
- * @param {String}{Object} face1
- * @param {String}{Object} face2
- * @param {String}{Object} face3
- * @param {String}{Object} face4
+ * @param {Object} fallback
+ * @param {Object} face1
+ * @param {Object} face2
+ * @param {Object} face3
+ * @param {Object} face4
  * @param {Boolean} desktopSupport
  */
-CubeAd.prototype.init = function(targetNode, fallback, face1, face2, face3, face4, face5, face6, desktopSupport)
+CubeAd.prototype.init = function(targetNode, fallback, face1, face2, face3, face4, desktopSupport)
 {
     this.targetNode = targetNode;
     this.cubeFaces = [];
@@ -72,16 +75,9 @@ CubeAd.prototype.init = function(targetNode, fallback, face1, face2, face3, face
         this.setFace(3, face3);
         this.setFace(4, face4);
         
-        if(face5)
-        {
-            this.setFace(0, face5);
-        }
-        if(face6)
-        {
-            this.setFace(5, face6);
-        }
-        
         this.attachListeners();
+        
+        this.lastScrollTop = this.parentBody.scrollTop;
         
         this.loop = this.loop.bind(this);
         this.loop();
@@ -130,57 +126,74 @@ CubeAd.prototype.buildCubeDOM = function()
 };
 
 /**
- * Public interface to set the face with either an image URL or DOM element
+ * Public interface to set the face with either an images or DOM
  * @method setFace
  * @param {int} face
- * @param {String}{Object} faceData
+ * @param {Object} nodeData
  */
 CubeAd.prototype.setFace = function(face, faceData)
 {
     cubeFace = this.cubeFaces[face];
-    cubeFace.innerHTML = "";
-    
-    if(typeof faceData == "object" && "nodeType" in faceData && faceData.nodeType === 1 && faceData.cloneNode)
-    {
-        cubeFace.appendChild(faceData);
-    }
-    else if(typeof faceData == "string")
-    {
-        var cubeImg = document.createElement('img');
-        cubeImg.src = faceData;
-        cubeFace.appendChild(cubeImg);
-    }
-    else
-    {
-        throw new Error("Unexpected face data");
-    }
+    this.setNode(cubeFace, faceData);
 };
 
 /**
  * Public interface to set the fallback MPU with either an image URL or DOM element
  * @method setFallback
  * @param {int} face
- * @param {String}{Object} faceData
+ * @param {Object} nodeData
  */
 CubeAd.prototype.setFallback = function(fallbackData)
 {
-    this.fallback.innerHTML = "";
-    
-    if(typeof fallbackData == "object" && "nodeType" in fallbackData && fallbackData.nodeType === 1 && fallbackData.cloneNode)
+    this.setNode(this.fallback, fallbackData);
+};
+
+CubeAd.prototype.setNode = function(targetNode, nodeData)
+{
+    targetNode.innerHTML = "";
+    if(nodeData.hasOwnProperty('dom'))
     {
-        fallback.appendChild(fallbackData);
+        var dom = nodeData.dom;
+        if(typeof dom == "object" && "nodeType" in dom && dom.nodeType === 1 && dom.cloneNode)
+        {
+            targetNode.appendChild(dom);
+        }
+        else if(typeof dom == "string")
+        {
+            targetNode.innerHTML = dom;
+        }
+        else
+        {
+            throw new Error("Unexpected DOM data");
+        }
     }
-    else if(typeof fallbackData == "string")
+    else if(nodeData.hasOwnProperty('img'))
     {
-        var fallbackImg = document.createElement('img');
-        fallbackImg.src = fallbackData;
-        this.fallback.appendChild(fallbackImg);
+        if(nodeData.hasOwnProperty('url'))
+        {
+            var img = document.createElement('img');
+            img.setAttribute("src", nodeData.img);
+            
+            var anchor = document.createElement('a');
+            anchor.setAttribute("href", nodeData.url);
+            anchor.setAttribute("target", "_blank");
+            
+            anchor.appendChild(img);
+            
+            targetNode.appendChild(anchor);
+        }
+        else
+        {
+            var cubeImg = document.createElement('img');
+            cubeImg.src = nodeData.img;
+            targetNode.appendChild(cubeImg);
+        }
     }
     else
     {
-        throw new Error("Unexpected fallback data");
+        throw new Error("Unexpected face object");
     }
-};
+}
 
 /**
  * getFaces returns all cube faces in an array
@@ -262,16 +275,19 @@ CubeAd.prototype.onInteractStart = function(e)
     {
         if(!this.touchEnd)
         {
-            if(!this.getY(e)) { return };
+            if(this.getY(e) == null) { return; };
             var toyboxBounds = this.toyboxElement.getBoundingClientRect();
             var bodyBounds = this.parentBody.getBoundingClientRect();
 
-            if(this.checkBounds(this.getX(e), this.getY(e), toyboxBounds.left, (toyboxBounds.top + 80) - bodyBounds.top, toyboxBounds.right, (toyboxBounds.bottom - 50) - bodyBounds.top))
+            if(this.checkBounds(this.getX(e), this.getY(e), toyboxBounds.left, toyboxBounds.top - bodyBounds.top, toyboxBounds.right, toyboxBounds.bottom - bodyBounds.top))
             {   
                 this.startX = this.getX(e);
-                this.startY = this.getY(e);
                 this.currentTouchX = this.getX(e);
-                this.currentTouchY = this.getY(e);
+                if(!this.lockY)
+                {
+                    this.startY = this.getY(e);
+                    this.currentTouchY = this.getY(e);
+                }
                 this.currentDeltaX = 0;
                 this.currentDeltaY = 0;
                 this.oldDeltaX = 0;
@@ -293,15 +309,21 @@ CubeAd.prototype.onInteractMove = function(e)
     {
         if(!this.touchEnd)
         {
-            if(!this.getY(e)) { return };
+            if(this.getY(e) == null) { return; };
             this.currentTouchX = this.getX(e);
-            this.currentTouchY = this.getY(e);
+            if(!this.lockY)
+            {
+                this.currentTouchY = this.getY(e);
+            }
             var toyboxBounds = this.toyboxElement.getBoundingClientRect();
             var bodyBounds = this.parentBody.getBoundingClientRect();
 
-            if(this.checkBounds(this.currentTouchX, this.currentTouchY, toyboxBounds.left, (toyboxBounds.top + 80) - bodyBounds.top, toyboxBounds.right, (toyboxBounds.bottom - 50) - bodyBounds.top))
+            if(this.checkBounds(this.currentTouchX, this.getY(e), toyboxBounds.left, toyboxBounds.top - bodyBounds.top, toyboxBounds.right, toyboxBounds.bottom - bodyBounds.top))
             {
-                e.preventDefault();
+                if(!this.lockY)
+                {
+                    e.preventDefault();
+                }
             }
             else
             {
@@ -330,12 +352,28 @@ CubeAd.prototype.onInteractEnd = function(e)
  */
 CubeAd.prototype.update = function()
 {
+    if(Math.abs(this.parentBody.scrollTop - this.startScrollY) > 10)
+    {
+        if(this.touching)
+        {
+            this.oldDeltaX = 0;
+            this.currentDeltaX = 0;
+            this.touchEnd = true;
+        }
+    }
     if(this.touchEnd)
     {
         this.momentumX = (this.oldDeltaX - this.currentDeltaX) * 0.8;
-        this.momentumY = 0;
-        this.oldDeltaY = 0;
-        this.yDeg = 0;
+        if(this.lockY == false)
+        {
+            this.momentumY = (this.oldDeltaY - this.currentDeltaY) * 0.8;
+        }
+        else
+        {
+            this.momentumY = 0;
+            this.oldDeltaY = 0;
+            this.yDeg = 0;
+        }
         this.touching = false;
         this.touchEnd = false;
     }
@@ -343,15 +381,21 @@ CubeAd.prototype.update = function()
     {
         this.calculateNewAngle();
     }
-
     if(this.touchStart)
     {
         this.currentAngleX = this.xDeg;
         this.currentAngleY = this.yDeg;
         this.momentumX = 0;
         this.momentumY = 0;
+        this.startScrollY = this.parentBody.scrollTop;
         this.touching = true;
         this.touchStart = false;
+    }
+    
+    if(!this.touching)
+    {
+        this.xDeg += (this.lastScrollTop - this.parentBody.scrollTop) * 0.025;
+        this.lastScrollTop = this.parentBody.scrollTop;
     }
     
     if(Math.round(this.momentumX) != 0)
@@ -363,15 +407,6 @@ CubeAd.prototype.update = function()
     {
         this.yDeg += this.momentumY;
         this.momentumY *= 0.9;
-    }
-
-    if(this.yDeg > 10)
-    {
-        this.yDeg = 10;
-    }
-    if(this.yDeg < -10)
-    {
-        this.yDeg = -10;
     }
 };
 
@@ -414,7 +449,7 @@ CubeAd.prototype.calculateNewAngle = function()
 
     this.xDeg = this.currentAngleX + (this.currentDeltaX * 0.5);
     this.yDeg = this.currentAngleY + ((-this.currentDeltaY) * 0.4);
-}
+};
 
 /**
  *Used to see if the touch is within the advert boundary
@@ -427,6 +462,24 @@ CubeAd.prototype.checkBounds = function(x, y, left, top, right, bottom)
         return true;
     }
     return false;
+};
+
+CubeAd.prototype.setLockY = function(lockY)
+{
+    this.lockY = lockY;
+    if(lockY)
+    {
+        if(this.cubeElement.getElementsByClassName("face one")[0] && this.cubeElement.getElementsByClassName("face six")[0])
+        {
+            this.cubeElement.removeChild(this.cubeElement.getElementsByClassName("face one")[0]);
+            this.cubeElement.removeChild(this.cubeElement.getElementsByClassName("face six")[0]);
+        }
+    }
+    else
+    {
+        this.cubeElement.appendChild(this.cubeFaces[0]);
+        this.cubeElement.appendChild(this.cubeFaces[5]);
+    }
 };
 
 /**

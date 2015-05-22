@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <script src="../src/js/CubeAd.js"></script>
+        <link rel="stylesheet" type="text/css" href="../release/toybox-style.css">
+        <link href="/src/video-js/video-js.min.css" rel="stylesheet">
+        <script src="//vjs.zencdn.net/4.12/video.js"></script>
+    </head>
+    <body onload="init()">
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div><div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <div>Test</div>
+        <script>
+        var cubeAd;
+        var youtubeEmbed;
+        var galleryShowing = false;
+        function init()
+        {
+            //targetNode, face1 (front), face2, face3, face4, face5 (top), face6 (bottom), desktopSupport true/false
+            //Faces can also be DOM elements
+            youtubeEmbed = document.createElement('div');
+            youtubeEmbed.innerHTML = '<video id="example_video_1" src="//images.eurogamer.net/2014/toybox/minecraft/Minecraft-Trailer.m4v" width="256" height="256" controls class="video-js vjs-default-skin" poster="//images.eurogamer.net/2014/toybox/minecraft/1.jpg"></video>';
+            
+            cubeAd = new CubeAd(document.getElementsByTagName('body')[0], "//images.eurogamer.net/2014/toybox/assets/image.png", "//images.eurogamer.net/2014/toybox/assets/image.png", "//images.eurogamer.net/2014/toybox/tests/2-gallery.jpg", youtubeEmbed, "//images.eurogamer.net/2014/toybox/tests/buy.jpg", null, null, true);
+            cubeAd.setLockY(true);
+            
+            cubeAd.getFace(2).addEventListener("click", setGallery);
+            
+            videojs("example_video_1", {}, function(){
+            });
+        }
+        function setGallery()
+        {
+            if(galleryShowing)
+            {
+                cubeAd.setFace(1, "//images.eurogamer.net/2014/toybox/assets/image.png");
+                cubeAd.setFace(2, "//images.eurogamer.net/2014/toybox/tests/2-gallery.jpg");
+                cubeAd.setFace(3, youtubeEmbed);
+                cubeAd.setFace(4, "//images.eurogamer.net/2014/toybox/tests/buy.jpg");
+                galleryShowing = false;
+            }
+            else
+            {
+                cubeAd.setFace(1, "//images.eurogamer.net/2014/toybox/minecraft/1.jpg");
+                cubeAd.setFace(2, "//images.eurogamer.net/2014/toybox/tests/2-gallery-close.jpg");
+                cubeAd.setFace(3, "//images.eurogamer.net/2014/toybox/minecraft/3.jpg");
+                cubeAd.setFace(4, "//images.eurogamer.net/2014/toybox/minecraft/4.jpg");
+                galleryShowing = true;
+            }
+        }
+        </script>
+    </body>
+</html>

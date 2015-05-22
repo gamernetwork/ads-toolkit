@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script src="../src/js/CubeAd.js"></script>
+        <script src="../src/js/DFPCubeAd.js"></script>
+        <script src="../src/js/DFPPortraitCubeAd.js"></script>
+    </head>
+    <body onload="init()">
+        <script>
+        function init()
+        {
+            //targetNode, fallback(String imgurl or DOM), face1 (front), face2 (right), face3(back), face4(left), desktopSupport true/false default=false
+            //A cube face can take various object parameters {img: "", url: ""} or {img: ""} or {"dom": "String"} or {"dom": Object}
+            new DFPPortraitCubeAd(window.frameElement.parentElement, {img: "//images.eurogamer.net/2014/toybox/minecrafttextures.jpeg", url: "google.com"}, {video: {url: "//images.eurogamer.net/2014/toybox/minecraft/Minecraft-Trailer.m4v", poster: "//images.eurogamer.net/2014/toybox/minecrafttextures.jpeg"}}, {img: "//images.eurogamer.net/2014/toybox/minecrafttextures.jpeg", url: "google.com"}, {img: "//images.eurogamer.net/2014/toybox/minecrafttextures.jpeg", url: "google.com"}, {video: {url: "//images.eurogamer.net/2014/toybox/minecraft/Minecraft-Trailer.m4v", poster: "//images.eurogamer.net/2014/toybox/minecrafttextures.jpeg"}}).setLockY(true);
+        }
+        </script>
+    </body>
+</html>

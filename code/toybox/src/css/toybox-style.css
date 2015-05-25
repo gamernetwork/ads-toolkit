@@ -4,7 +4,7 @@
     -webkit-perspective-origin: 50% 50%;
     perspective-origin: 50% 50%;
     width: 100%;
-    height: 400px;
+    height: 246px;
     overflow: hidden;
     display: block !important;
 }
@@ -12,17 +12,17 @@
 #cube {
     position: relative;
     margin: auto auto;
-    height: 256px;
-    width: 256px;
-    margin-top: 70px;
+    height: 200px;
+    width: 200px;
+    margin-top: 23px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 
 .face {
     position: absolute;
-    height: 256px;
-    width: 256px;
+    height: 200px;
+    width: 200px;
     -webkit-backface-visibility: hidden;
    	backface-visibility: hidden;
 }
@@ -33,39 +33,56 @@
 }
 
 #cube .one  {
-    -webkit-transform: rotateX(90deg) translateZ(128px);
-    -ms-transform: rotateX(90deg) translateZ(128px);
-    transform: rotateX(90deg) translateZ(128px);
+    -webkit-transform: rotateX(90deg) translateZ(100px);
+    -ms-transform: rotateX(90deg) translateZ(100px);
+    transform: rotateX(90deg) translateZ(100px);
     background-color: black;
 }
 
 #cube .two {
-    -webkit-transform: translateZ(128px);
-    -ms-transform: translateZ(128px);
-    transform: translateZ(128px);
+    -webkit-transform: translateZ(100px);
+    -ms-transform: translateZ(100px);
+    transform: translateZ(100px);
 }
 
 #cube .three {
-    -webkit-transform: rotateY(90deg) translateZ(128px);
-    -ms-transform: rotateY(90deg) translateZ(128px);
-    transform: rotateY(90deg) translateZ(128px);
+    -webkit-transform: rotateY(90deg) translateZ(100px);
+    -ms-transform: rotateY(90deg) translateZ(100px);
+    transform: rotateY(90deg) translateZ(100px);
 }
 
 #cube .four {
-    -webkit-transform: rotateY(180deg) translateZ(128px);
-    -ms-transform: rotateY(180deg) translateZ(128px);
-    transform: rotateY(180deg) translateZ(128px);
+    -webkit-transform: rotateY(180deg) translateZ(100px);
+    -ms-transform: rotateY(180deg) translateZ(100px);
+    transform: rotateY(180deg) translateZ(100px);
 }
 
 #cube .five {
-    -webkit-transform: rotateY(-90deg) translateZ(128px);
-    -ms-transform: rotateY(-90deg) translateZ(128px);
-    transform: rotateY(-90deg) translateZ(128px);
+    -webkit-transform: rotateY(-90deg) translateZ(100px);
+    -ms-transform: rotateY(-90deg) translateZ(100px);
+    transform: rotateY(-90deg) translateZ(100px);
 }
 
 #cube .six {
-    -webkit-transform: rotateX(-90deg) translateZ(128px) rotate(180deg);
-    -ms-transform: rotateX(-90deg) translateZ(128px) rotate(180deg);
-    transform: rotateX(-90deg) translateZ(128px) rotate(180deg);
+    -webkit-transform: rotateX(-90deg) translateZ(100px) rotate(180deg);
+    -ms-transform: rotateX(-90deg) translateZ(100px) rotate(180deg);
+    transform: rotateX(-90deg) translateZ(100px) rotate(180deg);
     background-color: black;
+}
+
+#toybox-ad-notice {
+    background-color: #c0c0c0;
+    padding: 2px 4px;
+    margin: 0px;
+    position: absolute; 
+    left: 0px;
+    top: 0px;
+    width: 70px;
+    font-family: Verdana, sans-serif;
+    font-size: 8px;
+    letter-spacing: 0px;
+    font-weight: normal;
+    color: #606060;
+    z-index: 5;
+    display: block !important;
 }

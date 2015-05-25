@@ -10,7 +10,7 @@
  * @param {Object} face4
  * @param {Boolean} desktopSupport
  */
-var DFPPortraitCubeAd = function(targetNode, fallback, face1, face2, face3, face4, desktopSupport)
+var DFPPortraitCubeAd = function (targetNode, fallback, face1, face2, face3, face4, desktopSupport)
 {
     this.init(targetNode, fallback, face1, face2, face3, face4, desktopSupport);
 };
@@ -18,7 +18,11 @@ var DFPPortraitCubeAd = function(targetNode, fallback, face1, face2, face3, face
 DFPPortraitCubeAd.prototype = Object.create(DFPCubeAd.prototype);
 DFPPortraitCubeAd.prototype.___super__ = DFPCubeAd;
 
+DFPPortraitCubeAd.prototype.faceObjs;
+DFPPortraitCubeAd.prototype.fullyLoaded;
+
 /**
+ * Gets portrait items and builds their DOM objects
  * @method init
  * @param {Object} targetNode
  * @param {Object} fallback
@@ -31,28 +35,90 @@ DFPPortraitCubeAd.prototype.___super__ = DFPCubeAd;
 DFPPortraitCubeAd.prototype.init = function(targetNode, fallback, face1, face2, face3, face4, desktopSupport)
 {
     var videoIds = [];
-    var faceObjs = [face1, face2, face3, face4];
+    var galleryObjects = [];
+    this.faceObjs = [face1, face2, face3, face4];
+    this.fullyLoaded = false;
     
-    for(i = 0;i < faceObjs.length;i++)
+    for(i = 0;i < this.faceObjs.length;i++)
     {
-        if(faceObjs[i].hasOwnProperty("video"))
+        if(this.faceObjs[i].hasOwnProperty("video"))
         {
-            videoIds.push("video_face_" + i);
-            //obj check here
-            faceObjs[i] = {"dom": this.buildVideoDOM("video_face_" + i, faceObjs[i].video.url, faceObjs[i].video.poster)};
+            if(this.faceObjs[i].video.hasOwnProperty("url"))
+            {
+                videoIds.push("video_face_" + i);
+                this.faceObjs[i] = {"dom": this.buildVideoDOM("video_face_" + i, this.faceObjs[i].video.url, this.faceObjs[i].video.poster)};
+            }
+            else
+            {
+                throw new Error("Missing a video URL");
+            }
         }
-        else if(faceObjs[i].hasOwnProperty("gallery"))
+        else if(this.faceObjs[i].hasOwnProperty("gallery"))
         {
-            
+            if(this.faceObjs[i].gallery.hasOwnProperty("galleryPoster"))
+            {
+                for(var x = 1; x < 5; x++){
+                    if(!this.faceObjs[i].gallery.hasOwnProperty("face" + x))
+                    {
+                        throw new Error("Missing gallery image " + x);
+                    }
+                }
+                this.faceObjs[i].gallery.index = i;
+                galleryObjects.push(this.faceObjs[i].gallery);
+                this.faceObjs[i] = this.faceObjs[i].gallery.galleryPoster;
+            }
+            else
+            {
+                throw new Error("Missing a gallery poster");
+            }
         }
+    }
+    
+    this.___super__.prototype.init.call(this, targetNode, fallback, this.faceObjs[0], this.faceObjs[1], this.faceObjs[2], this.faceObjs[3], desktopSupport);
+    
+    var that = this;
+    for(var i=0; i < galleryObjects.length; i++)
+    {
+        var galleryFace = this.getFace(galleryObjects[i].index + 1);
+        galleryFace.showingGallery = false;
+        galleryFace.gallery = galleryObjects[i];
+        galleryFace.addEventListener("click", function(evt){that.onGalleryClick(evt);});
     }
     
     if(videoIds.length > 0)
     {
         this.loadVideoScripts(videoIds);
     }
-    
-    this.___super__.prototype.init.call(this, targetNode, fallback, faceObjs[0], faceObjs[1], faceObjs[2], faceObjs[3], desktopSupport);
+    else
+    {
+        this.finishLoad();
+    }
+};
+
+DFPPortraitCubeAd.prototype.onGalleryClick = function(evt)
+{
+    evt.stopPropagation();
+    if(!this.fullyLoaded)
+    {
+        return;
+    }
+    var galleryFace = evt.currentTarget;
+    if(evt.currentTarget.showingGallery)
+    {
+        this.setFace(1, this.faceObjs[0]);
+        this.setFace(2, this.faceObjs[1]);
+        this.setFace(3, this.faceObjs[2]);
+        this.setFace(4, this.faceObjs[3]);
+        galleryFace.showingGallery = false;
+    }
+    else
+    {
+        this.setFace(1, galleryFace.gallery.face1);
+        this.setFace(2, galleryFace.gallery.face2);
+        this.setFace(3, galleryFace.gallery.face3);
+        this.setFace(4, galleryFace.gallery.face4);
+        galleryFace.showingGallery = true;
+    }
 };
 
 DFPPortraitCubeAd.prototype.buildVideoDOM = function(videoId, videoUrl, posterImgUrl)
@@ -60,13 +126,16 @@ DFPPortraitCubeAd.prototype.buildVideoDOM = function(videoId, videoUrl, posterIm
     var videoElement = document.createElement('video');
     videoElement.setAttribute("id", videoId);
     videoElement.setAttribute("src", videoUrl);
-    videoElement.setAttribute("poster", posterImgUrl);
-    videoElement.setAttribute("width", "256");
-    videoElement.setAttribute("height", "256");
+    if(posterImgUrl)
+    {
+        videoElement.setAttribute("poster", posterImgUrl);
+    }
+    videoElement.setAttribute("width", "200");
+    videoElement.setAttribute("height", "200");
     videoElement.setAttribute("controls", "true");
     videoElement.setAttribute("class", "video-js vjs-default-skin");
     return videoElement;
-}
+};
 
 DFPPortraitCubeAd.prototype.loadVideoScripts = function(videoIds)
 {
@@ -91,4 +160,15 @@ DFPPortraitCubeAd.prototype.findVideos = function(videoIds)
     {
         parent.videojs(videoIds[i], {}, function(){});
     }
+    this.finishLoad();
+};
+
+DFPPortraitCubeAd.prototype.finishLoad = function()
+{
+    this.faceObjs[0] = {dom: this.getFace(1).firstChild};
+    this.faceObjs[1] = {dom: this.getFace(2).firstChild};
+    this.faceObjs[2] = {dom: this.getFace(3).firstChild};
+    this.faceObjs[3] = {dom: this.getFace(4).firstChild};
+    
+    this.fullyLoaded = true;
 };

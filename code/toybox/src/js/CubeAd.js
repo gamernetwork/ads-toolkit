@@ -151,16 +151,18 @@ CubeAd.prototype.setFallback = function(fallbackData)
 CubeAd.prototype.setNode = function(targetNode, nodeData)
 {
     targetNode.innerHTML = "";
+    wrapper = document.createElement('div');
+    
     if(nodeData.hasOwnProperty('dom'))
     {
         var dom = nodeData.dom;
         if(typeof dom == "object" && "nodeType" in dom && dom.nodeType === 1 && dom.cloneNode)
         {
-            targetNode.appendChild(dom);
+            wrapper.appendChild(dom);
         }
         else if(typeof dom == "string")
         {
-            targetNode.innerHTML = dom;
+            wrapper.innerHTML = dom;
         }
         else
         {
@@ -180,19 +182,21 @@ CubeAd.prototype.setNode = function(targetNode, nodeData)
             
             anchor.appendChild(img);
             
-            targetNode.appendChild(anchor);
+            wrapper.appendChild(anchor);
         }
         else
         {
             var cubeImg = document.createElement('img');
             cubeImg.src = nodeData.img;
-            targetNode.appendChild(cubeImg);
+            wrapper.appendChild(cubeImg);
         }
     }
     else
     {
         throw new Error("Unexpected face object");
     }
+    
+    targetNode.appendChild(wrapper);
 }
 
 /**
@@ -394,7 +398,7 @@ CubeAd.prototype.update = function()
     
     if(!this.touching)
     {
-        this.xDeg += (this.lastScrollTop - this.parentBody.scrollTop) * 0.025;
+        this.xDeg += (this.lastScrollTop - this.parentBody.scrollTop) * 0.05;
         this.lastScrollTop = this.parentBody.scrollTop;
     }
     

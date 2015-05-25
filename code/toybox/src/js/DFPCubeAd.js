@@ -35,6 +35,7 @@ DFPCubeAd.prototype.init = function(targetNode, fallback, face1, face2, face3, f
     if(this.checkTransformSupport())
     {
         this.appendStyleSheet();
+        this.setAdNotice(targetNode);
         this.setMobileMPUSize();
     }
     window.frameElement.style.height =  "0";
@@ -50,8 +51,21 @@ DFPCubeAd.prototype.appendStyleSheet = function()
     var styleSheet = document.createElement("link");
     styleSheet.setAttribute("rel", "stylesheet");
     styleSheet.setAttribute("type", "text/css");
-    styleSheet.setAttribute("href", "//images.eurogamer.net/2014/toybox/toybox-style.css?v=1");
+    styleSheet.setAttribute("href", "//images.eurogamer.net/2014/ads/toybox/toybox-style.css?v=0.82");
     parent.document.getElementsByTagName("head")[0].appendChild(styleSheet);
+};
+
+/**
+* Creates ad box to show that this is an advertisement
+* @method setAdNotice
+*/
+DFPCubeAd.prototype.setAdNotice = function(targetNode)
+{
+    var adNotice = document.createElement('p');
+    adNotice.setAttribute("id", "toybox-ad-notice");
+    adNotice.setAttribute("style", "display: none;");
+    adNotice.textContent = "ADVERTISEMENT";
+    targetNode.insertBefore(adNotice, targetNode.firstChild);
 };
 
 /**
@@ -61,4 +75,4 @@ DFPCubeAd.prototype.appendStyleSheet = function()
 DFPCubeAd.prototype.setMobileMPUSize = function()
 {
     parent.document.getElementById("mobile-mpu").style.width = "100%";
-}
+};

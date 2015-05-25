@@ -95,6 +95,10 @@ DFPPortraitCubeAd.prototype.init = function(targetNode, fallback, face1, face2, 
     }
 };
 
+/**
+ * Gallery click handler, swaps faces with different ones
+ * @method onGalleryClick
+ */
 DFPPortraitCubeAd.prototype.onGalleryClick = function(evt)
 {
     evt.stopPropagation();
@@ -121,6 +125,13 @@ DFPPortraitCubeAd.prototype.onGalleryClick = function(evt)
     }
 };
 
+/**
+ * Builds and returns the HTML needed for portrait videos
+ * @method buildVideoDOM
+ * @param videoId {int}
+ * @param videoUrl {String}
+ * @param posterImgUrl {String}
+ */
 DFPPortraitCubeAd.prototype.buildVideoDOM = function(videoId, videoUrl, posterImgUrl)
 {
     var videoElement = document.createElement('video');
@@ -137,6 +148,11 @@ DFPPortraitCubeAd.prototype.buildVideoDOM = function(videoId, videoUrl, posterIm
     return videoElement;
 };
 
+/**
+ * Appends video library to the website <head> section
+ * @method loadVideoScripts
+ * @param videoIds {array}
+ */
 DFPPortraitCubeAd.prototype.loadVideoScripts = function(videoIds)
 {
     var styleSheet = document.createElement("link");
@@ -154,6 +170,11 @@ DFPPortraitCubeAd.prototype.loadVideoScripts = function(videoIds)
     parent.document.getElementsByTagName("head")[0].appendChild(videoScript);
 };
 
+/**
+ * Initialises videojs for the portrait video/s, waits for videojs to load before this is run
+ * @method findVideos
+ * @param videoIds {array}
+ */
 DFPPortraitCubeAd.prototype.findVideos = function(videoIds)
 {
     for(var i = 0;i < videoIds.length;i++)
@@ -163,6 +184,10 @@ DFPPortraitCubeAd.prototype.findVideos = function(videoIds)
     this.finishLoad();
 };
 
+/**
+ * Saves a reference to all fully loaded DOM of the faces so they can be swapped on the fly and retreived again
+ * @method finishLoad
+ */
 DFPPortraitCubeAd.prototype.finishLoad = function()
 {
     this.faceObjs[0] = {dom: this.getFace(1).firstChild};

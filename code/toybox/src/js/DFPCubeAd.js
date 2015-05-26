@@ -51,7 +51,14 @@ DFPCubeAd.prototype.appendStyleSheet = function()
     var styleSheet = document.createElement("link");
     styleSheet.setAttribute("rel", "stylesheet");
     styleSheet.setAttribute("type", "text/css");
-    styleSheet.setAttribute("href", "//images.eurogamer.net/2014/ads/toybox/toybox-style.css?v=0.82");
+    if(this.DEBUG)
+    {
+        styleSheet.setAttribute("href", "../src/css/toybox-style.css");
+    }
+    else
+    {
+        styleSheet.setAttribute("href", "//images.eurogamer.net/2014/ads/toybox/toybox.min.css?v=" + this.TB_VERSION);
+    }
     parent.document.getElementsByTagName("head")[0].appendChild(styleSheet);
 };
 

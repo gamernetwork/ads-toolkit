@@ -15,6 +15,8 @@ var CubeAd = function(targetNode, fallback, face1, face2, face3, face4, desktopS
     this.init(targetNode, fallback, face1, face2, face3, face4, desktopSupport);
 };
 
+CubeAd.prototype.TB_VERSION = 0.84;
+CubeAd.prototype.DEBUG = true;
 CubeAd.FPS = 30;
 
 CubeAd.prototype.targetNode;
@@ -152,6 +154,7 @@ CubeAd.prototype.setNode = function(targetNode, nodeData)
 {
     targetNode.innerHTML = "";
     wrapper = document.createElement('div');
+    wrapper.setAttribute("class", "toybox-face-wrapper");
     
     if(nodeData.hasOwnProperty('dom'))
     {
@@ -309,6 +312,7 @@ CubeAd.prototype.onInteractStart = function(e)
  */
 CubeAd.prototype.onInteractMove = function(e)
 {
+    this.draw();
     if(this.touching)
     {
         if(!this.touchEnd)

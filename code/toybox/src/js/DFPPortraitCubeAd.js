@@ -141,8 +141,8 @@ DFPPortraitCubeAd.prototype.buildVideoDOM = function(videoId, videoUrl, posterIm
     {
         videoElement.setAttribute("poster", posterImgUrl);
     }
-    videoElement.setAttribute("width", "200");
-    videoElement.setAttribute("height", "200");
+    videoElement.setAttribute("width", "254");
+    videoElement.setAttribute("height", "210");
     videoElement.setAttribute("controls", "true");
     videoElement.setAttribute("preload", "none");
     videoElement.setAttribute("class", "video-js vjs-default-skin");

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script src="../src/js/BrowserTools.js"></script>
+        <script src="../src/js/CubeAd.js"></script>
+        <script src="../src/js/DFPCubeAd.js"></script>
+        <script src="../src/js/DFPPortraitCubeAd.js"></script>
+    </head>
+    <body onload="init()">
+        <script>
+        function init()
+        {
+            //targetNode, fallback(String imgurl or DOM), face1 (front), face2 (right), face3(back), face4(left), desktopSupport true/false default=false
+            //A cube face can take various object parameters {img: "", url: ""} or {img: ""} or {"dom": "String"} or {"dom": Object}
+			//The portrait cube supports more face types, they are {video: {url: "", poster: ""(optional)}} and {gallery: {galleryPoster: "", img1: "", img2: "", img3: "", img4: ""}}
+            new DFPPortraitCubeAd(window.frameElement.parentElement,
+			{//fallback
+				img: "//images.eurogamer.net/2014/toybox/assets/image.png",
+				url: "http://www.minecraft.net"
+			},
+			{//face 1
+				img: "//images.eurogamer.net/2014/toybox/assets/image.png",
+				url: "http://www.minecraft.net"
+			},
+			{//face 2
+				gallery: {
+					galleryPoster: {img: "//images.eurogamer.net/2014/toybox/tests/2-gallery.jpg"},
+					face1: {img: "//images.eurogamer.net/2014/toybox/minecraft/1.jpg"},
+					face2: {img: "//images.eurogamer.net/2014/toybox/tests/2-gallery-close.jpg"},
+					face3: {img: "//images.eurogamer.net/2014/toybox/minecraft/3.jpg"},
+					face4: {img: "//images.eurogamer.net/2014/toybox/minecraft/4.jpg"}
+				}
+			},
+			{//face 3
+				video: {
+					url: "//images.eurogamer.net/2014/toybox/minecraft/Minecraft-Trailer.m4v",
+					poster: "//images.eurogamer.net/2014/toybox/minecraft/1.jpg"
+				}
+			},
+			{//face 4
+                img: "//images.eurogamer.net/2014/toybox/tests/buy.jpg",
+                url: "http://www.minecraft.net"
+			}
+			).setLockY(true);
+        }
+        </script>
+    </body>
+</html>

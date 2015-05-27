@@ -7,11 +7,12 @@
     height: 287px;
     overflow: hidden;
     display: block !important;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
+}
+
+.anim-cube {
+	-webkit-transition: -webkit-transform 0.2s linear;
+	-moz-transition: -moz-transform 0.2s linear;
+	transition: transform 0.2s linear;
 }
 
 #cube {
@@ -22,11 +23,6 @@
     margin-top: 44px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
 }
 
 .face {
@@ -35,11 +31,6 @@
     width: 254px;
     -webkit-backface-visibility: hidden;
    	backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
 }
 .toybox-face-wrapper {
     height: 210px;

@@ -49,6 +49,8 @@ CubeAd.prototype.lastScrollTop = 0;
 CubeAd.prototype.touchStart = false;
 CubeAd.prototype.touchEnd = false;
 CubeAd.prototype.touching = false;
+CubeAd.prototype.momentumContinued = false;
+CubeAd.prototype.isInteracted = false;
 
 /**
  * @method init
@@ -278,6 +280,8 @@ CubeAd.prototype.checkTransformSupport = function()
  */
 CubeAd.prototype.onInteractStart = function(e)
 {
+	this.cubeElement.setAttribute("class", "");
+	this.momentumContinued = false;
     if(!this.touching)
     {
         if(!this.touchEnd)
@@ -360,18 +364,22 @@ CubeAd.prototype.onInteractEnd = function(e)
  */
 CubeAd.prototype.update = function()
 {
-    if(Math.abs(this.parentBody.scrollTop - this.startScrollY) > 10)
-    {
-        if(this.touching)
-        {
-            this.oldDeltaX = 0;
-            this.currentDeltaX = 0;
-            this.touchEnd = true;
-        }
-    }
+	if(Math.abs(this.parentBody.scrollTop - this.startScrollY) > 30)
+	{
+		if(this.touching)
+		{
+			this.oldDeltaX = 0;
+			this.currentDeltaX = 0;
+			this.touchEnd = true;
+		}
+	}
     if(this.touchEnd)
     {
         this.momentumX = (this.oldDeltaX - this.currentDeltaX) * 0.8;
+		if(this.momentumX == 0)
+		{
+			this.roundCube();
+		}
         if(this.lockY == false)
         {
             this.momentumY = (this.oldDeltaY - this.currentDeltaY) * 0.8;
@@ -400,22 +408,44 @@ CubeAd.prototype.update = function()
         this.touchStart = false;
     }
     
-    if(!this.touching)
-    {
-        this.xDeg += (this.lastScrollTop - this.parentBody.scrollTop) * 0.05;
-        this.lastScrollTop = this.parentBody.scrollTop;
-    }
+	if(!this.isInteracted)
+	{
+		if(Math.abs(this.currentDeltaX) > 3)
+		{
+			this.isInteracted = true;
+		}
+		if(!this.touching)
+		{
+			this.xDeg += (this.lastScrollTop - this.parentBody.scrollTop) * 0.05;
+			this.lastScrollTop = this.parentBody.scrollTop;
+		}
+	}
     
     if(Math.round(this.momentumX) != 0)
     {
         this.xDeg -= this.momentumX;
         this.momentumX *= 0.9;
+		this.momentumContinued = true;
     }
+	else
+	{
+		if(this.momentumContinued)
+		{
+			this.roundCube();
+			this.momentumContinued = false;
+		}
+	}
     if(Math.round(this.momentumY) != 0)
     {
         this.yDeg += this.momentumY;
         this.momentumY *= 0.9;
     }
+};
+
+CubeAd.prototype.roundCube = function()
+{
+	this.xDeg = 90 * (Math.round(this.xDeg / 90));
+	this.cubeElement.setAttribute("class", "anim-cube");
 };
 
 /**

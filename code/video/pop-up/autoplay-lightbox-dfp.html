@@ -1,0 +1,27 @@
+<a id="lightbox-auto-overlay" href="#"></a>
+
+<div id="lightbox-auto-video-wrapper">
+    <div id="lightbox-auto-video-inner">
+        <a href="#" id="lightbox-toggle-mute"></a>
+        <div id="lightbox-auto-video">
+            <video width="960px" loop="yes" muted="yes" id="video">
+                <source src="YOUR_MP4_FILE_HERE" type="video/mp4">
+                <source src="YOUR_WEBM_FILE_HERE" type="video/webm">
+            </video>
+        </div>
+        <div id="lightbox-overlay-link-wrapper"><a href="%%CLICK_URL_UNESC%%YOUR_LINK_HERE" id="lightbox-auto-link" target="_blank"></a></div>
+        <div id="lightbox-overlay-close"></div>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script>var jQuery = jQuery.noConflict();</script>
+
+<script>
+    parent.jQuery('#div-ga-EGDE_POPUP').append(jQuery('#lightbox-auto-overlay'));
+    parent.jQuery('#div-ga-EGDE_POPUP').append(jQuery('#lightbox-auto-video-wrapper'));
+
+    parent.jQuery('head').append("<link rel='stylesheet' href='https://images.eurogamer.net/2014/plugins/lightobx/lightbox-styles.css?%%CACHEBUSTER%%' type='text/css' media='screen' \/>");
+    parent.jQuery('head').append("<script type='text/javascript' src='https://images.eurogamer.net/2014/plugins/lightobx/lightbox-core.js?%%CACHEBUSTER%%'><\/script>");
+    
+</script>

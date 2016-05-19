@@ -1,6 +1,12 @@
-<a href="YOUR_LINK_HERE" target="_blank"><img src="BOOMBOX_IMAGE_HERE" width="BOOMBOX_WIDTH" height="83" /></a>
+<!-- 
+	For creating a larger boombox on Eurogamer use the code below. The height must be kept at 83px. 
+	Change BOOMBOX_IMAGE_HERE to image URL
+	Change BOOMBOX_WIDTH to width of boombox
+-->
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<a href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"><img src="BOOMBOX_IMAGE_HERE" width="BOOMBOX_WIDTH" height="83" /></a>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
 
     var jQuery = jQuery.noConflict();
@@ -14,6 +20,5 @@
         parent.jQuery('ul#promos li#boom-box').css({'width' : boombox_width + 'px'});
         
     }
-
 
 </script>

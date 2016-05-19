@@ -1,0 +1,44 @@
+<!-- 
+    Leaderboard/Skin code to work on GamesIndustry.
+    Delivers blank leaderboard and appends a background image to the site header.
+    Only need to update takeover_skin_image
+ -->
+
+<!-- BLANK LEADERBOARD -->
+<a href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank" style="display:block;width:100%;height:100%"></a>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    
+    var jQuery = jQuery.noConflict();
+
+    <!-- UPDATE THESE -->
+    var takeover_skin_image = 'SKIN_IMAGE_HERE'; // Skin image URL
+
+    <!-- NO NEED TO ALTER CODE BELOW -->
+
+    jQuery(document).ready(function () {
+
+        parent.jQuery('html').bind('mousemove', function(e) {
+            if( (e.target == parent.jQuery('#headwrap')[0]) ) {
+                    parent.jQuery('html').css({ 'cursor' : 'pointer' });
+            } else {
+                    parent.jQuery('html').css({ 'cursor' : 'auto' });
+            }
+        });
+
+        parent.jQuery('html').bind('click', function (e) { 
+            if( (e.target == parent.jQuery('#headwrap')[0])) {
+                window.open('%%CLICK_URL_ESC%%%%DEST_URL%%','_blank');
+            }
+        }); 
+
+        parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/gi/takeover/gi-takeover-styles.css?v101' type='text/css' media='screen' \/>");
+
+        parent.jQuery('#headwrap').css({
+            'background-image' : 'url(' + takeover_skin_image + ')'
+        });
+
+    });
+</script>

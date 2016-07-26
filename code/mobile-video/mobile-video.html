@@ -1,0 +1,229 @@
+<html>
+
+<head>
+        <script>
+            var AD_NAME = "[%AnalyticsName%]";
+	
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-23103987-1', 'auto', {'name': 'showcase'});
+            ga('"showcase.set', 'dimension7', 'Mobile Autoplay User');
+            ga('showcase.send', 'pageview');
+	
+	    parent.onerror = function(error, url, line) {	
+		ga('showcase.send', 'event', AD_NAME, error + ' Line: ' + line, '%%SITE%%' );
+	    };
+        </script>
+</head>
+
+<body>
+    <div id="container-element">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+        <style>
+            .spinner {
+                margin: auto auto;
+                width: 50px;
+                height: 40px;
+                text-align: center;
+                font-size: 10px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+            
+            .spinner > div {
+                background-color: #0669F8;
+                height: 100%;
+                width: 6px;
+                display: inline-block;
+                -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+                animation: sk-stretchdelay 1.2s infinite ease-in-out;
+            }
+            
+            .spinner .rect2 {
+                -webkit-animation-delay: -1.1s;
+                animation-delay: -1.1s;
+            }
+            
+            .spinner .rect3 {
+                -webkit-animation-delay: -1.0s;
+                animation-delay: -1.0s;
+            }
+            
+            .spinner .rect4 {
+                -webkit-animation-delay: -0.9s;
+                animation-delay: -0.9s;
+            }
+            
+            .spinner .rect5 {
+                -webkit-animation-delay: -0.8s;
+                animation-delay: -0.8s;
+            }
+            
+            @-webkit-keyframes sk-stretchdelay {
+                0%,
+                40%,
+                100% {
+                    -webkit-transform: scaleY(0.4)
+                }
+                20% {
+                    -webkit-transform: scaleY(1.0)
+                }
+            }
+            
+            @keyframes sk-stretchdelay {
+                0%,
+                40%,
+                100% {
+                    transform: scaleY(0.4);
+                    -webkit-transform: scaleY(0.4);
+                }
+                20% {
+                    transform: scaleY(1.0);
+                    -webkit-transform: scaleY(1.0);
+                }
+            }
+        </style>
+        <div id="vid-mute-button" style="position: absolute;color: black;font-family: 'Helvetica Neue', Helvetica, 'Droid Sans', Arial, sans-serif;">
+            <div class="sound-text" style="display: inline-block;padding-right: 10px;">Sound: Off</div>
+            <img class="sound-img" src="//images.eurogamer.net/2015/inline/misc/off.png" style="position: relative;top: 2px;">
+        </div>
+        <div style="position: absolute; overflow: hidden; margin: 0; padding: 0;">
+            <style>#videoCanvas{margin-top:0!important;margin-bottom:0!important;}</style>
+        </div>
+        <canvas id="videoCanvas"></canvas>
+    </div>
+
+    <script>
+        var containerElement = null;
+        var player = null;
+        // Add the video libary to the site's own <head>
+        var inlineVideo = document.createElement('script');
+        var flippedToNative = false;
+        var nativeVideo = null;
+        var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+        inlineVideo.setAttribute("type", "text/javascript");
+        inlineVideo.setAttribute("src", "//images.eurogamer.net/2015/plugins/tests/jsmpg.js?i=8293839");
+        inlineVideo.onload = init;
+        parent.document.getElementsByTagName("head")[0].appendChild(inlineVideo);
+
+        function init() {
+            // Set up the player
+            var canvas = document.getElementById('videoCanvas');
+            player = new parent.jsmpeg('[%MPGVideo%]', {canvas: canvas, autoplay: true});
+            containerElement = parent.document.getElementById("mobile-mpu").appendChild(document.getElementById("container-element"));
+
+            var spinner = parent.document.getElementsByClassName("spinner")[0];
+
+            // Boot it up but leave it dormant until it is visible within the viewport
+            player.play();
+            //player.addEventListener("play", function() {
+                spinner.style.display = "none";
+                ga('showcase.send', 'event', AD_NAME, "Played mobile video", '%%SITE%%' );
+            //});
+
+            ga('showcase.send', 'event', AD_NAME, "Set-up mobile video", '%%SITE%%' );
+
+            // search for the document elements we're about to style
+            var canvas = containerElement.getElementsByTagName('canvas')[0];
+            var mobileMpu = parent.document.getElementById("mobile-mpu");
+
+            var muteButton = parent.document.getElementById("vid-mute-button");
+            var muteText = muteButton.getElementsByClassName("sound-text")[0];
+            var muteImg = muteButton.getElementsByClassName("sound-img")[0];
+
+            // override the video styling, needs to fit nicely within the articles
+            canvas.style.width = "100%";
+            canvas.style.height = "auto";
+            canvas.style.margin = "0!important";
+            canvas.style.position = "inherit";
+            mobileMpu.getElementsByTagName("iframe")[0].style.height = "0"
+            mobileMpu.style.width = "initial";
+
+            containerElement.addEventListener('click', function(e) {
+                player.pause();
+                ga('showcase.send', 'event', AD_NAME, "User Click", '%%SITE%%' );
+                window.open("%%CLICK_URL_UNESC%%[%ClickThroughURL%]", '_blank');
+            });
+
+            // sets up the native video when the ad is tapped on
+            muteButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                if (flippedToNative == false) {
+                    player.pause();
+                    var currentTime = player.currentTime;
+                    player.stop();
+                    containerElement.removeChild(canvas);
+                    player = null;
+
+                    nativeVideo = document.createElement('video');
+                    nativeVideo.setAttribute("src", "[%FullVideo%]");
+                    nativeVideo.setAttribute("style", "width: 100%; height: auto; margin-top: 4px;");
+                    containerElement.appendChild(nativeVideo);
+                    nativeVideo.play();
+
+                    nativeVideo.addEventListener('loadedmetadata', function() {
+                        this.currentTime = currentTime;
+                    }, false);
+
+                    flippedToNative = true;
+                    if (iOS) {
+                        muteButton.style.display = "none";
+                    } else {
+                        muteText.innerText = "Sound: On";
+                    }
+                    spinner.style.display = "none";
+                    ga('showcase.send', 'event', AD_NAME, "Played native video", '%%SITE%%' );
+                } else {
+                    if (nativeVideo.muted) {
+                        nativeVideo.muted = false;
+                        muteText.innerText = "Sound: On";
+                        muteImg.src = "//images.eurogamer.net/2015/inline/misc/on.png";
+                    } else {
+                        nativeVideo.muted = true;
+                        muteText.innerText = "Sound: Off";
+                        muteImg.src = "//images.eurogamer.net/2015/inline/misc/off.png";
+                    }
+                }
+            });
+
+            parent.document.addEventListener('scroll', onScroll);
+        }
+
+        function onScroll() {
+            if (player) {
+                if (isElementInViewport(containerElement)) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+        }
+
+        function isElementInViewport(el) {
+
+            var rect = el.getBoundingClientRect();
+
+            return (
+                rect.top >= 0 &
+                rect.left >= 0 &&
+                rect.bottom <= (parent.window.innerHeight || parent.document.documentElement.clientHeight) + (el.clientHeight / 2) &&
+                rect.right <= (parent.window.innerWidth || parent.document.documentElement.clientWidth)
+            );
+        }
+    </script>
+</body>
+    [%Tracking%]
+</html>
+

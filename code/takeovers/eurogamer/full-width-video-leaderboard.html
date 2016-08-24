@@ -50,8 +50,23 @@
     parent.jQuery('head').append("<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'><\/script>");
     parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>");
 
-    if (bg_video_url) {
-        bg_video_source = bg_video_url;
+    var page_wrapper = '#page-wrapper';
+    var this_site = '%%SITE%%';
+    if(this_site == 'nintendolife.com') {
+        var page_wrapper = '#page';
+    }
+    if(this_site == 'primagames.com') {
+        var page_wrapper = '#site-wrapper';
+    }
+    if(this_site == 'metabomb.net') {
+        var page_wrapper = '.document';
+        parent.jQuery('.billboard').css({'max-width' : '1260px'});
+    }
+    if(this_site == 'pushsquare.com' || this_site == 'purexbox.com') {
+        var skin_top_offset = '152';
+    }
+    if(this_site == 'indiedb.com') {
+        var skin_top_offset = '-38';
     }
 
     if (top != self){ //escape the iframe and write the ad outside it
@@ -61,12 +76,12 @@
 
         if (leaderboard_height) {
             frameElement.style.height = leaderboard_height + 'px';
-            parent.jQuery('#page-wrapper').css({'background' : takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px', 'overflow' : 'hidden'});
+            parent.jQuery(page_wrapper).css({'background' : takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px', 'overflow' : 'hidden'});
         }
 
         // bg video
-        if (bg_video_source) {
-            parent.jQuery('#leaderboard').append('<video id="ad-video" width="' + bg_video_width + '" height="' + bg_video_height + '" autoplay="autoplay" loop="loop" muted="muted"><source type="video/mp4" src="' + bg_video_source + '" /></video>');
+        if (bg_video_url) {
+            parent.jQuery('#leaderboard').append('<video id="ad-video" width="' + bg_video_width + '" height="' + bg_video_height + '" autoplay="autoplay" loop="loop" muted="muted"><source type="video/mp4" src="' + bg_video_url + '" /></video>');
             parent.jQuery('#ad-video').css({'position' : 'absolute', 'top' : bg_video_top_offset + 'px', left : bg_video_left_offset + 'px'});
         }
 
@@ -108,5 +123,19 @@
         }
 
     }
-
+    
+    parent.jQuery('html').bind('mousemove', function(e) {
+        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+                parent.jQuery('html').css({ 'cursor' : 'pointer' });
+        } else {
+                parent.jQuery('html').css({ 'cursor' : 'auto' });
+        }
+    });
+    
+    parent.jQuery('html').bind('click', function (e) { 
+        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+            window.open('%%CLICK_URL_UNESC%%%%DEST_URL%%', '_blank');
+        }
+    });
+    
 </script>

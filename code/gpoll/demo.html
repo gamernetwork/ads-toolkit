@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>GPoll Demo</title>
+
+	<link rel="stylesheet" type="text/css" href="bootstrap.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="styles.css" media="screen">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://cdn.gamer-network.net/plugins/dfp/jquery.jsonp.2.4.0.js"></script>
+	<script type="text/javascript" src="gpoll.js"></script>
+
+</head>
+<body>
+
+	<div id="gpoll1">
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h1>GPoll Demo Layouts</h1>
+					<h2>Poll Answers</h2>
+					<p>List of answers from the <a href="https://richard-gpoll.dev.gamer-network.net/gpoll/campaigns/13/questions/55">GPoll database</a>, in the order set in the CMS.  Each answer is a checkbox.  Images and extra content can be set locally.  The GPoll is generated via a plug-in using the following call...</p>
+					<pre>
+$('#gpoll1').gpollAd({
+	'campaign_id' : '13',
+	'question_id' : '55',
+	'answers_id' : '.vote-answers',
+	'response_count' : '3',
+	'graph_id' : '.graph-answers',
+	'extras' : answers_extras
+});
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="vote-answers"></div>
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h2>Poll Graph</h2>
+					<p>Poll responses graphed on the x-axis.  Width is 100%, height is fixed.  The most popular result is given the class .top.</p>
+					<div class="graph-answers"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="gpoll2">
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h2>Poll Graph (Y-Axis)</h2>
+					<p>This is a second instance of GPoll, this time graphing the results on the y-axis.  The GPoll call only asks for a graph on the y-axis...</p>
+					<pre>
+$('#gpoll2').gpollAd({
+	'campaign_id' : '13',
+	'question_id' : '55',
+	'answers_id' : '',
+	'response_count' : '3',
+	'graph_id' : '.graph-answers',
+	'graph_axis' : 'y',
+	'extras' : answers_extras
+});
+					</pre>
+					<div class="graph-answers"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+<script>
+
+    $(document).ready(function() {
+        
+        answers_extras = {
+        		"1": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-1-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"2": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-2-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"3": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-3-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"4": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-1-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"5": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-2-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"6": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-3-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"7": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-1-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	},
+	        	"8": {
+	        		"image":"https://images.eurogamer.net/2013/battlefield4/microsite/answer-bg-2-m.jpg",
+	        		"text":"Some demo text for what might be more info on the answer"
+	        	}
+        	};
+
+        $('#gpoll1').gpollAd({
+        	'campaign_id' : '13',
+        	'question_id' : '55',
+        	'answers_id' : '.vote-answers',
+        	'response_count' : '3',
+        	'graph_id' : '.graph-answers',
+        	'extras' : answers_extras
+        });
+
+        $('#gpoll2').gpollAd({
+        	'campaign_id' : '13',
+        	'question_id' : '55',
+        	'answers_id' : '',
+        	'response_count' : '3',
+        	'graph_id' : '.graph-answers',
+        	'graph_axis' : 'y',
+        	'extras' : answers_extras
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

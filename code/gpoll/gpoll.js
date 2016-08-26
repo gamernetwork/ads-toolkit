@@ -102,7 +102,7 @@
                   //j('#email-field').val(j('#email-field').val() + 'email');
 
                   var form = $(this);
-                  var url = 'https://richard-gpoll.dev.gamer-network.net/gpoll/vote';
+                  var url = 'https://beta-gpoll-gamer-network-net.beta.gamer-network.net/gpoll/vote';
 
 
                   function successFunction(data) {

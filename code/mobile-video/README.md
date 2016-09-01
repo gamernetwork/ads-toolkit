@@ -1,6 +1,8 @@
 # Auto playing mobile video unit
 
-Uses JSMPEG to play video frames
+Uses JSMPEG to play video frames.
+
+There is a [DFP creative template](https://www.google.com/dfp/43340684#delivery/CreateCreativeTemplate/creativeTemplateId=10089004) for this unit.
 
 ## Transcoding a compatible video
 

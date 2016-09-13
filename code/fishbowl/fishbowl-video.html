@@ -1,0 +1,237 @@
+<!-- FISH BOWL AD -->
+<div id="fishbowl-move-this">
+
+    <!-- The Fish Bowl Image -->
+    <div id="fishbowl">
+        <div id="fishbowl-bg">
+                <img id="fishbowl-img" width="100%" />
+        </div>
+    </div>
+
+    <!-- The Fish Bowl MPU Fallback -->
+    <a href="%%CLICK_URL_UNESC%%[%LINK%]" title="Click-through" target="_blank" class="fishbowl-ad" id="fishbowl_fallback_link">
+        <div id="fishbowl-fallback" style="display:none;">
+        </div>
+    </a>
+
+    <style>
+        #fishbowl {
+            width: 300px;
+            height: 400px;
+            position: absolute;
+            top: 0px;
+            left: -10px;
+        }
+        #fishbowl-bg {
+            width: 300px;
+            height: 0px;
+            overflow: hidden;
+            position: absolute;
+            opacity: 0.001;
+        }
+        #fishbowl-img {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+        #fishbowl_fallback_link {
+            /*float: left;*/
+        }
+        #fishbowl-fallback {
+            display: block;
+            width: 300px;
+            height: 250px;
+            background: url([%FALLBACK_IMAGE%]) no-repeat 0 0;
+            background-size: contain;
+        }
+        #fishbowl:after {
+            content: 'Advertisement';
+            position: absolute;
+            display: inline-block;
+            text-align: left;
+            text-transform: uppercase;
+            color: #EEE;
+            font-size: 11px;
+            padding: 10px 20px 2px;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            z-index: 10;
+        }
+    </style>
+
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script type="text/javascript">
+
+    fishbowl_iframe = window.frameElement.id;
+
+    var fishbowl_container = document.getElementById('fishbowl-move-this');
+    top.document.getElementById(fishbowl_iframe).parentNode.parentNode.appendChild(fishbowl_container);
+    top.document.getElementById(fishbowl_iframe).style.display = "none";
+
+parent.jQuery('head').append("<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'><\/script>");
+        parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>");
+    
+    parent.document.getElementById("fishbowl-img").addEventListener("click", fishbowl_click);
+    
+    function fishbowl_click()
+    {
+        
+        parent.jQuery.fancybox({
+            content   : "<div style='background-color: black; width: 100%; height: 100%;'><video id='fishbowl-vid' poster='[%VIDEO_POSTER%]' style='width: 100%; height: 80%; background-color: black;' src='[%VIDEO_URL%]'></video><a target='_blank' href='%%CLICK_URL_UNESC%%[%BUTTON_URL%]'><img src='[%BUTTON_IMAGE%]' style='position: absolute; bottom: 0; height: 20%; margin-left: auto; margin-right: auto;left: 0; right:0; max-width: 100%;'></a></div>",
+            fitToView   : false,
+            maxWidth    : 1260,
+            maxHeight   : 708,
+            width: '90%',
+            height: '90%',
+            autoSize    : false,
+            scrolling   : 'no',
+            padding     : '0',
+            afterShow	: function(){var video = parent.document.getElementById('fishbowl-vid');
+video.addEventListener('click',function(){
+    video.setAttribute("controls", "true");
+    video.play();
+},false);
+        }
+        });
+    }
+
+    function fishbowl_scale() {
+
+        var fishbowl = parent.jQuery('#fishbowl');
+        var fishbowlFallback = parent.jQuery('#fishbowl-fallback');
+
+        //checks if the user is using portrait or landscape
+        if (window.parent.innerHeight > window.parent.innerWidth) {
+            //Portrait mode so show fish bowl
+            fishbowl.css('width', window.parent.innerWidth + 'px');
+
+            parent.jQuery('#fishbowl-bg').css({
+                'opacity': '1',
+                'width': window.parent.innerWidth + 'px',
+                'height': '400px',
+                'clip': 'rect(0, ' + window.parent.innerWidth + 'px, 400px, 0)'
+            });
+ 
+            fishbowl.show();
+            fishbowlFallback.hide();
+
+            ga('showcase.send', 'event', 'Fish Bowl', 'View Fish Bowl', window.location.hostname);
+
+        } else {
+            // Display fallback MPU
+            fishbowlFallback.show();
+            fishbowl.hide();
+
+            ga('showcase.send', 'event', 'Fish Bowl', 'View Fallback MPU', window.location.hostname);
+
+        }
+
+    }
+
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-23103987-1', 'auto', {
+        'name': 'showcase'
+    });
+    
+    // Reset EG parent MPU styles
+    if(parent.jQuery("#mobile-mpu").length > 0) {
+        var mobileMPU_reset = parent.jQuery("#mobile-mpu");
+        mobileMPU_reset.css({
+            'width': '0',
+            'margin': '0',
+            'position': 'relative',
+            'left':'0',
+            'transform':'inherit',
+            'overflow':'visible'
+        });
+        var mobileMPU = parent.jQuery('#fishbowl-move-this').parent();
+    } else {
+        var mobileMPU = parent.jQuery('#fishbowl-move-this').parent();
+    }
+
+    mobileMPU.css('margin-bottom', '0');
+    
+    //waits for the ad image to load
+    parent.jQuery('#fishbowl-img').load(function () {
+        //Timeout of 200 milliseconds, gives it a bit of time before the clip takes place
+        setTimeout(function () {
+            
+            //runs an initial scale
+            fishbowl_scale();
+
+            //resizes the add as it is now ready
+            mobileMPU.css({
+                'width': '0',
+                'margin': '0 0 20px 0',
+                'position': 'relative',
+                'overflow': 'visible',
+                'left':'0',
+                'transform':'inherit'
+            });
+
+            // Sort out USG MPU left margin
+            if(parent.jQuery("#mpu-1").length > 0) {
+                mobileMPU.css({
+                    'margin' : '0px 0px 20px -5px'
+                });
+            }
+
+            // Sort out Modojo MPU left margin
+            if(parent.jQuery("#div-ga-MD_MPU_1").length > 0) {
+                mobileMPU.css({
+                    'margin' : '0px 0px 20px -5px'
+                });
+            }
+
+            // Sort out RPS (Article) MPU left margin
+            if(parent.jQuery("div.entry #div-ga-RPS_MPU_MOB").length > 0) {
+                parent.jQuery("#fishbowl").css({
+                    'left' : '-15px'
+                });
+            }
+
+            if (window.parent.innerHeight > window.parent.innerWidth) {
+                mobileMPU.css('height', '400px');
+            } else {
+                mobileMPU.css('height', 'auto');
+            }
+
+        }, 200);
+        
+        //run scale every time the window resizes
+        jQuery(window.parent).resize(function() {
+            fishbowl_scale();
+            if (window.parent.innerHeight > window.parent.innerWidth) {
+                mobileMPU.css('height', '400px');
+            } else {
+                mobileMPU.css('height', 'auto');
+            }
+        });
+
+    }).attr('src', '[%FISHBOWL_IMAGE%]');
+
+    frameElement.style.width = '300px';
+
+</script>
+
+[%CustomHTML%]

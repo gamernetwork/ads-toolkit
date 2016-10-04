@@ -23,7 +23,7 @@
 
         loadAnswers = function() {
 
-          $.getJSON( 'https://richard-gpoll.dev.gamer-network.net/gpoll/getAnswers/' + defaults.question_id + '?callback=?', function(data) {
+          $.getJSON( 'https://gpoll.gamer-network.net/gpoll/getAnswers/' + defaults.question_id + '?callback=?', function(data) {
 
               var ordered_by_responses = [];
 
@@ -102,7 +102,7 @@
                   //j('#email-field').val(j('#email-field').val() + 'email');
 
                   var form = $(this);
-                  var url = 'https://beta-gpoll-gamer-network-net.beta.gamer-network.net/gpoll/vote';
+                  var url = 'https://gpoll.gamer-network.net/gpoll/vote';
 
 
                   function successFunction(data) {
@@ -154,7 +154,12 @@
                         top_class = 'top';
                       }
                     });
-                    counts.push('<div class="ycol yval-' + key + '"><span class="ynum">' + key + ') ' + val['title'] + '</span></div><div class="bar result-' + key + ' ' + top_class + '"><span class="bar-num">' + (val['responses']) + '</span></div>');
+                    if(val['responses'] > 0) {
+                      display_count = val['responses'];
+                    } else {
+                      display_count = '';
+                    }
+                    counts.push('<div class="ycol yval-' + key + '"><span class="ynum">' + key + ') ' + val['title'] + '</span></div><div class="bar result-' + key + ' ' + top_class + '"><span class="bar-num">' + display_count + '</span></div>');
                     if(parseInt(val['responses']) > high_count) {
                       high_count = val['responses'];
                     }
@@ -179,8 +184,7 @@
                     bar_percent = Math.floor((parseInt($(this).text()) / high_count) * 100);
 
                     $(this).css({
-                      'width' : bar_width - 4 + '%',
-                      'height' : bar_percent + '%'
+                      'width' : bar_percent + '%'
                     });
 
                     bar_left = bar_left + bar_width;
@@ -209,7 +213,12 @@
                         top_class = 'top';
                       }
                     });
-                    counts.push('<div class="bar result-' + key + ' ' + top_class + '"><span class="bar-num">' + (val['responses']) + '</span></div>');
+                    if(val['responses'] > 0) {
+                      display_count = val['responses'];
+                    } else {
+                      display_count = '';
+                    }
+                    counts.push('<div class="bar result-' + key + ' ' + top_class + '"><span class="bar-num">' + display_count + '</span></div>');
                     if(parseInt(val['responses']) > high_count) {
                       high_count = val['responses'];
                     }

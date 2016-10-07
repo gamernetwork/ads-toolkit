@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>GQuiz Demo</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="bootstrap.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="styles.css" media="screen">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://cdn.gamer-network.net/plugins/dfp/jquery.jsonp.2.4.0.js"></script>
+	<script type="text/javascript" src="gquiz.js?4"></script>
+
+</head>
+<body>
+
+	<div id="gquiz1">
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h1>GQuiz Demo Layouts</h1>
+					<h2>Multiple Question Quiz (with random questions, 10 second timer and 3 lives)</h2>
+					<p>A quiz with multiple questions from this <a href="https://beta-gquiz-gamer-network-net.beta.gamer-network.net/quizes/1">GQuiz in the CMS</a>.  The GQuiz is generated via a plug-in using the following call which is assigned to the 'Start Quiz' button.  In the gquizAd call several variables can be set, like whether a timer is needed, number of lives (if any), if correct answers are multipled by a set number and if the questions are shown in a random order.</p>
+					<p>The latest entries can also be requested by giving a classname of an element that should show them.</p>
+					<pre>
+$('#gquiz1').gquizAd({
+	'campaign_id' : '1',
+	'entries_id' : '.entries',
+	'entries_count' : 20
+});
+
+$('#gquiz1 #start_quiz').on('click', function(e) {
+	e.preventDefault();
+	$('#gquiz1').gquizAd({
+    	'campaign_id' : '1',
+    	'container_id' : '.quiz-questions',
+    	'randomise' : true,
+    	'score_multipler' : 10,
+    	'timer' : 10,
+    	'lives' : 3
+    });
+});
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="quiz-questions">
+			<div id="quiz-outer">
+	            <div class="container">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div id="quiz">
+
+	                            <div id="timer-wrapper">
+
+	                                <div id="timer"></div>
+	                                <div id="timer-count">
+	                                    <div id="timer-lines"></div>
+	                                    <ul>
+	                                        <li><span></span>0</li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li> </li>
+	                                        <li>10 sec<span></span></li>
+	                                    </ul>
+	                                </div>
+
+	                            </div>
+
+	                            <div id="quiz_wrapper">
+
+	                                <img src="//images.eurogamer.net/2014/quiz/fallout4/img/win.png" alt="Win a Pip Boy" class="img-responsive fab-prize" />
+	                                <p>3 lives, 111 questions, 10 seconds a question to get the highest score! Ready?</p>
+	                                <a src="#" id="start_quiz" class="btn btn-default"><span>START QUIZ</span></a>
+
+	                            </div>
+
+	                            <div id="correct" class="flash"></div>
+	                            <div id="incorrect" class="flash"></div>
+
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div id="quiz-stats-outer">
+
+	            <div id="quiz-stats" class="container">
+	                <div id="stats-wrapper">
+	                    <div class="row">
+	                        <div class="col-xs-6">
+	                            <div id="score_wrapper">
+	                                <p>Score <span class="score-number">0</span></p>
+	                            </div>
+	                        </div>
+	                        <div class="col-xs-6">
+	                            <div id="lives_wrapper">
+	                                <div id="lives_count">
+	                                    <span class="lives_tag">Lives</span>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	        </div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h3>Entries</h3>
+					<p>The most recent 10 entries for this quiz...</p>
+					<div class="entries"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="quiz-terms" style="display:none;text-align:left;">
+			<ul>
+				<li>The competition is open to UK entrants only</li>
+                <li>Entrants must be aged 18yrs or older</li>
+                <li>Employees of Gamer Network or Sony, or members of their family are not permitted to enter</li>
+                <li>The competition ends on the 23rd Dec</li>
+                <li>In the event of more than one entrant achieving the top score, the overall prize winner will be selected at random</li>
+                <li>The winner will be notified by email </li>
+                <li>The prizes will be dispatched within 30 days of the competition </li>
+                <li>The prize games will be supplied as either physical or digital copies </li>
+                <li>The yet to be released prizes, such as PlayStation VR will be sent to the winner as soon as retail versions are released </li>
+                <li>The judge's decision is final </li>
+                <li>By default, contact details will not stored and shared for the purposes of contacting winners only. </li>
+			</ul>
+		</div>
+
+	</div>
+	
+	<hr />
+
+	<div id="gquiz2">
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h2>Multiple Question Quiz (standard order, no fancy stuff)</h2>
+					<p>A quiz with multiple questions from this <a href="https://beta-gquiz-gamer-network-net.beta.gamer-network.net/quizes/10">GQuiz in the CMS</a>.  Questions are just shown in the order determined in the CMS.</p>
+					<pre>
+$('#gquiz2 #start_quiz').on('click', function(e) {
+	e.preventDefault();
+	$('#gquiz2').gquizAd({
+    	'campaign_id' : '10',
+    	'container_id' : '.quiz-questions'
+    });
+});
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="quiz-questions">
+			<div id="quiz-outer">
+	            <div class="container">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div id="quiz">
+
+	                            <div id="quiz_wrapper">
+
+	                                <p>Hearts of Iron IV is out today! To mark the occasion, we've put together a quiz to test your knowledge of the Second World War. Twenty questions of increasing difficulty, with fifteen seconds to answer each. Do you know your Patton from your Panzer? Can you spot a spitfire by its silhouette? Is Blitzkrieg just the name of a Swedish metal band? Show us the power of your military mind.</p>
+	                                <a src="#" id="start_quiz" class="btn btn-default"><span>START QUIZ</span></a>
+
+	                            </div>
+
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+		</div>
+
+		<div id="quiz-terms" style="display:none;text-align:left;">
+			<ul>
+				<li>The competition is open to UK entrants only</li>
+                <li>Entrants must be aged 18yrs or older</li>
+                <li>Employees of Gamer Network or Sony, or members of their family are not permitted to enter</li>
+                <li>The competition ends on the 23rd Dec</li>
+                <li>In the event of more than one entrant achieving the top score, the overall prize winner will be selected at random</li>
+                <li>The winner will be notified by email </li>
+                <li>The prizes will be dispatched within 30 days of the competition </li>
+                <li>The prize games will be supplied as either physical or digital copies </li>
+                <li>The yet to be released prizes, such as PlayStation VR will be sent to the winner as soon as retail versions are released </li>
+                <li>The judge's decision is final </li>
+                <li>By default, contact details will not stored and shared for the purposes of contacting winners only. </li>
+			</ul>
+		</div>
+
+	</div>
+
+	<hr />
+
+	<div id="gquiz3">
+
+		<div class="container">
+			<div class="row">
+	  			<div class="col-md-12">
+					<h2>Single Question Quiz</h2>
+					<p>We can also handle a quiz with a <a href="https://beta-gquiz-gamer-network-net.beta.gamer-network.net/quizes/14">single question</a>.  The question is displayed on page load, without a 'Start Quiz' button.  In the CMS, correct answers simple get a score of 1.  Incorrect answers will just be 0.</p>
+					<pre>
+$('#gquiz3').gquizAd({
+	'campaign_id' : '14',
+	'quiz_type' : 'single',
+	'container_id' : '.quiz-questions'
+});
+					</pre>
+				</div>
+			</div>
+		</div>
+
+		<div class="quiz-questions">
+			<div id="quiz-outer">
+	            <div class="container">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div id="quiz">
+
+	                            <div id="quiz_wrapper" class="single">
+
+	                                <div id="trailer">
+							            <video width="100%" loop="yes" id="auto_video" controls>
+							                <source src="https://images.eurogamer.net/2015/takeovers/civ6/2KVID_CivVI_Trailer_Announce_EN_PEGI_1920x1080.mp4" type="video/mp4">
+							            </video>
+									</div>
+
+	                            </div>
+
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+		</div>
+
+		<div id="quiz-terms" style="display:none;text-align:left;">
+			<ul>
+				<li>The competition is open to UK entrants only</li>
+                <li>Entrants must be aged 18yrs or older</li>
+                <li>Employees of Gamer Network or Blizzard, or members of their family are not permitted to enter</li>
+                <li>The competition ends on the 23rd Dec</li>
+                <li>In the event of more than one entrant achieving the top score, the overall prize winner will be selected at random</li>
+                <li>The winner will be notified by email </li>
+                <li>The prizes will be dispatched within 30 days of the competition </li>
+                <li>The prize games will be supplied as either physical or digital copies </li>
+                <li>The yet to be released prizes, such as PlayStation VR will be sent to the winner as soon as retail versions are released </li>
+                <li>The judge's decision is final </li>
+                <li>By default, contact details will not stored and shared for the purposes of contacting winners only. </li>
+			</ul>
+		</div>
+
+	</div>
+
+	<hr />
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#gquiz1').gquizAd({
+        	'campaign_id' : '1',
+        	'entries_id' : '.entries',
+        	'entries_count' : 10
+        });
+
+        $('#gquiz1 #start_quiz').on('click', function(e) {
+        	e.preventDefault();
+        	$('#gquiz1').gquizAd({
+	        	'campaign_id' : '1',
+	        	'container_id' : '.quiz-questions',
+	        	'randomise' : true,
+	        	'score_multipler' : 10,
+	        	'timer' : 10,
+	        	'lives' : 3
+	        });
+    	});
+
+    	$('#gquiz2 #start_quiz').on('click', function(e) {
+        	e.preventDefault();
+        	$('#gquiz2').gquizAd({
+	        	'campaign_id' : '10',
+	        	'container_id' : '.quiz-questions'
+	        });
+    	});
+
+    	$('#gquiz3').gquizAd({
+        	'campaign_id' : '14',
+        	'quiz_type' : 'single',
+        	'container_id' : '.quiz-questions'
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

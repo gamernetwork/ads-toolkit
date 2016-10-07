@@ -99,8 +99,6 @@
  
                   event.preventDefault();
 
-                  //j('#email-field').val(j('#email-field').val() + 'email');
-
                   var form = $(this);
                   var url = 'https://gpoll.gamer-network.net/gpoll/vote';
 
@@ -109,26 +107,17 @@
                       $('.vote-message', voter).append(data);
                   }
                    
-                  // if (window.XDomainRequest) {
-                  //     var xdr = new XDomainRequest();
-                  //     if (xdr) {
-                  //       xdr.onload = function() { successFunction(xdr.responseText); }
-                  //       xdr.open('post', url);
-                  //       xdr.send(form.serialize());
-                  //     }
-                  // } else {
-                      var posting = $.post( 
-                      url, 
-                      form.serialize() 
-                    );
+                  var posting = $.post( 
+                    url, 
+                    form.serialize() 
+                  );
 
-                      posting.done(function( data ) {
-                        $('.vote-message', voter).html(data);
-                        var message = '<p>' + j('h1', '#vote-message').text() + '</p>';
-                        $('.vote-message h1', voter).remove();
-                        $('.vote-message', voter).html(message);
-                    });
-                  //}
+                  posting.done(function( data ) {
+                      $('.vote-message', voter).html(data);
+                      var message = '<p>' + j('h1', '#vote-message').text() + '</p>';
+                      $('.vote-message h1', voter).remove();
+                      $('.vote-message', voter).html(message);
+                  });
                   
                 });
 

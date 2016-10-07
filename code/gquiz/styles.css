@@ -1,0 +1,237 @@
+
+#quiz {
+	position: relative;
+	text-align: center;
+	margin: 1em 0;
+}
+#quiz p {
+    font-size: 20px;
+}
+#quiz_wrapper {
+	text-align: center;
+}
+#quiz_answers span {
+	margin: 0 10px;
+}
+#quiz .quiz_question {
+	font-size: 1.5em;
+	line-height: 1em;
+	margin-bottom: 1em;
+}
+#quiz .quiz_question_number {
+    font-size: 25px;
+}
+.fab-prize {
+    margin: 0 auto;
+}
+#stats-wrapper {
+	border-top: 1px black solid;
+    border-bottom: 1px black solid;
+}
+#score_wrapper {
+}
+#score_wrapper p {
+    font-size: 25px;
+    margin: 0 0 0 10px;
+}
+.score-number {
+	font-weight: bold;
+    margin: 0 10px;
+}
+#lives_wrapper {
+	text-align: right;
+}
+.lives_tag {
+    float: right;
+    font-size: 35px;
+    margin-top: 10px;
+    display: none;
+}
+#lives_count ul {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    float: right;
+}
+#lives_count li {
+    display: list-item;
+    width: 41px;
+    height: 39px;
+    margin: 5px;
+    background: url(//images.eurogamer.net/2014/quiz/fallout4/img/Heart.png) no-repeat 0 0;
+}
+#lives_count li img {
+    width: 100%;
+    height: auto;
+}
+#timer-wrapper {
+    display: none;
+    margin-bottom: 30px;
+}
+#timer {
+	background: url(//images.eurogamer.net/2014/quiz/fallout4/img/Bar.png) repeat-y 0 0;
+	height: 10px;
+	width: 100%;
+}
+#timer-lines {
+    width: 100%;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+    height: 15px;
+}
+#timer-count {
+    width: 100%;
+    margin-top: 5px;
+    position: relative;
+}
+#timer-count ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#timer-count ul li {
+    display: inline-block;
+    /*width: 10%;*/
+    width: 50%;
+    text-align: center;
+    float: left;
+}
+/*#timer-count li span {
+    clear: both;
+    height: 14px;
+    width: 3px;
+}*/
+#timer-count ul li:first-of-type {
+    text-align: left;
+    position: absolute;
+    left: -3px;
+}
+/*#timer-count ul li:first-of-type span {
+    margin-right: 10px;
+}*/
+#timer-count ul li:last-of-type {
+    text-align: right;
+    position: absolute;
+    right: -3px;
+}
+#submit_form button {
+	clear: both;
+	width: 206px;
+}
+#preorder {
+    position: relative;
+    text-align: center;
+}
+#preorder .standard-btn {
+    margin-top: 20px;
+}
+#timer-guy {
+    display: none;
+}
+
+.flash {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: none;
+	top: 0;
+	left: 0;
+	opacity: 0.3;
+}
+
+#correct {
+    background: green;
+    color: green;
+}
+#incorrect {
+    background: red;
+    color: red;
+}
+#quiz .correct,
+#quiz .correct:hover {
+    background: green !important;
+    border-color: green !important;
+}
+#quiz .incorrect,
+#quiz .incorrect:hover {
+    background: red !important;
+    border-color: red !important;
+}
+
+#quiz .single .correct,
+#quiz .single .correct:hover {
+    background: transparent !important;
+    border-color: #ccc !important;
+}
+#quiz .single .incorrect,
+#quiz .single .incorrect:hover {
+    background: transparent !important;
+    border-color: #ccc !important;
+}
+.final_score {
+    font-size: 3em;
+}
+#submit_form {
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    width: 50%;
+    margin: 0 auto;
+    padding: 15px;
+}
+.entries-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.entries-list li {
+    padding: 5px;
+}
+.entries-list li:nth-of-type(odd) {
+    background-color: #f9f9f9;
+    padding: 5px;
+}
+.entries-list span {
+    display: inline-block;
+}
+.entries-list .username {
+    width: 33%;
+}
+.blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}

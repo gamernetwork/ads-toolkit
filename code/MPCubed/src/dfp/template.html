@@ -1,0 +1,98 @@
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+	<script src="//images.eurogamer.net/2015/ads/mpcubed/mpcubed-template.js?1" ></script>
+	<script src="//images.eurogamer.net/2015/ads/mpcubed/v2/dfp-mpcubed-template.js" ></script>
+	<script src="//images.eurogamer.net/2015/ads/mpcubed/v2/dfpportrait-mpcubed-template.js" ></script>
+	<link rel="stylesheet" type="text/css" href="//images.eurogamer.net/2015/ads/mpcubed/mpcubed.css?1" />
+</head>
+<body  onload="init()" style="margin:0">
+<div id="cube"></div>
+<script>
+
+	// tracking
+	var ad_name = '[%ad_name%]';
+	var site_name = '%%SITE%%';
+
+	// 0 = front
+	// 1 = right
+	// 2 = back
+	// 3 = left
+	
+	// images
+	var images = [];
+	images[0] = '[%front_img%]';
+	images[1] = '[%right_img%]';
+	images[2] = '[%back_img%]';
+	images[3] = '[%left_img%]';
+	
+	// links
+	var links = [];
+	links[0] = '[%front_link%]';
+	links[1] = '[%right_link%]';
+	links[2] = '[%back_link%]';
+	links[3] = '[%left_link%]';
+
+	// misc
+	var fallback_img = '[%fallback_img%]';
+	var fallback_link = '[%fallback_link%]';
+	var close_button_img = '[%close_button_img%]';
+
+	if(close_button_img == '') {
+		close_button_img = 'https://images.eurogamer.net/2015/ads/mpcubed/close.png';
+	}
+
+	function checkVideo(link) {
+		if (link.endsWith('.mp4')) return true;
+	    
+	    var re = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
+	    if (link != link.replace(re, '$1')) return true;
+
+	    return false;
+	}
+	
+    function init()
+    {
+    	if (!fallback_img) fallback_img = images[0]; // fallback_img not required
+
+    	var faces = [];
+    	for (var i = 0; i < links.length; i++) {
+    		if (checkVideo(links[i])) {
+    			faces[i] = {
+    				video: {
+    					url: links[i],
+    					poster: images[i]
+    				}
+    			}
+    		} else {
+    			faces[i] = {
+					img: images[i],
+					url: '%%CLICK_URL_ESC%%' + links[i]
+    			}
+    		}
+    	}
+
+    	// construct the cube
+		var cube = document.getElementById("cube");
+		var cubeAd = new DFPPortraitCubeAd(
+				cube,
+				{
+					img: fallback_img,
+					url: fallback_link
+				},
+				faces[0],
+				faces[1],
+				faces[2],
+				faces[3],
+				true,
+				close_button_img
+			);
+		cubeAd.setLockY(true);
+		cubeAd.setAnalyticsName(ad_name, site_name);
+		
+	}
+
+</script>
+
+</body>
+</html>

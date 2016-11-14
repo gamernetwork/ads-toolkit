@@ -91,7 +91,7 @@
                     }
                 });
 
-                $('.vote-answers-form', voter).append('<div class="vote-submit-button container"><div class="row"><div class="col-md-12"><label for="email">Email address: </label><input type="text" class="email email-box" name="email" placeholder="hello@hello.co.uk" />    <input type="submit" value="Submit" class="submit-button button red" /></div></div></div>');
+                $('.vote-answers-form', voter).append('<div class="vote-submit-button container"><div class="row"><div class="col-md-12"><label for="email">Email address: </label><input type="email" class="email email-box" name="email" placeholder="hello@hello.co.uk" />    <input type="submit" value="Submit" class="submit-button button red" /></div></div></div>');
 
                 $('.vote-answers-form', voter).append('<div class="vote-message" class="container"></div>');
 

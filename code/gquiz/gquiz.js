@@ -74,15 +74,10 @@
                     question_html += '<h2>Thank you, your answer has been logged!</h2>';
                 }
 
-                question_html += '<form id="submit_form" action="/score" method="post"><div class="form-group"><label for="email">Email:</label><input type="text" class="email form-control" placeholder="Email" name="email"></div><div class="form-group"><label for="username">Username:</label><input type="text" class="form-control username" placeholder="Username" name="username"></div><div class="checkbox"><label for="policy"><input type="checkbox" class="policy"> I agree to the <a href="#" id="open_terms">terms and conditions</a>.</label> <div id="policy-text"></div></div><input type="hidden" name="score" value="' + user_score + '"><input type="hidden" name="answers" value="' + session_log + '"><input type="hidden" name="quiz_id" value="' + defaults.campaign_id + '"><input type="hidden" name="option" /><input type="hidden" name="contact" value="1" /><button type="submit" class="btn btn-default" id="quiz_submit_link">Submit Score</button></form>';
+                question_html += '<form id="submit_form" action="/score" method="post"><div class="form-group"><label for="email">Email:</label><input required type="email" class="email form-control" placeholder="Email" name="email"></div><div class="form-group"><label for="username">Username:</label><input required type="text" class="form-control username" placeholder="Username" name="username"></div><div class="checkbox"><label for="policy"><input required type="checkbox" class="policy"> I agree to the <a href="#" id="open_terms">terms and conditions</a>.</label> <div id="policy-text"></div></div><input type="hidden" name="score" value="' + user_score + '"><input type="hidden" name="answers" value="' + session_log + '"><input type="hidden" name="quiz_id" value="' + defaults.campaign_id + '"><input type="hidden" name="option" /><input type="hidden" name="contact" value="1" /><button type="submit" class="btn btn-default" id="quiz_submit_link">Submit Score</button></form>';
                 
 
                 $('#quiz_wrapper', quiz).html(question_html);
-
-                $('#quiz_submit_link', quiz).click(function(e) {
-                    e.preventDefault();
-                    $('#submit_form', quiz).submit();
-                });
 
                 $('#start_quiz', quiz).on('click', function(e) {
                     e.preventDefault();
@@ -110,44 +105,21 @@
 
                     event.preventDefault();
 
-                    validEmail = IsEmail($('.email', this).val());
-                    username = $('.username', this).val();
+                    var form = $(this);
+                    var url = 'https://gquiz.gamer-network.net/score';
 
-                    checks = $('.policy', this);
-                    checked = true;
-                    for(i=0;i<checks.length;i++) {
-                        if(checks[i].checked == false){
-                            checked = false;
-                        }
-                    }
-                 
-                    if (validEmail == false) {
-                      alert('Please enter a valid email first!');
-                      return false;
-                    } else if(username == '') {
-                      alert('Please enter your name');
-                      return false; 
-                    } else if(checked == false) {
-                      alert('Please agree to the T&Cs');
-                      return false;     
-                    } else {
-                        var form = $(this);
-                        var url = 'https://gquiz.gamer-network.net/score';
+                    var posting = $.post( 
+                        url, 
+                        form.serialize() 
+                    );
 
-                        var posting = $.post( 
-                            url, 
-                            form.serialize() 
-                        );
+                    posting.done(function( data ) {
+                        
+                        $('#quiz_wrapper', quiz).html('<div id="submit_message"><p></p></div>');
+                        $('#submit_message p', quiz).html(data);
+                        $('#quiz_wrapper form', quiz).hide();
 
-                        posting.done(function( data ) {
-                            
-                            $('#quiz_wrapper', quiz).html('<div id="submit_message"><p></p></div>');
-                            $('#submit_message p', quiz).html(data);
-                            $('#quiz_wrapper form', quiz).hide();
-
-                        });
-                
-                    } 
+                    });
                     
                 });
 

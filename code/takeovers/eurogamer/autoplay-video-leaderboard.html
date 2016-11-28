@@ -3,8 +3,12 @@
     Clicking video opens Fancybox overlay.
     Leaderboard is transparent.
 
-    Update OVERLAY_VIDEO_HERE with Youtube/MP4 video that opens in the Fancybox overlay.
+    Update CTA_BUTTON_HERE with a button sprite and adjust height/width and left/top positioning.
+    
+    Update VIDEO_OVERLAY_IMAGE_HERE with a PNG image that sits over the video.
+    Update VIDEO_PLAY_BUTTON_HERE with a PNG sprite that sits over the video.
     Update LOOP_VIDEO_HERE with 10-15 second mp4 video loop (small file size, less than 1MB).  Update height/width on <video> tag.
+    Update OVERLAY_VIDEO_HERE with Youtube/MP4 video that opens in the Fancybox overlay.
     Update absolute positioning for #leaderboard-video-link CSS.
     Update ANALYTICS_REF_HERE for Analytics Event tracking.
     For skin, only need to update takeover_skin_image, takeover_bg_color, skin_top_offset and leaderboard_height
@@ -17,6 +21,20 @@
     height: 250px;
     position: relative;
 }
+#buy-now-cta {
+    width:296px;
+    height:137px;
+    background-image:url('CTA_BUTTON_HERE');
+    background-position:0 0;
+    background-size: 100% 200%;
+    position:absolute;
+    top: 117px;
+    left: 100px;
+}
+
+#buy-now-cta:hover {
+    background-position:0 137px;
+}
 #leaderboard-link {
     display:block;
     width:100%;
@@ -25,10 +43,39 @@
 #leaderboard-video-link {
     position: absolute;
     top: 0;
-    left: 719px;
+    right: 0;
     display: block;
-    width: 324px;
-    height: 248px;
+    width: 620px;
+    height: 250px;
+}
+#leaderboard-video-link video {
+    position: absolute;
+    left: 53px;
+}
+#video_overlay {
+    width: 100%;
+    height: 100%;
+    background: url('VIDEO_OVERLAY_IMAGE_HERE') no-repeat 0;
+    position: absolute;
+    top: 0;
+}
+#video-play {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+#video-play span {
+    width: 78px;
+    height: 78px;
+    background: url('VIDEO_PLAY_BUTTON_HERE') no-repeat 0 0;
+    position: absolute;
+    top: 42px;
+    left: 305px;
+}
+#video-play:hover span {
+    background-position: 0 -78px;
 }
 </style>
 
@@ -43,12 +90,15 @@
 <div id="leaderboard-wrapper">
 
     <a id="leaderboard-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
+    <a href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"><div id="buy-now-cta"></div></a>
 
-    <a id="leaderboard-video-link" href="OVERLAY_VIDEO_HERE" target="_blank">
-        <video width="324px" height="248px" loop="yes" muted="yes" id="auto_video" autoplay>
+    <div id="leaderboard-video-link">
+        <video width="560px" height="250px" loop="yes" muted="yes" id="auto_video" autoplay>
             <source src="LOOP_VIDEO_HERE" type="video/mp4">
         </video>
-    </a>
+        <div id="video_overlay"></div>
+        <a id="video-play" href="OVERLAY_VIDEO_HERE" target="_blank"><span></span></a>
+    </div>
 
 </div>
 

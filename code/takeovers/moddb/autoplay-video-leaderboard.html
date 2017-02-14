@@ -85,8 +85,8 @@
         parent.jQuery('.billboard').css({'max-width' : '1260px'});
     }
 
-    if(this_site == 'pushsquare.com' || this_site == 'purexbox.com') {
-        var skin_top_offset = '152';
+    if(this_site == 'pushsquare.com') {
+        var page_wrapper = '#page';
     }
 
     if(this_site == 'indiedb.com') {
@@ -96,6 +96,10 @@
     if(this_site == 'vrfocus.com') {
         var page_wrapper = '#page';
         var skin_top_offset = '85';
+    }
+
+    if(this_site == 'roadtovr.com') {
+        var page_wrapper = '#td-outer-wrap > .td-outer-container';
     }
 
     if(this_site == 'moddb.com' || this_site == 'indiedb.com') {

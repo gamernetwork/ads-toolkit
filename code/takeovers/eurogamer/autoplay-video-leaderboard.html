@@ -147,6 +147,10 @@
         var skin_top_offset = '85';
     }
 
+    if(this_site == 'roadtovr.com') {
+        var page_wrapper = '#td-outer-wrap > .td-outer-container';
+    }
+
     if(this_site == 'moddb.com' || this_site == 'indiedb.com') {
 
         parent.$('body').css('background', takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px').prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;'></div>");

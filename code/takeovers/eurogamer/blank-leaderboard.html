@@ -7,7 +7,7 @@
  -->
 
 <!-- BLANK LEADERBOARD -->
-<a href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank" style="display:block;width:100%;height:100%"></a>
+<a href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank" style="display:block;width:1260px;height:250px"></a>
 
 <!-- SKIN CODE -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -41,8 +41,8 @@
         parent.jQuery('.billboard').css({'max-width' : '1260px'});
     }
 
-    if(this_site == 'pushsquare.com' || this_site == 'purexbox.com') {
-        var skin_top_offset = '152';
+    if(this_site == 'pushsquare.com') {
+        var page_wrapper = '#page';
     }
 
     if(this_site == 'indiedb.com') {
@@ -52,6 +52,10 @@
     if(this_site == 'vrfocus.com') {
         var page_wrapper = '#page';
         var skin_top_offset = '85';
+    }
+
+    if(this_site == 'roadtovr.com') {
+        var page_wrapper = '#td-outer-wrap > .td-outer-container';
     }
 
     if(this_site == 'moddb.com' || this_site == 'indiedb.com') {

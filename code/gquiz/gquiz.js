@@ -79,11 +79,6 @@
 
                 $('#quiz_wrapper', quiz).html(question_html);
 
-                $('#quiz_submit_link', quiz).click(function(e) {
-                    e.preventDefault();
-                    $('#submit_form', quiz).submit();
-                });
-
                 $('#start_quiz', quiz).on('click', function(e) {
                     e.preventDefault();
                     playAgain();
@@ -110,44 +105,21 @@
 
                     event.preventDefault();
 
-                    validEmail = IsEmail($('.email', this).val());
-                    username = $('.username', this).val();
+                    var form = $(this);
+                    var url = 'https://gquiz.gamer-network.net/score';
 
-                    checks = $('.policy', this);
-                    checked = true;
-                    for(i=0;i<checks.length;i++) {
-                        if(checks[i].checked == false){
-                            checked = false;
-                        }
-                    }
-                 
-                    if (validEmail == false) {
-                      alert('Please enter a valid email first!');
-                      return false;
-                    } else if(username == '') {
-                      alert('Please enter your name');
-                      return false; 
-                    } else if(checked == false) {
-                      alert('Please agree to the T&Cs');
-                      return false;     
-                    } else {
-                        var form = $(this);
-                        var url = 'https://gquiz.gamer-network.net/score';
+                    var posting = $.post( 
+                        url, 
+                        form.serialize() 
+                    );
 
-                        var posting = $.post( 
-                            url, 
-                            form.serialize() 
-                        );
+                    posting.done(function( data ) {
+                        
+                        $('#quiz_wrapper', quiz).html('<div id="submit_message"><p></p></div>');
+                        $('#submit_message p', quiz).html(data);
+                        $('#quiz_wrapper form', quiz).hide();
 
-                        posting.done(function( data ) {
-                            
-                            $('#quiz_wrapper', quiz).html('<div id="submit_message"><p></p></div>');
-                            $('#submit_message p', quiz).html(data);
-                            $('#quiz_wrapper form', quiz).hide();
-
-                        });
-                
-                    } 
+                    });
                     
                 });
 

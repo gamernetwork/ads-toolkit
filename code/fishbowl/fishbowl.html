@@ -46,7 +46,7 @@
 <!-- The Fish Bowl MPU Fallback -->
 <a href="%%CLICK_URL_ESC%%%%DEST_URL%%" title="Click-through" target="_blank" class="fishbowl-ad" id="fishbowl_fallback_link">
     <div id="fishbowl-fallback" style="display:none;">
-        <img src="FALLBACK_IMAGE" width="300px" height="250px" />
+        <img src="[%FALLBACK_IMAGE%]" width="300px" height="250px" />
     </div>
 </a>
 
@@ -94,7 +94,6 @@
 
     }
 
-
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
@@ -117,7 +116,10 @@
         mobileMPU_reset.css({
             'width': '0',
             'margin': '0',
-            'position': 'relative'
+            'position': 'relative',
+            'overflow': 'visible',
+            'left':'0',
+            'transform':'inherit'
         });
         var mobileMPU = parent.jQuery('#fishbowl-move-this').parent();
     } else {
@@ -139,9 +141,7 @@
                 'width': '0',
                 'margin': '0 0 20px 0',
                 'position': 'relative',
-                'overflow': 'visible',
-                'left':'0',
-                'transform':'inherit'
+                'overflow': 'visible'
             });
 
             // Sort out USG MPU left margin
@@ -183,12 +183,13 @@
             }
         });
 
-    }).attr('src', 'FISHBOWL_IMAGE');
+    }).attr('src', 'INSERT_TRACKING_URL_HERE');
+
+    frameElement.style.width = '300px';
 
 </script>
 
-
-<!-- TRAKING PIXEL -->
+<!-- TRACKING PIXEL -->
 <div style="position: absolute; left: 0px; top: 0px; visibility: hidden;">
     <img width='1' height='1' style='border:0' src='INSERT_TRACKING_URL_HERE'/>
 </div>

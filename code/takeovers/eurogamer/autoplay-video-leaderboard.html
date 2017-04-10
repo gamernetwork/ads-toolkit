@@ -3,10 +3,10 @@
     Clicking video opens Fancybox overlay.
     Leaderboard is transparent.
 
-    Update CTA_BUTTON_HERE with a button sprite and adjust height/width and left/top positioning.
+    Update CTA_BUTTON_HERE with a button image and adjust height/width and left/top positioning.
     
     Update VIDEO_OVERLAY_IMAGE_HERE with a PNG image that sits over the video.
-    Update VIDEO_PLAY_BUTTON_HERE with a PNG sprite that sits over the video.
+    Update VIDEO_PLAY_BUTTON_HERE with a PNG image that sits over the video.
     Update LOOP_VIDEO_HERE with 10-15 second mp4 video loop (small file size, less than 1MB).  Update height/width on <video> tag.
     Update OVERLAY_VIDEO_HERE with Youtube/MP4 video that opens in the Fancybox overlay.
     Update absolute positioning for #leaderboard-video-link CSS.
@@ -17,65 +17,49 @@
 
 <style>
 #leaderboard-wrapper {
-    width: 1260px;
-    height: 250px;
+    width: 1260px; height: 250px;
     position: relative;
 }
-#buy-now-cta {
-    width:296px;
-    height:137px;
-    background-image:url('CTA_BUTTON_HERE');
-    background-position:0 0;
-    background-size: 100% 200%;
-    position:absolute;
-    top: 117px;
-    left: 100px;
+#leaderboard-link {
+    display: block;
+    width: 100%; height: 100%;
 }
 
-#buy-now-cta:hover {
-    background-position:0 137px;
-}
-#leaderboard-link {
-    display:block;
-    width:100%;
-    height:100%;
-}
 #leaderboard-video-link {
+    width: 500px; height: 250px;
+    top: 0; right: 0;
     position: absolute;
-    top: 0;
-    right: 0;
     display: block;
-    width: 620px;
-    height: 250px;
 }
 #leaderboard-video-link video {
+    top: 0; left: 0;
     position: absolute;
-    left: 53px;
 }
 #video_overlay {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
     background: url('VIDEO_OVERLAY_IMAGE_HERE') no-repeat 0;
     position: absolute;
-    top: 0;
 }
 #video-play {
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    background: url('VIDEO_PLAY_BUTTON_HERE') no-repeat center center;
+    position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
+    transition: filter .25s;
 }
-#video-play span {
-    width: 78px;
-    height: 78px;
-    background: url('VIDEO_PLAY_BUTTON_HERE') no-repeat 0 0;
-    position: absolute;
-    top: 42px;
-    left: 305px;
+#video-play:hover {
+    filter: brightness(1.25);
 }
-#video-play:hover span {
-    background-position: 0 -78px;
+#buy-now-cta {
+    width: 300px; height: 150px;
+    top: 100px; left: 100px;
+    background: url('CTA_BUTTON_HERE') center no-repeat;
+    position: absolute;
+}
+#buy-now-cta:hover {
+    filter: brightness(1.25);
 }
 </style>
 
@@ -97,7 +81,7 @@
             <source src="LOOP_VIDEO_HERE" type="video/mp4">
         </video>
         <div id="video_overlay"></div>
-        <a id="video-play" href="OVERLAY_VIDEO_HERE" target="_blank"><span></span></a>
+        <a id="video-play" href="OVERLAY_VIDEO_HERE" target="_blank"></a>
     </div>
 
 </div>
@@ -106,18 +90,16 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
 
-    var jQuery = jQuery.noConflict();
-
     <!-- UPDATE THESE -->
+    var analytics_ref = 'ANALYTICS_REF_HERE';
     var takeover_skin_image = 'SKIN_IMAGE_HERE'; // Skin image URL
     var takeover_bg_color = 'black';  // Or use hexcode like #cccccc
     var skin_top_offset = '0'; // If you need to move the skin background image up or down then add number here (e.g. -118) or set as 0
     var leaderboard_height = '250'; // Change if you need to make the leaderboard shorter/taller
 
     <!-- NO NEED TO ALTER CODE BELOW -->
-
+    var jQuery = jQuery.noConflict();
     var takeover_skin_link = '%%DEST_URL%%';
-        
     var page_wrapper = '#page-wrapper';
     var this_site = '%%SITE%%';
 
@@ -205,7 +187,7 @@
 
         jQuery('#video-play').click(function(e) {
             e.preventDefault();
-            ga('showcase.send', 'event', 'ANALYTICS_REF_HERE', 'Click Leaderboard Video', '%%SITE%%' );
+            ga('showcase.send', 'event', analytics_ref, 'Click Leaderboard Video', this_site );
             parent.jQuery.fancybox({
                 type        : 'iframe',
                 href        : this.href,

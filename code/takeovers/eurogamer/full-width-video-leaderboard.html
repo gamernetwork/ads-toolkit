@@ -1,6 +1,6 @@
 <!-- SKIN CODE -->
 <!-- Assuming inside friendly iframe -->
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 
     // analytics
@@ -40,6 +40,9 @@
     var popup_video_youtube_link = '[%popup_video_youtube_link%]';
     var popup_video_width = '[%popup_video_width%]';
     var popup_video_height = '[%popup_video_height%]';
+    var popup_video_banner_image = '[%popup_video_banner_image%]';
+    var popup_video_banner_height = '[%popup_video_banner_height%]';
+    var popup_video_banner_link = '[%popup_video_banner_link%]';
 
     var analytics_ref = '[%analytics_ref%]';
 
@@ -78,7 +81,7 @@
         var page_wrapper = '#td-outer-wrap > .td-outer-container';
     }
 
-    if (top != self){ //escape the iframe and write the ad outside it
+    if (top != self) {
         
         parent.jQuery('body').addClass('skin');
         parent.jQuery('#leaderboard').css({'height' : leaderboard_height + 'px'});
@@ -103,14 +106,21 @@
         parent.jQuery('#ad-blank').css({'position' : 'absolute', 'top' : '0', left : '0'});
 
         // button
-        parent.jQuery('#leaderboard').append('<a class="iframe" id="ad-button" href="https://www.youtube.com/embed/' + popup_video_youtube_link + '?autoplay=1"><img id="ad-button-image" src=' + button_image + ' width="' + button_width + '" height="' + button_height + '"></a>');
+        parent.jQuery('#leaderboard').append('<a class="iframe" id="ad-button" href="https://www.youtube.com/embed/' + YouTubeGetID(popup_video_youtube_link) + '?autoplay=1"><img id="ad-button-image" src=' + button_image + ' width="' + button_width + '" height="' + button_height + '"></a>');
         parent.jQuery('#ad-button')
             .css({'position' : 'absolute', 'top' : button_top_offset + 'px', left : button_left_offset + 'px'})
             .click(function(e) {
                 e.preventDefault();
-                
+
                 if (analytics_ref) {
                     ga('showcase.send', 'event', analytics_ref, 'Click Leaderboard Video', '%%SITE%%' );
+                }
+
+                var popup_video_max_height = '90%';
+                if (popup_video_banner_image && popup_video_banner_height > 0) {
+                    if (popup_video_banner_height == '') popup_video_banner_height = 180;
+                    var max_height = jQuery(window.top).height() - popup_video_banner_height - 50;
+                    if (max_height > 250) popup_video_max_height = max_height + 'px';
                 }
 
                 parent.jQuery.fancybox({
@@ -119,10 +129,19 @@
                     fitToView   : false,
                     width       : popup_video_width + 'px',
                     height      : popup_video_height + 'px',
+                    maxWidth    : '90%',
+                    maxHeight   : popup_video_max_height,
                     autoSize    : false,
                     scrolling   : 'no',
                     padding     : '0'
                 });
+
+                if (popup_video_banner_image && popup_video_banner_height > 0) {
+                    var banner_link = '%%CLICK_URL_UNESC%%%%DEST_URL%%';
+                    if (popup_video_banner_link) banner_link = popup_video_banner_link;
+                    parent.jQuery('.fancybox-skin').append('<a href="' + banner_link + '" target="_blank"><img id="ad-fancy-banner" src="' + popup_video_banner_image + '" /></a>');
+                    parent.jQuery('#ad-fancy-banner').css({'width' : '100%', 'max-height' : popup_video_banner_height + 'px', 'display' : 'block'});
+                }
             });
 
         if (button_image_hover) {
@@ -146,6 +165,19 @@
             window.open('%%CLICK_URL_UNESC%%%%DEST_URL%%', '_blank');
         }
     });
+
+    function YouTubeGetID(url) {
+        var ID = '';
+        url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+        if (url[2] !== undefined) {
+            ID = url[2].split(/[^0-9a-z_\-]/i);
+            ID = ID[0];
+        }
+        else {
+            ID = url[0];
+        }
+        return ID;
+    }
     
 </script>
 

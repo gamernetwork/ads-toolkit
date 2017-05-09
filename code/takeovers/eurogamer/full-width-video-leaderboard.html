@@ -19,6 +19,7 @@
     var takeover_bg_color = '[%takeover_bg_color%]';
     var skin_top_offset = '[%skin_top_offset%]';
     var leaderboard_height = '[%leaderboard_height%]';
+    var supersize_me = false;
 
     var bg_video_url = '[%bg_video_url%]';
     var bg_video_width = '[%bg_video_width%]';
@@ -72,11 +73,6 @@
         var skin_top_offset = '-38';
     }
 
-    if(this_site == 'vrfocus.com') {
-        var page_wrapper = '#page';
-        var skin_top_offset = '85';
-    }
-
     if(this_site == 'roadtovr.com') {
         var page_wrapper = '#td-outer-wrap > .td-outer-container';
     }
@@ -86,9 +82,20 @@
         parent.jQuery('body').addClass('skin');
         parent.jQuery('#leaderboard').css({'height' : leaderboard_height + 'px'});
 
-        if (leaderboard_height) {
+        if(leaderboard_height){
             frameElement.style.height = leaderboard_height + 'px';
-            parent.jQuery(page_wrapper).css({'background' : takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px', 'overflow' : 'hidden'});
+            parent.jQuery(page_wrapper).each(function () {
+                this.style.setProperty('background-image', 'url(' + takeover_skin_image + ')', 'important' );
+                this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
+                this.style.setProperty('background-repeat', 'no-repeat', 'important');
+            });
+        }
+
+        if(supersize_me) {
+            parent.jQuery(".right-sidebar").remove();
+            parent.jQuery(page_wrapper).each(function () {
+                 this.style.setProperty( 'background-color', takeover_bg_color, 'important' );
+            });
         }
 
         // bg video
@@ -153,7 +160,7 @@
     }
     
     parent.jQuery('html').bind('mousemove', function(e) {
-        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
                 parent.jQuery('html').css({ 'cursor' : 'pointer' });
         } else {
                 parent.jQuery('html').css({ 'cursor' : 'auto' });
@@ -161,7 +168,7 @@
     });
     
     parent.jQuery('html').bind('click', function (e) { 
-        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+        if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
             window.open('%%CLICK_URL_UNESC%%%%DEST_URL%%', '_blank');
         }
     });

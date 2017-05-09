@@ -93,9 +93,10 @@
     <!-- UPDATE THESE -->
     var analytics_ref = 'ANALYTICS_REF_HERE';
     var takeover_skin_image = 'SKIN_IMAGE_HERE'; // Skin image URL
-    var takeover_bg_color = 'black';  // Or use hexcode like #cccccc
     var skin_top_offset = '0'; // If you need to move the skin background image up or down then add number here (e.g. -118) or set as 0
     var leaderboard_height = '250'; // Change if you need to make the leaderboard shorter/taller
+    var supersize_me = false;
+    var takeover_bg_color = 'black';  // Or use hexcode like #cccccc
 
     <!-- NO NEED TO ALTER CODE BELOW -->
     var jQuery = jQuery.noConflict();
@@ -160,12 +161,21 @@
         if(leaderboard_height){
             frameElement.style.height = leaderboard_height + 'px';
             parent.jQuery(page_wrapper).each(function () {
-                 this.style.setProperty( 'background', takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px', 'important' );
+                this.style.setProperty('background-image', 'url(' + takeover_skin_image + ')', 'important' );
+                this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
+                this.style.setProperty('background-repeat', 'no-repeat', 'important');
+            });
+        }
+
+        if(supersize_me) {
+            parent.jQuery(".right-sidebar").remove();
+            parent.jQuery(page_wrapper).each(function () {
+                 this.style.setProperty( 'background-color', takeover_bg_color, 'important' );
             });
         }
 
         parent.jQuery('html').bind('mousemove', function(e) {
-            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
                     parent.jQuery('html').css({ 'cursor' : 'pointer' });
             } else {
                     parent.jQuery('html').css({ 'cursor' : 'auto' });
@@ -173,7 +183,7 @@
         });
 
         parent.jQuery('html').bind('click', function (e) { 
-            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1200 ) ) {
+            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
                 window.open('%%CLICK_URL_ESC%%' + takeover_skin_link,'_blank');
             }
         }); 

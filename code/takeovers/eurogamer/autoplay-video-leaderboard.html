@@ -175,7 +175,7 @@
         }
 
         parent.jQuery('html').bind('mousemove', function(e) {
-            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
+            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 + parent.jQuery(page_wrapper).position().top ) ) {
                     parent.jQuery('html').css({ 'cursor' : 'pointer' });
             } else {
                     parent.jQuery('html').css({ 'cursor' : 'auto' });
@@ -183,7 +183,7 @@
         });
 
         parent.jQuery('html').bind('click', function (e) { 
-            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 ) ) {
+            if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= 1300 + parent.jQuery(page_wrapper).position().top ) ) {
                 window.open('%%CLICK_URL_ESC%%' + takeover_skin_link,'_blank');
             }
         }); 

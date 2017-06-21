@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GOG Price Search</title>
+	<link rel="stylesheet" type="text/css" href="spinner.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+		html, body {
+			font-family: Helvetica, sans-serif;
+			font-size: 20px;
+			margin: 0;
+		}
+		header {
+			background-color: #0C3544;
+			width: 100%;
+			padding: 10px 50px;
+		}
+		h1 {
+			color: white;
+			display: block;
+			float: right;
+			line-height: 60px;
+			margin: 0;
+		}
+		ul.prices li:nth-child(2),
+		ul.prices li:nth-child(7) {
+			margin-bottom: 20px;
+		}
+		ul.prices li:empty { display: none; }
+		* { box-sizing: border-box; }
+		form.search,
+		div.info {
+			margin: 50px auto;
+			display: block;
+			max-width: 500px;
+		}
+		input[type="text"] {
+			width: 320px;
+		}
+		input[type="button"] {
+			width: 160px;
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+
+<header>
+	<img src="//cdn.gamer-network.net/2017/jellydeals/Jelly_deals_logo_240x60.png" alt="Jelly Deals Logo" class="logo" width="240" height="60" />
+	<h1>GOG Price Lookup Tool</h1>
+</header>
+
+<form class="search">
+	<h2>Search</h2>
+	<input type="text" name="title" value="Witcher 3: Wild Hunt, The" class="searchbox" /><input type="button" value="Submit" onclick="startSearch()" />
+</form>
+
+<div class="spinner"></div>
+
+<div class="info">
+	<h2 class="title"></h2>
+	<ul class="prices"></ul>
+</div>
+
+<script type="text/javascript">
+
+	var current_page = 1;
+
+	var countries = [
+		{ code: 'GB', currency: 'GBP' },
+		{ code: 'US', currency: 'USD' },
+		{ code: 'DE', currency: 'EUR' },
+		{ code: 'ES', currency: 'EUR' },
+		{ code: 'FR', currency: 'EUR' },
+		{ code: 'IT', currency: 'EUR' },
+		{ code: 'PT', currency: 'EUR' },
+		{ code: 'AU', currency: 'AUD' },
+		{ code: 'BR', currency: 'BRL' },
+		{ code: 'CA', currency: 'CAD' },
+		{ code: 'CH', currency: 'CHF' },
+		{ code: 'DK', currency: 'DKK' },
+		{ code: 'NO', currency: 'NOK' },
+		{ code: 'PL', currency: 'PLN' },
+		{ code: 'RU', currency: 'RUB' },
+		{ code: 'SE', currency: 'SEK' },
+	];
+
+	function getPrice(id, country, currency, n) {
+
+		var prices_url = '//api.gog.com/products/' + id + '/prices?countryCode=' + country;
+
+		$.getJSON( prices_url, function( data ) {
+			  $.each( data, function( key, val ) {
+					if (key == '_embedded') {
+						for (var i = 0; i < val.prices.length; i++) {
+							if (val.prices[i].currency.code == currency) {
+								var html = '<span style="text-decoration: line-through;">' + (parseInt(val.prices[i].basePrice) / 100).toFixed(2) + '</span> ' + (parseInt(val.prices[i].finalPrice) / 100).toFixed(2) + ' ' + currency + ' (' + country + ')';
+								$($('.prices li')[n]).html(html);
+							}
+						}
+					}
+			  });
+		});
+
+	}
+
+	function findProduct(page) {
+
+		var games_url = '//api.gog.com/v1/games?limit=200&total=1000000&page=' + page;
+		var search_text = $('.searchbox').val().trim();
+
+		$.getJSON( games_url, function( data ) {
+			  $.each( data, function( key, val ) {
+					if (key == '_embedded') {
+						for (var i = 0; i < val.items.length; i++) {
+							var title = val.items[i]._embedded.product.title.trim();
+							if (title == search_text) {
+								foundProduct(val.items[i]._embedded.product);
+								return;
+							}
+						}
+						current_page ++;
+						findProduct(current_page);
+					}
+
+			  });
+		}).fail(searchFailed);
+
+	}
+
+	function startSearch() {
+
+		$('.title').empty();
+		$('.prices').empty();
+		$('.spinner').addClass('loading');
+		current_page = 1;
+		findProduct(current_page);
+
+	}
+
+	function searchFailed() {
+
+		$('.spinner').removeClass('loading');
+		$('.title').html('Game not found.');
+		$('.prices').empty();
+
+	}
+
+	function foundProduct(product) {
+
+		$('.spinner').removeClass('loading');
+		$('.title').html(product.title);
+
+		for (var i = 0; i < countries.length; i++) {
+			$('.prices').append('<li />');
+			getPrice(product.id, countries[i].code, countries[i].currency, i);
+		}
+	}
+
+</script>
+
+</body>
+</html>

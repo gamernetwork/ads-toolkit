@@ -99,13 +99,15 @@
     var takeover_bg_color = 'black';  // Or use hexcode like #cccccc
 
     <!-- NO NEED TO ALTER CODE BELOW -->
-    var jQuery = jQuery.noConflict();
+
     var takeover_skin_link = '%%DEST_URL%%';
+        
     var page_wrapper = '#page-wrapper';
     var this_site = '%%SITE%%';
 
     if(this_site == 'nintendolife.com') {
         var page_wrapper = '#page';
+        parent.jQuery('.inset').css({'position' : 'relative'});
     }
 
     if(this_site == 'primagames.com') {
@@ -113,21 +115,16 @@
     }
 
     if(this_site == 'metabomb.net') {
-        var page_wrapper = '.document';
         parent.jQuery('.billboard').css({'max-width' : '1260px'});
     }
 
     if(this_site == 'pushsquare.com') {
         var page_wrapper = '#page';
+        parent.jQuery('.inset').css({'position' : 'relative'});
     }
 
     if(this_site == 'indiedb.com') {
         var skin_top_offset = '-38';
-    }
-
-    if(this_site == 'vrfocus.com') {
-        var page_wrapper = '#page';
-        var skin_top_offset = '85';
     }
 
     if(this_site == 'roadtovr.com') {
@@ -147,25 +144,34 @@
             parent.jQuery('body').addClass('skin');
         }
 
+       parent.jQuery(page_wrapper).prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; width: 100%; height: 1300px;'></div>");
+          parent.jQuery('#gn_takeover').each(function () {
+                this.style.setProperty('background-color', takeover_bg_color, 'important' );
+                this.style.setProperty('background-image', 'url(' + takeover_skin_image + ')', 'important' );
+                this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
+                this.style.setProperty('background-repeat', 'no-repeat', 'important');
+            });
+        parent.jQuery('#gn_takeover').click(function(){
+          window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+        });
+
         parent.jQuery('#leaderboard').css({'height' : leaderboard_height + 'px', 'min-height' : leaderboard_height + 'px'});
         parent.jQuery('.advert.leaderboard.landscape').css({'height' : leaderboard_height + 'px'});
         parent.jQuery('.leaderboard-container').css({'padding' : '0'});
 
         if(this_site == 'metabomb.net') {
             parent.jQuery('.document').css({'padding':'0'});
-            parent.jQuery('.billboard').css({'padding':'0'});
-            parent.jQuery('.billboard .advert').css({'padding':'0','width':'1260px'});
+            parent.jQuery('.billboard-container').css({'padding':'0'});
+            parent.jQuery('.billboard.advert').css({'padding':'0','width':'1260px'});
             frameElement.style.width = '1260px';
         }
 
         if(leaderboard_height){
             frameElement.style.height = leaderboard_height + 'px';
             parent.jQuery(page_wrapper).each(function () {
-                this.style.setProperty('background-image', 'url(' + takeover_skin_image + ')', 'important' );
-                this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
-                this.style.setProperty('background-repeat', 'no-repeat', 'important');
+                 this.style.setProperty( 'position', 'relative' );
             });
-        }
+        } 
 
         if(supersize_me) {
             parent.jQuery(".right-sidebar").remove();

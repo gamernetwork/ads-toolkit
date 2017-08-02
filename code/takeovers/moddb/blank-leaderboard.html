@@ -29,21 +29,17 @@
     var page_wrapper = '#page-wrapper';
     var this_site = '%%SITE%%';
 
-    if(this_site == 'nintendolife.com') {
-        var page_wrapper = '#page';
-    }
-
-    if(this_site == 'primagames.com') {
-        var page_wrapper = '#site-wrapper';
-    }
-
     if(this_site == 'metabomb.net') {
-        var page_wrapper = '.document';
         parent.jQuery('.billboard').css({'max-width' : '1260px'});
+        parent.jQuery('.billboard-container').css({'padding' : '0'});
     }
 
-    if(this_site == 'pushsquare.com') {
+    if(this_site == 'nintendolife.com' || this_site == 'pushsquare.com') {
         var page_wrapper = '#page';
+        parent.jQuery('.inset').css({'position' : 'relative'});
+        parent.jQuery('.insert.for-desktop').css({'padding' : '0'});
+        parent.jQuery('.masthead .insert').css({'min-height':'auto'});
+        frameElement.style.width = '1280px';
     }
 
     if(this_site == 'indiedb.com') {

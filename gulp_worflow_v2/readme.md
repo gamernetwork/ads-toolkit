@@ -59,11 +59,11 @@ The final creative can be found in final-build/index.html
 ```
 - CD Into 'a_template_file'
 
-- Run **gulp watch** to start listening for changes and boot up the local server
+- Run __gulp watch__ to start listening for changes and boot up the local server
 
 - Develop creative as normal
 
-- When the creative is finished, run **gulp build**. 
+- When the creative is finished, run __gulp build__. 
 
 - The final creative can be found in final-build/index.html
 ```

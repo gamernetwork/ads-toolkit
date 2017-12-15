@@ -3,11 +3,12 @@
 A template created to facilitate the quick creation and deployment of ad-creatives
 
 ## Getting Started 
-
+```
 1: Clone the 'a_template_file'
 2: Navigate to the 'app' folder, this is the folder used for local development.
 3: Within 'app' there are a number of folders and files already, to get started: 'index.html' is the primary development file, 'sass/styles.sass' is the styling file and 'js/main.js' is the main js file.
 NOTE: The template comes with some css / js dependancies as standard, these provide some useful functionality for ad-creative devlopment, but are totally optional. See 'a_' functionality below for details.
+```
 
 ### Requirements 
 

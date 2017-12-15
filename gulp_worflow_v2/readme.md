@@ -4,7 +4,7 @@ A template created to facilitate the quick creation and deployment of ad-creativ
 
 ## Getting Started 
 ```
-1: Clone the 'a_template_file'
+1: Clone this repo
 
 2: Navigate to the 'app' folder, this is the folder used for local development.
 

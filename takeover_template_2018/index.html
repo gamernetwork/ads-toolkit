@@ -21,7 +21,7 @@
         .ad-wrapper {
             position: relative;
             top: 0; left: 0;
-            background-image: url('assets/takeoversynctest.jpg');
+            background-image: url('');
         }
         .ad-wrapper[rel~="eg-leaderboard"] {
             width: 1260px;
@@ -66,14 +66,14 @@
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('assets/');
+            background-image: url('');
         }
         .video-overlay-link {
             position: absolute;
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('assets/');
+            background-image: url('');
             background-repeat: no-repeat;
             background-position: center center;
             z-index: 1;
@@ -146,7 +146,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="text/javascript">
         var analytics_ref = 'ANALYTICS_REF_HERE';
-        var takeover_skin_image = 'assets/takeoversynctest.jpg'; 
+        var takeover_skin_image = '%%FILE:SKIN%%'; 
         var skin_top_offset = '0'; 
         var leaderboard_height = '250'; 
         var supersize_me = false;
@@ -166,8 +166,27 @@
         // Pause animation and hide till assets and skin image have loaded (leaderboard code)
         if(!IS_HALFPAGE) {
             // Target halfpage iframe to be sent postMessage alerting that leaderboard and skin have loaded
-            if(this_site !== '%%SITE%%') {
-                var targetHalfpage = parent.jQuery('#div-ga-EGNET_HP').find('iframe');
+            if(!IS_DEV) {
+                var halfpageContainer = '#skyscraper';
+                switch(this_site) {
+                    case 'usgamer.net':
+                        halfpageContainer = '#div-gpt-ad-USG_HP';
+                    break;
+                    case 'moddb.com':
+                    case 'indiedb.com':
+                        halfpageContainer = '.DBsupporter';
+                    break;
+                    case 'metabomb.net':
+                        halfpageContainer = '#div-gpt-ad-META_HALFPAGE';
+                    break;
+                    case 'pushsquare.com': 
+                        halfpageContainer = '#w5af444a4e7ce6';
+                    break;
+                    case 'nintendolife.com':
+                        halfpageContainer = '#c5af444ecd0a81';
+                    break;
+                }
+                var targetHalfpage = parent.jQuery(halfpageContainer).find('iframe');
                 var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
             }
             document.querySelector('.skin-load-test').src = takeover_skin_image;
@@ -175,14 +194,13 @@
             window.addEventListener('load', function() {
                 document.body.classList.remove('js-loading');
                 document.body.style.display = 'block';
-                console.log('load')
-                if(this_site !== '%%SITE%%') {
-                    targetHalfpageContentWindow.postMessage(index + 'leaderboard+skin_loaded', window.parent.window.location.href);
+                if(!IS_DEV) {
+                    targetHalfpageContentWindow.postMessage('leaderboard+skin_loaded', window.parent.window.location.href);
                 }
             });
         }
         if(IS_HALFPAGE) {
-            if(this_site !== '%%SITE%%') {
+            if(!IS_DEV) {
                 window.addEventListener('message', function(e) {
                     if(e.data.includes('leaderboard+skin_loaded')) {
                         document.body.classList.remove('js-loading');
@@ -195,7 +213,7 @@
             }
         }
         /******** Takeover setup code ********/
-        if(!IS_DEV && !IS_HALFPAGE || this_site !== '%%SITE%%' && !IS_HALFPAGE) {
+        if(!IS_DEV && !IS_HALFPAGE) {
             if(this_site == 'metabomb.net') {
                 page_wrapper = '.document';
                 parent.jQuery('.billboard').css({'max-width' : '1260px'});
@@ -333,12 +351,12 @@
         hidden = "webkitHidden";
         visibilityChange = "webkitvisibilitychange";
         }
-        // Pause animations when tab is not focused
+        // This is useful for carousels etc
         function handleVisibilityChange() {
             if (document[hidden]) {
-                document.body.classList.add('js-loading');
+                
             } else {
-                document.body.classList.remove('js-loading');
+                
             }
         }
         document.addEventListener(visibilityChange, handleVisibilityChange, false);

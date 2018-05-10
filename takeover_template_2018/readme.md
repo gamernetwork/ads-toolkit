@@ -8,4 +8,7 @@ A slightly updated version of the old 'takeover skin code'.
 on load (animations, display etc). This also means we can do some cross-iframe animations! 
 * A few different classes for each site (eg 1260x250-leaderboard). 
 * Some updated site-specific rules. 
+* A reliable window focus / blur function for preventing animation queing and reducing performance load
+when the tab is not active.
+
 

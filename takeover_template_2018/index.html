@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style type="text/css">
+        *, 
+        *:before,
+        *:after {
+            margin: 0; 
+            padding: 0;
+            outline: none;
+        }
+        .js-loading,
+        .js-loading *:before,
+        .js-loading *:after {
+            animation-play-state: paused !important;
+        }
+        .ad-wrapper {
+            position: relative;
+            top: 0; left: 0;
+            background-image: url('assets/takeoversynctest.jpg');
+        }
+        .ad-wrapper[rel~="eg-leaderboard"] {
+            width: 1260px;
+            height: 250px;
+            background-position: 50% 0; /* Can use skin for dev preview */
+        }
+        .ad-wrapper[rel~="meta-leaderboard"] {
+            width: 1280px;
+            height: 250px;
+        }
+        .ad-wrapper[rel~="mod-leaderboard"] {
+            width: 970px;
+            height: 250px;
+        }
+        .ad-wrapper[rel~="300x600-halfpage"] {
+            width: 300px;
+            height: 600px;
+        }
+        .ad-wrapper[rel~="300x1050-halfpage"] {
+            width: 300px;
+            height: 1050px;
+        }
+        .reference-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        .autoplaying-video-wrapper {
+            position: relative;
+            top: 0; left: 0; 
+            /* Generally match the dimensions of the 'frame' png */
+            width: 500px;
+            height: 250px;
+            overflow: hidden;
+        }
+        /* Video overlay */
+        .autoplaying-video-wrapper:after {
+            position: absolute;
+            content: '';
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/');
+        }
+        .video-overlay-link {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/');
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: 1;
+            cursor: pointer;
+            transition: filter 300ms ease;
+        }
+        .autoplaying-video-wrapper:hover .video-overlay-link {
+            filter: brightness(1.25);
+        }
+        .autoplaying-video {
+            position: absolute;
+            top: 0; left: 0;
+            display: block;
+        }
+        .autoplaying-video__button {
+            position: absolute;
+            box-sizing: border-box;
+            bottom: 16px;
+            left: 16px;
+            height: 16px;
+            border-style: solid; 
+            border-width: 8px 0px 8px 16px;
+            border-color: transparent transparent transparent #fff;
+            background: transparent;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .autoplaying-video__button.pause {
+            
+            border-style: double;
+            border-width: 0px 0px 0px 8px;
+        }
+        .ad-wrapper-link {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .skin-load-test {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body style="display:none;">
+    <!-- Add rel to adjust size / bg params -->
+    <div class="ad-wrapper" rel="eg-leaderboard">
+        <img src="" class="reference-overlay">
+        <div class="autoplaying-video-wrapper">
+            <a class="video-overlay-link" href="#"></a>
+            <!-- Dimensions set here to take care of Safari -->
+            <video width="500px" height="" loop="yes" muted="yes" class="autoplaying-video" autoplay>
+                <source src="" type="video/mp4">
+            </video>
+            <button class="autoplaying-video__button pause"></button>
+        </div>
+        <a class="ad-wrapper-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
+        <img class="skin-load-test" src="" alt="">
+    </div>
+    <!-- GA -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-23103987-1', 'auto', {'name': 'showcase'});
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var analytics_ref = 'ANALYTICS_REF_HERE';
+        var takeover_skin_image = 'assets/takeoversynctest.jpg'; 
+        var skin_top_offset = '0'; 
+        var leaderboard_height = '250'; 
+        var supersize_me = false;
+        var takeover_bg_color = 'black';  
+        /******** Toggle for dev / prod ********/
+        var IS_DEV = true;
+        var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').includes('halfpage');
+        /******** Leave This Stuff ********/
+        var takeover_skin_link = '%%DEST_URL%%';
+        var page_wrapper = '#page-wrapper';
+        var this_site = '%%SITE%%';
+        var skin_height = 1300;
+        /******** Animation sync ********/
+        var has_skin_loaded = false;
+        // Adjust skin height
+        this_site.includes('eurogamer') ? skin_height = 1316 : skin_height = 1300;
+        // Pause animation and hide till assets and skin image have loaded (leaderboard code)
+        if(!IS_HALFPAGE) {
+            // Target halfpage iframe to be sent postMessage alerting that leaderboard and skin have loaded
+            if(this_site !== '%%SITE%%') {
+                var targetHalfpage = parent.jQuery('#div-ga-EGNET_HP').find('iframe');
+                var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
+            }
+            document.querySelector('.skin-load-test').src = takeover_skin_image;
+            document.body.classList.add('js-loading');
+            window.addEventListener('load', function() {
+                document.body.classList.remove('js-loading');
+                document.body.style.display = 'block';
+                console.log('load')
+                if(this_site !== '%%SITE%%') {
+                    targetHalfpageContentWindow.postMessage(index + 'leaderboard+skin_loaded', window.parent.window.location.href);
+                }
+            });
+        }
+        if(IS_HALFPAGE) {
+            if(this_site !== '%%SITE%%') {
+                window.addEventListener('message', function(e) {
+                    if(e.data.includes('leaderboard+skin_loaded')) {
+                        document.body.classList.remove('js-loading');
+                        document.body.style.display = 'block';
+                    }
+                });
+            } else {
+                document.body.classList.remove('js-loading');
+                document.body.style.display = 'block';
+            }
+        }
+        /******** Takeover setup code ********/
+        if(!IS_DEV && !IS_HALFPAGE || this_site !== '%%SITE%%' && !IS_HALFPAGE) {
+            if(this_site == 'metabomb.net') {
+                page_wrapper = '.document';
+                parent.jQuery('.billboard').css({'max-width' : '1260px'});
+                parent.jQuery('.billboard-container').css({'padding' : '0'});
+            }
+            if(this_site == 'nintendolife.com' || this_site == 'pushsquare.com') {
+                var page_wrapper = '#page';
+                parent.jQuery('.inset').css({'position' : 'relative'});
+                parent.jQuery('.insert.for-desktop').css({'padding' : '0'});
+                parent.jQuery('.masthead .insert').css({'min-height':'auto'});
+                frameElement.style.width = '1280px';
+            }
+            if(this_site == 'indiedb.com') {
+                var skin_top_offset = '-38';
+            }
+            if(this_site == 'roadtovr.com') {
+                var page_wrapper = '#td-outer-wrap > .td-outer-container';
+            }
+            if(this_site == 'moddb.com' || this_site == 'indiedb.com') {
+                parent.$('body').prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;background: " + takeover_bg_color + " url(" + takeover_skin_image + ") no-repeat center " + skin_top_offset + "px''></div>");
+                parent.$('#gn_takeover').click(function(){
+                    window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+                });
+            } else {
+                if(page_wrapper !== '#site-wrapper'){
+                    parent.jQuery('body').addClass('skin');
+                }
+                parent.jQuery(page_wrapper).prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; width: 100%; height: "+skin_height+"px;'></div>");
+                parent.jQuery('#gn_takeover').each(function () {
+                    this.style.setProperty('background-color', takeover_bg_color, 'important' );
+                    this.style.setProperty('background-image', 'url(' + takeover_skin_image + ')', 'important' );
+                    this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
+                    this.style.setProperty('background-repeat', 'no-repeat', 'important');
+                });
+                parent.jQuery('#gn_takeover').click(function(){
+                window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+                });
+                parent.jQuery('#leaderboard').css({'height' : leaderboard_height + 'px', 'min-height' : leaderboard_height + 'px'});
+                parent.jQuery('.advert.leaderboard.landscape').css({'height' : leaderboard_height + 'px'});
+                parent.jQuery('.leaderboard-container').css({'padding' : '0'});
+                if(this_site == 'metabomb.net') {
+                    parent.jQuery('.document').css({'padding':'0'});
+                    parent.jQuery('.billboard-container').css({'padding':'0'});
+                    parent.jQuery('.billboard.advert').css({'padding':'0','width':'1260px'});
+                    frameElement.style.width = '1260px';
+                }
+                if(leaderboard_height){
+                    frameElement.style.height = leaderboard_height + 'px';
+                    parent.jQuery(page_wrapper).each(function () {
+                        this.style.setProperty( 'position', 'relative' );
+                    });
+                } 
+                if(supersize_me) {
+                    parent.jQuery(".right-sidebar").remove();
+                    parent.jQuery(page_wrapper).each(function () {
+                        this.style.setProperty( 'background-color', takeover_bg_color, 'important' );
+                    });
+                }
+                var extendHalfpageNLPS = document.querySelector('.ad-wrapper').getAttribute('rel') == '300x1050-halfpage';
+                if(this_site == 'nintendolife.com' && extendHalfpageNLPS || this_site == 'pushsquare.com' && extendHalfpageNLPS) {
+                    parent.jQuery('body').addClass('skin-long');
+                }
+                parent.jQuery('html').bind('mousemove', function(e) {
+                    if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= skin_height + parent.jQuery(page_wrapper).position().top ) ) {
+                        parent.jQuery('html').css({ 'cursor' : 'pointer' });
+                    } else {
+                        parent.jQuery('html').css({ 'cursor' : 'auto' });
+                    }
+                });
+                parent.jQuery('html').bind('click', function (e) { 
+                    if( (e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= skin_height + parent.jQuery(page_wrapper).position().top ) ) {
+                        window.open('%%CLICK_URL_ESC%%' + takeover_skin_link,'_blank');
+                    }
+                }); 
+            }
+        }
+        // Video Code 
+        parent.jQuery('head').append("<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'><\/script>");
+        parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>");
+        // Fancybox open code
+        var videoOverlayLink = document.querySelector('.video-overlay-link');
+        videoOverlayLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            ga('showcase.send', 'event', analytics_ref, 'Click Leaderboard Video', this_site );
+            parent.jQuery.fancybox({
+                type        : 'iframe',
+                href        : this.href,
+                maxWidth    : 1262,
+                maxHeight   : 710,
+                fitToView   : false,
+                width       : '90%',
+                height      : '90%',
+                autoSize    : false,
+                scrolling   : 'no',
+                padding     : '0'
+            });
+        });
+        // Play / pause button code
+        var AUTOPLAYING_BUTTON = document.querySelector('.autoplaying-video__button');
+        var AUTOPLAYING_VIDEO = document.querySelector('.autoplaying-video');
+        var AUTOPLAYING_WRAPPER = document.querySelector('.autoplaying-video-wrapper');
+        AUTOPLAYING_BUTTON.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.contains('pause') ? this.classList.remove('pause') : this.classList.add('pause');
+            this.classList.contains('pause') ? AUTOPLAYING_VIDEO.play() : AUTOPLAYING_VIDEO.pause();
+        });
+        // Hide / show video with intersection observer 
+        if('IntersectionObserver' in window) {
+            processIntersection = function(entries) {
+                if(AUTOPLAYING_VIDEO) {
+                    entries.forEach(function(entry) {
+                        if (entry.intersectionRatio > 0.5) {
+                            AUTOPLAYING_VIDEO.style.display = 'block';
+                        } else {
+                            AUTOPLAYING_VIDEO.style.display = 'none';
+                        }
+                    });
+                }
+            };
+            var options_dict = {
+                threshold: 0.5
+            };
+            var observer = new IntersectionObserver(processIntersection, options_dict);
+            observer.observe(AUTOPLAYING_WRAPPER);
+        }
+        // Window focus / blur 
+        var hidden, visibilityChange; 
+        if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
+        hidden = "hidden";
+        visibilityChange = "visibilitychange";
+        } else if (typeof document.msHidden !== "undefined") {
+        hidden = "msHidden";
+        visibilityChange = "msvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") {
+        hidden = "webkitHidden";
+        visibilityChange = "webkitvisibilitychange";
+        }
+        // Pause animations when tab is not focused
+        function handleVisibilityChange() {
+            if (document[hidden]) {
+                document.body.classList.add('js-loading');
+            } else {
+                document.body.classList.remove('js-loading');
+            }
+        }
+        document.addEventListener(visibilityChange, handleVisibilityChange, false);
+
+        /******** Creative specific code ********/ 
+
+
+    </script>
+</body>
+</html>

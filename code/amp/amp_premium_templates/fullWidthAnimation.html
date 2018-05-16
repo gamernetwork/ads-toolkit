@@ -32,7 +32,7 @@
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('%%FILE:BACKGROUND%%');
+            background-image: url('BACKGROUND IMAGE HERE');
             background-size: 720px 1500px;
             background-position: top center;
             background-repeat: no-repeat;
@@ -43,58 +43,33 @@
             width: 100%;
             height: 100%;
         }
-        .logo, .text {
-            position: absolute;
-            width: 80%; 
-            height: 80%;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .text {
-            animation: fade-text 4000ms ease forwards;
-        }
-        .logo {
-            animation: fade-logo 4000ms ease forwards;
-        }
-        @keyframes fade-text {
-            0% {
-                opacity: 0;
-            }
-            10%, 45% {
-                opacity: 1;
-            }
-            50%, 100% {
-                opacity: 0;
-            }
-        }
-        @keyframes fade-logo {
-            0%, 50% {
-                opacity: 0;
-            }
-            55%, 100% {
-                opacity: 1;
-            }
-        }
         .fallback {
             position: absolute;
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('%%FILE:FALLBACK%%');
+            background-image: url('FALLBACK IMAGE HERE');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
             display: none;
+        }
+        .click-through-link {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
         }
     </style>
 </head>
 <body class="js-loading">
     <div class="container">
         <div class="animation-container">
-            <img src="%%FILE:LOGO%%" alt="" class="logo">
-            <img src="%%FILE:TEXT%%" alt="" class="text">
+            <!-- Animated elements here -->
         </div>
         <div class="fallback"></div>
+        <a class="click-through-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
     </div>
     <script src="https://tpc.googlesyndication.com/safeframe/1-0-23/js/ext.js"></script>
     <script type="text/javascript">

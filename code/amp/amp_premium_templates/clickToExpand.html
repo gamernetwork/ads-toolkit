@@ -129,7 +129,6 @@
                     adState == 'Expand' ? (expand(), e.target.setAttribute('rel', 'Collapse')) : (collapse(), e.target.setAttribute('rel', 'Expand'));
                     e.target.innerHTML = e.target.getAttribute('rel');
                 });
-                // expand();
             } catch(e) {
                 console.log(`Safeframe not available: ${e.message}`);
                 applyFallBackStyles();

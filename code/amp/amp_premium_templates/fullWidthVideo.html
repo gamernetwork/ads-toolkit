@@ -27,7 +27,7 @@
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('%%FILE:BACKGROUND%%');
+            background-image: url('BACKGROUND IMAGE HERE');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -42,20 +42,28 @@
             top: 0; left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('%%FILE:FALLBACK%%');
+            background-image: url('BACKGROUND IMAGE HERE');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
             display: none;
+        }
+        .click-through-link {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <video class="autoplaying-video" width="300px" height="200px" autoplay muted playsinline loop>
-            <source src="%%FILE:VIDEO%%" type="video/mp4"/>
+            <source src="VIDEO LINK HERE" type="video/mp4"/>
         </video>
         <div class="fallback"></div>
+        <a class="click-through-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
     </div>
     <script src="https://tpc.googlesyndication.com/safeframe/1-0-23/js/ext.js"></script>
     <script type="text/javascript">

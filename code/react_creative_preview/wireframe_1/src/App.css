@@ -1,0 +1,9 @@
+.app-wrapper {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 1280px;
+    min-height: 100vh;
+    background: #f9f9f9;
+}

@@ -1,3 +1,8 @@
+h1, h2, h3, h4, p {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
 .app-wrapper {
     position: relative;
     display: block;
@@ -6,4 +11,8 @@
     max-width: 1280px;
     min-height: 100vh;
     background: #f9f9f9;
+}
+
+input {
+    margin: .5rem 0;
 }

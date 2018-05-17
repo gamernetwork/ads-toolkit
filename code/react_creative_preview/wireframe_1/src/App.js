@@ -8,11 +8,19 @@ export default class App extends Component {
 		this.state = {
 			campaigns: []
 		}
+		this.addCampaignObject = this.addCampaignObject.bind(this);
+	}
+	addCampaignObject(campaignObject) {
+		console.log('Adding To Campaigns')
+		this.setState({
+			campaigns: [...this.state.campaigns, campaignObject]
+		});
 	}
   	render() {
 		return (
 			<div className="app-wrapper">
-				<CampaignCreator/>
+				<h1>Campaign Creator</h1>
+				<CampaignCreator onAddCampaign={this.addCampaignObject}/>
 			</div>
 		);
   	}

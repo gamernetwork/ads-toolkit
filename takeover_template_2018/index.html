@@ -118,21 +118,30 @@
             opacity: 0;
             pointer-events: none;
         }
+        /* Custom CSS */
     </style>
 </head>
 <body class="js-loading" style="display:none;">
     <!-- Add rel to adjust size / bg params -->
     <div class="ad-wrapper" rel="eg-leaderboard">
+        <!-- Reference Image -->
         <img src="" class="reference-overlay">
+        <!-- Autoplaying Video -->
         <div class="autoplaying-video-wrapper">
             <a class="video-overlay-link" href="#"></a>
             <!-- Dimensions set here to take care of Safari -->
-            <video width="500px" height="" loop="yes" muted="yes" class="autoplaying-video" autoplay>
+            <video width="" height="" loop="yes" muted="yes" class="autoplaying-video" autoplay>
                 <source src="" type="video/mp4">
             </video>
+            <!-- Play / Pause Button -->
             <button class="autoplaying-video__button pause"></button>
         </div>
+        <!-- Custom HTML  -->
+
+        <!--  -->
+        <!-- Click Through Link -->
         <a class="ad-wrapper-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
+        <!-- Dummy Image for testing skin image load -->
         <img class="skin-load-test" src="" alt="">
     </div>
     <!-- GA -->

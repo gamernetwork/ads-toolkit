@@ -16,11 +16,19 @@ export default class CampaignCreator extends Component {
         this.addUnitCreator = this.addUnitCreator.bind(this);
         this.saveUnit = this.saveUnit.bind(this);
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            title: nextProps.title,
+            units: nextProps.units
+        })  
+    }
     createCampaignObject(e) {
         e.preventDefault();
         const campaign = {
             title: this.state.title,
-            units: this.state.units
+            units: this.state.units,
+            items: this.state.items,
+            unitCount: this.state.unitCount
         }
         this.addCampaign(campaign)
     }
@@ -42,7 +50,6 @@ export default class CampaignCreator extends Component {
         this.setState({
             units: [...this.state.units, object]
         });
-        console.log(object)
     }
     render() {  
         return(
@@ -50,6 +57,7 @@ export default class CampaignCreator extends Component {
                 <div className="col-lg-4">
                     { (this.state.selectedCampaign === null) ? <h2>Add New Campaign</h2> : <h2>Edit Campaign</h2> }
                     <form>
+                        <h2>{this.state.title}</h2>
                         <label>
                             Title
                             <br/>
@@ -57,7 +65,6 @@ export default class CampaignCreator extends Component {
                         </label>
                         <br/>
                         <p onClick={this.addUnitCreator}>Add Unit</p>
-                        <p>Add Takeover</p>
                         <ul className="list-group">
                             {this.state.items}
                         </ul>

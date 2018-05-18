@@ -18,7 +18,6 @@ export default class UnitCreator extends Component {
         this.setState({
             [KEY] : VAL
         });
-        console.log(KEY, VAL)
     }
     returnUnit(e) {
         e.preventDefault();

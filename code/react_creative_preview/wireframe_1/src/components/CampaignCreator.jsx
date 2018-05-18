@@ -7,7 +7,8 @@ export default class CampaignCreator extends Component {
         this.state = {
             title: '',
             unitCount: null,
-            items: []
+            items: [],
+            selectedCampaign: this.props.selectedCampaign
         }
         this.addCampaign = this.props.onAddCampaign.bind(this);
         this.createCampaignObject = this.createCampaignObject.bind(this);
@@ -36,22 +37,24 @@ export default class CampaignCreator extends Component {
     }
     render() {
         return(
-            <div className="campaign-creator">
-                <h2>Add New Campaign</h2>
-                <form>
-                    <label>
-                        Title
+            <div className="campaign-creator container">
+                <div className="col-lg-4">
+                    { (this.state.selectedCampaign === null) ? <h2>Add New Campaign</h2>  : <h2>Edit Campaign</h2> }
+                    <form>
+                        <label>
+                            Title
+                            <br/>
+                            <input type="text" value={this.state.title} onChange={(e) => this.handleInputChange(e)} name="title"/>
+                        </label>
                         <br/>
-                        <input type="text" value={this.state.title} onChange={(e) => this.handleInputChange(e)} name="title"/>
-                    </label>
-                    <br/>
-                    <i className="add-unit far fa-plus-square" onClick={this.addUnitCreator}><p>Add New Unit</p></i>
-                    <br/>
-                    <i className="add-unit far fa-plus-square" onClick={this.addUnitCreator}><p>Add New Takeover</p></i>
-                    <br/>
-                    {this.state.items}
-                    <input type="submit" value="Submit" onClick={(e) => this.createCampaignObject(e)} />
-                </form>
+                        <p onClick={this.addUnitCreator}>Add Unit</p>
+                        <p>Add Takeover</p>
+                        <ul className="list-group">
+                            {this.state.items}
+                        </ul>
+                        <input type="submit" value="Submit" onClick={(e) => this.createCampaignObject(e)} />
+                    </form>
+                </div>
             </div>
         );
     }

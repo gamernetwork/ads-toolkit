@@ -6,7 +6,8 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			campaigns: []
+			campaigns: [],
+			selectedCampaign: null
 		}
 		this.addCampaignObject = this.addCampaignObject.bind(this);
 	}
@@ -19,8 +20,7 @@ export default class App extends Component {
   	render() {
 		return (
 			<div className="app-wrapper">
-				<h1>Campaign Creator</h1>
-				<CampaignCreator onAddCampaign={this.addCampaignObject}/>
+				<CampaignCreator onAddCampaign={this.addCampaignObject} selectedCampaign={this.state.selectedCampaign}/>
 			</div>
 		);
   	}

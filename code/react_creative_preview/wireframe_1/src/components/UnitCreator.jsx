@@ -6,7 +6,8 @@ export default class UnitCreator extends Component {
         this.state = {
             unitType: '300x600',
             title: '',
-            link: ''
+            link: '',
+            isSaved: false
         }
         this.onSave = this.props.onSave.bind(this);
     }
@@ -17,6 +18,7 @@ export default class UnitCreator extends Component {
         this.setState({
             [KEY] : VAL
         });
+        console.log(KEY, VAL)
     }
     returnUnit(e) {
         e.preventDefault();
@@ -25,6 +27,9 @@ export default class UnitCreator extends Component {
             title: this.state.title,
             link: this.state.link 
         }
+        this.setState({
+            isSaved: true
+        })
         this.onSave(unit);
     }
     render() {
@@ -32,7 +37,7 @@ export default class UnitCreator extends Component {
             <li className="list-group-item">
                 <label>
                     Unit Type
-                    <select name="adFormat" value={this.state.unitType} onChange={(e) => this.handleInputChange(e)}>
+                    <select name="unitType" value={this.state.unitType} onChange={(e) => this.handleInputChange(e)}>
                         <option value="300x600">300x600</option>
                         <option value="300x1050">300x1050</option>
                         <option value="300x250">300x250</option>
@@ -50,7 +55,12 @@ export default class UnitCreator extends Component {
                     <input type="text" value={this.state.link} onChange={(e) => this.handleInputChange(e)} name="link"/>
                 </label>
                 <br/>
-                <button onClick={(e) => this.returnUnit(e)}>Save</button>
+                {
+                    (this.state.isSaved) ?
+                        <button onClick={(e) => this.returnUnit(e)}>Update Unit</button>
+                    :
+                        <button onClick={(e) => this.returnUnit(e)}>Save Unit</button>
+                }
             </li>
         );
     }

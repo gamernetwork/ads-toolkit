@@ -10,12 +10,35 @@ export default class App extends Component {
 			selectedCampaign: null
 		}
 		this.addCampaignObject = this.addCampaignObject.bind(this);
+		this.editExistingEntry = this.editExistingEntry.bind(this);
 	}
 	addCampaignObject(campaignObject) {
-		console.log('Adding To Campaigns')
-		this.setState({
-			campaigns: [...this.state.campaigns, campaignObject]
+		// This could be at least 650000x more robust
+		let isExistingEntry = false;
+		this.state.campaigns.map((k) => {
+			const title = k.title;
+			if(campaignObject.title === title) {
+				isExistingEntry = true;
+			} 
 		});
+		if(!isExistingEntry) {
+			this.setState({
+				campaigns: [...this.state.campaigns, campaignObject]
+			});
+		} else {
+			this.state.campaigns.filter(entry => {
+				entry.title === campaignObject.title ? this.editExistingEntry(entry, campaignObject) : false;
+				return;
+			});
+		}
+	}
+	editExistingEntry(entry, object) {
+		console.log(this.state.campaigns.indexOf(entry))
+		let newCampaignState = this.state.campaigns.slice();
+		newCampaignState[this.state.campaigns.indexOf(entry)] = object;
+		this.setState({
+			campaigns: newCampaignState
+		})
 	}
   	render() {
 		return (

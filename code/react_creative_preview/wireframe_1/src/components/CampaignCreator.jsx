@@ -19,7 +19,8 @@ export default class CampaignCreator extends Component {
     createCampaignObject(e) {
         e.preventDefault();
         const campaign = {
-            title: this.state.title
+            title: this.state.title,
+            units: this.state.units
         }
         this.addCampaign(campaign)
     }
@@ -60,7 +61,7 @@ export default class CampaignCreator extends Component {
                         <ul className="list-group">
                             {this.state.items}
                         </ul>
-                        <input type="submit" value="Submit" onClick={(e) => this.createCampaignObject(e)} />
+                        <input type="submit" value="Update Campaign" onClick={(e) => this.createCampaignObject(e)} />
                     </form>
                 </div>
             </div>

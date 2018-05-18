@@ -4,10 +4,11 @@ export default class UnitCreator extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            unitType: null,
+            unitType: '300x600',
             title: '',
             link: ''
         }
+        this.onSave = this.props.onSave.bind(this);
     }
     handleInputChange(e) {
         e.preventDefault();
@@ -17,12 +18,21 @@ export default class UnitCreator extends Component {
             [KEY] : VAL
         });
     }
+    returnUnit(e) {
+        e.preventDefault();
+        const unit = {
+            unitType: this.state.unitType,
+            title: this.state.title,
+            link: this.state.link 
+        }
+        this.onSave(unit);
+    }
     render() {
         return(
             <li className="list-group-item">
                 <label>
                     Unit Type
-                    <select name="adFormat">
+                    <select name="adFormat" value={this.state.unitType} onChange={(e) => this.handleInputChange(e)}>
                         <option value="300x600">300x600</option>
                         <option value="300x1050">300x1050</option>
                         <option value="300x250">300x250</option>
@@ -39,7 +49,8 @@ export default class UnitCreator extends Component {
                     Link
                     <input type="text" value={this.state.link} onChange={(e) => this.handleInputChange(e)} name="link"/>
                 </label>
-                <button>Save</button>
+                <br/>
+                <button onClick={(e) => this.returnUnit(e)}>Save</button>
             </li>
         );
     }

@@ -1,6 +1,11 @@
 {
   "$ref": "basic_campaign.json",
   "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign Title",
+      "minLength": 4
+    },
     "creatives": {
       "type": "array",
       "format": "table",

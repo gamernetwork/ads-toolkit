@@ -3,10 +3,6 @@
   "type": "object",
   "id": "campaign",
   "properties": { 
-    "name": {
-      "type": "string",
-      "description": "Campaign Title",
-      "minLength": 4
-    }
+
   }
 }

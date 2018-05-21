@@ -1,0 +1,61 @@
+{
+  "$ref": "basic_campaign.json",
+  "properties": {
+    "creatives": {
+      "type": "array",
+      "format": "table",
+      "title": "Creatives",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "enum": [
+              "300x250",
+              "300x600",
+              "160x600",
+              "728x90",
+              "970x250"
+            ],
+            "default": "300x250"
+          },
+          "name": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "takeovers": {
+      "type": "array",
+      "format": "table",
+      "title": "Takeovers",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "type": "string",
+            "enum": [
+              "Eurogamer",
+              "VG247",
+              "Metabomb",
+              "Rockpapershotgun",
+              "Moddb"
+            ],
+            "default": "Eurogamer"
+          },
+          "leaderboard": {
+            "type": "string"
+          },
+          "halfpage": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

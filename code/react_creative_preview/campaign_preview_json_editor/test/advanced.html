@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Advanced JSON Editor Example</title>
+
+	<script src="../dist/jsoneditor.js"></script>
+</head>
+
+<body>
+	<h1>Create Campaign JSON</h1>
+
+	<button id='submit'>Submit (console.log)</button>
+	<span id='valid_indicator'></span>
+
+	<div id='editor_holder'></div>
+
+	<script>
+		// Can Provide Prev JSON
+		var starting_value = [{
+			name: "Example Campaign",
+			creatives: [{
+					name: "Leaderboard",
+					format: "970x250",
+					link: "www.test.com"
+				},
+				{
+					name: "MPU",
+					type: "300x250",
+					link: "www.test.com"
+				}
+			],
+			takeovers: [{
+					site: "Eurogamer",
+					leaderboard: "www.test.net",
+					halfpage: "www.test.com"
+				}
+			]
+		}];
+		// Initialize the editor
+		var editor = new JSONEditor(document.getElementById('editor_holder'), {
+			// Enable fetching schemas via ajax
+			ajax: true,
+			// The schema for the editor
+			schema: {
+				type: "array",
+				title: "Campaigns",
+				format: "tabs",
+				items: {
+					title: "Campaign",
+					headerTemplate: "{{i}} - {{self.name}}",
+					oneOf: [
+						{
+							$ref: "campaign.json",
+							title: "Campaign"
+						}
+					]
+				}
+			},
+			// Seed the form with a starting value
+			startval: starting_value,
+			// Disable additional properties
+			no_additional_properties: true,
+			// Require all properties by default
+			required_by_default: true
+		});
+		// Hook up the submit button to log to the console
+		document.getElementById('submit').addEventListener('click', function () {
+			// Get the value from the editor
+			console.log(editor.getValue());
+		});
+		// Hook up the validation indicator to update its 
+		// status whenever the editor changes
+		editor.on('change', function () {
+			// Get an array of errors from the validator
+			var errors = editor.validate();
+			var indicator = document.getElementById('valid_indicator');
+			// No valid
+			if (errors.length) {
+				indicator.style.color = 'red';
+				indicator.textContent = "not valid";
+			}
+			// Valid
+			else {
+				indicator.style.color = 'green';
+				indicator.textContent = "valid";
+			}
+		});
+	</script>
+</body>
+
+</html>

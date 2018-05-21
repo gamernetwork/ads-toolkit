@@ -56,11 +56,7 @@ export default class App extends Component {
 	selectCampaign(index) {
 		this.setState({
 			selectedCampaign: this.state.campaigns[index]
-		}, function(){
-			console.log(this.state.selectedCampaign)
-			console.log(this.state.selectedCampaign.units)
 		});
-	
 	}
   	render() {
 		return (

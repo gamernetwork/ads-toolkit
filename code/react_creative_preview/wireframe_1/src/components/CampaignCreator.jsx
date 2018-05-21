@@ -14,12 +14,16 @@ export default class CampaignCreator extends Component {
         this.addCampaign = this.props.onAddCampaign.bind(this);
         this.createCampaignObject = this.createCampaignObject.bind(this);
         this.addUnitCreator = this.addUnitCreator.bind(this);
-        this.saveUnit = this.saveUnit.bind(this);
     }
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.items)
         this.setState({
             title: nextProps.title,
-            units: nextProps.units
+            units: nextProps.units,
+            unitCount: nextProps.unitCount,
+            items: nextProps.items
+        }, function(){
+            console.log(nextProps.items)
         })  
     }
     createCampaignObject(e) {
@@ -42,19 +46,13 @@ export default class CampaignCreator extends Component {
     }
     addUnitCreator() {
         this.setState({
-            unitCount: this.state.unitCount + 1,
-            items: [...this.state.items, <UnitCreator key={this.state.unitCount} onSave={this.saveUnit}/>]
-        });
-    }
-    saveUnit(object) {
-        this.setState({
-            units: [...this.state.units, object]
+            items: [...this.state.items, <UnitCreator index={this.state.items.length} key={this.state.title}/>]
         });
     }
     render() {  
         return(
-            <div className="campaign-creator container">
-                <div className="col-lg-4">
+            <div className="campaign-creator">
+                <div>
                     { (this.state.selectedCampaign === null) ? <h2>Add New Campaign</h2> : <h2>Edit Campaign</h2> }
                     <form>
                         <h2>{this.state.title}</h2>

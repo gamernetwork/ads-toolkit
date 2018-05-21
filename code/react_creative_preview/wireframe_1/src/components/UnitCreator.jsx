@@ -7,9 +7,10 @@ export default class UnitCreator extends Component {
             unitType: '300x600',
             title: '',
             link: '',
-            isSaved: false
+            isSaved: false,
+            index: this.props.index
         }
-        this.onSave = this.props.onSave.bind(this);
+        console.log(this.state.index)
     }
     handleInputChange(e) {
         e.preventDefault();
@@ -29,14 +30,13 @@ export default class UnitCreator extends Component {
         this.setState({
             isSaved: true
         })
-        this.onSave(unit);
     }
     render() {
         return(
             <li className="list-group-item">
                 <label>
                     Unit Type
-                    <select name="unitType" value={this.state.unitType} onChange={(e) => this.handleInputChange(e)}>
+                    <select name="unitType" onChange={(e) => this.handleInputChange(e)}>
                         <option value="300x600">300x600</option>
                         <option value="300x1050">300x1050</option>
                         <option value="300x250">300x250</option>
@@ -47,19 +47,13 @@ export default class UnitCreator extends Component {
                 </label>
                 <label>
                     Title
-                    <input type="text" value={this.state.title} onChange={(e) => this.handleInputChange(e)} name="title"/>
+                    <input type="text" value={this.state.value} onChange={(e) => this.handleInputChange(e)} name="title"/>
                 </label>
                 <label>
                     Link
                     <input type="text" value={this.state.link} onChange={(e) => this.handleInputChange(e)} name="link"/>
                 </label>
                 <br/>
-                {
-                    (this.state.isSaved) ?
-                        <button onClick={(e) => this.returnUnit(e)}>Update Unit</button>
-                    :
-                        <button onClick={(e) => this.returnUnit(e)}>Save Unit</button>
-                }
             </li>
         );
     }

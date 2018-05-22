@@ -1,5 +1,5 @@
 {
-	"$ref": "basic_campaign.json",
+	"$ref": "dist/basic_campaign.json",
 	"properties": {
 		"name": {
 			"type": "string",

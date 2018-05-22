@@ -8,11 +8,10 @@ const fs = require('fs');
 const port = 3000;
 let jsonVal = null;
 
-app.use(express.static(path.join(__dirname, '/dist')));
-app.use(express.static(path.join(__dirname, '/test')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (request, response) => {
-    response.sendFile(path.join(__dirname+'/test/demo.html'));
+    response.sendFile(path.join(__dirname+'/public/test/demo.html'));
 });
 server.listen(port, (err) => {
     if(err) {
@@ -27,7 +26,7 @@ server.listen(port, (err) => {
                 } else {
                     obj = jsonVal;
                     json = JSON.stringify(obj);
-                    fs.writeFile('testjson.json', json, 'utf8', function(){
+                    fs.writeFile('public/json/testjson.json', json, 'utf8', function(){
                         console.log('file written!');
                     });
                 }

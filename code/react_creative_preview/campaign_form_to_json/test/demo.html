@@ -6,7 +6,7 @@
 	<title>Advanced JSON Editor Example</title>
 	<style>
 	</style>
-	<script src="../dist/jsoneditor.js"></script>
+	<script type="text/javascript" src="/jsoneditor.js"></script>
 </head>
 
 <body>
@@ -16,8 +16,9 @@
 	<span id='valid_indicator'></span>
 
 	<div id='editor_holder'></div>
-
+	<script src="/socket.io/socket.io.js"></script>
 	<script>
+		var socket = io.connect('localhost:3000');
 		// Can Provide Prev JSON
 		var starting_value = [{
 			name: "Example Campaign",
@@ -71,6 +72,7 @@
 		document.getElementById('submit').addEventListener('click', function () {
 			// Get the value from the editor
 			console.log(editor.getValue());
+			socket.emit('message', editor.getValue());
 		});
 		// Hook up the validation indicator to update its 
 		// status whenever the editor changes

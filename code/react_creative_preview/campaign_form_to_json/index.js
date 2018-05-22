@@ -20,7 +20,7 @@ server.listen(port, (err) => {
     io.on('connection', function(socket){
         socket.on('message', function(data){
             jsonVal = data;
-            fs.readFile('testjson.json', 'utf8', function readFileCallack(err, data) {
+            fs.readFile('public/json/testjson.json', 'utf8', function readFileCallack(err, data) {
                 if(err) {
                     console.log(err);
                 } else {

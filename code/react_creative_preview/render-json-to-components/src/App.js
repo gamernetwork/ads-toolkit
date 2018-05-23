@@ -35,7 +35,6 @@ class App extends Component {
 				<div className="container">
 					<div className="columns is-multiline">
 						{this.state.campaignList.map(campaign => {
-							console.log(campaign);
 							return (
 								<CampaignCard 
 									key={campaign.name} 

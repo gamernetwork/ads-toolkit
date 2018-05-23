@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Checkbox from './Checkbox';
 
 export default class CampaignCard extends Component {
     constructor(props) {
@@ -11,9 +12,30 @@ export default class CampaignCard extends Component {
             takeoversForPreview: []
         }
     }
-    addCreativeToPreview() {
-
+    returnStateFromCheckbox(key, obj, val) {
+        if(key === 'creative') {
+            val === true ? (
+                this.setState({
+                    creativesForPreview: [...this.state.creativesForPreview, obj]
+                })
+            ) : (
+                this.setState({
+                    creativesForPreview: this.state.creativesForPreview.splice(0,this.state.creativesForPreview.indexOf(obj))
+                })
+            )
+        } else {
+            val === true ? (
+                this.setState({
+                    takeoversForPreview: [...this.state.takeoversForPreview, obj]
+                })
+            ) : (
+                this.setState({
+                    takeoversForPreview: this.state.takeoversForPreview.splice(0,this.state.takeoversForPreview.indexOf(obj))
+                })
+            )
+        }
     }
+    returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
     render() {
         return(
             <div className="column is-4">
@@ -21,29 +43,30 @@ export default class CampaignCard extends Component {
                     <h3 className="title is-3">{this.props.title}</h3>
                         <hr/>
                     <div className="field">
-                        <label className="label">Creatives</label>
+                        <h4 className="subtitle is-4">Creatives</h4>
                         {this.props.creatives.map(creative => {
                             return (
-                                <div key={creative.link} className="control">
-                                    <label className="checkbox">
-                                        <input type="checkbox"/>
-                                        <strong>{creative.name}</strong> : {creative.format}
-                                    </label>
-                                </div>
+                                <Checkbox 
+                                    title={creative.name} 
+                                    format={creative.format} 
+                                    key={creative.link}
+                                    returnFunc={(key, obj, val) => this.returnStateFromCheckbox(key, obj, val)}
+                                    returnObj={creative}
+                                />
                             );
                         })}
                     </div>
                     <hr/>
                     <div className="field">
-                        <label className="label">Takeovers</label>
+                        <h4 className="subtitle is-4">Takeovers</h4>
                         {this.props.takeovers.map(takeover => {
                             return (
-                                <div key={takeover.leaderboard}  className="control">
-                                    <label className="checkbox">
-                                        <input type="checkbox"/>
-                                        <strong>{takeover.site}</strong>
-                                    </label>
-                                </div>
+                                <Checkbox 
+                                    title={takeover.site} 
+                                    key={takeover.leaderboard}
+                                    returnFunc={(key, obj, val) => this.returnStateFromCheckbox(key, obj, val)}
+                                    returnObj={takeover}
+                                />
                             );
                         })}
                     </div>

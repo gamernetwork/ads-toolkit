@@ -25,28 +25,43 @@ class App extends Component {
   	render() {
 		return (
 			<div className="App">
-				<section className="section program-info">
-					<div className="container">
-						<h1 className="title is-1">Campaign Preview Generator</h1>
-						<h2 className="subtitle is-3">Render Campaigns View</h2>
+				<nav className="navbar is-light" aria-label="main navigation">
+					<div className="navbar-brand">
+						<a className="navbar-item">
+							JSON Generator
+						</a>
+						<a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
+							<span aria-hidden="true"></span>
+							<span aria-hidden="true"></span>
+							<span aria-hidden="true"></span>
+						</a>
 					</div>
-				</section>
-				<section className="section">
+				</nav>
 				<div className="container">
-					<div className="columns is-multiline">
-						{this.state.campaignList.map(campaign => {
-							return (
-								<CampaignCard 
-									key={campaign.name} 
-									title={campaign.name} 
-									creatives={campaign.creatives} 
-									takeovers={campaign.takeovers}
-								/>
-							);
-						})}
-					</div>
+					<section className="section program-info">
+						<div className="container">
+							<h1 className="title is-size-1-desktop is-size-2-tablet is-size-2-mobile">Campaign Preview Generator</h1>
+							<h2 className="subtitle is-size-3-desktop is-size-4-tablet is-size-4-mobile">Render Campaigns View</h2>
+						</div>
+					</section>
+					<hr/>
+					<section className="section">
+						<div className="container">
+							<div className="columns is-multiline">
+								{this.state.campaignList.map(campaign => {
+									return (
+										<CampaignCard 
+											key={campaign.name} 
+											title={campaign.name} 
+											creatives={campaign.creatives} 
+											takeovers={campaign.takeovers}
+										/>
+									);
+								})}
+							</div>
+						</div>
+					</section>
 				</div>
-				</section>
 			</div>
 		);
   	}

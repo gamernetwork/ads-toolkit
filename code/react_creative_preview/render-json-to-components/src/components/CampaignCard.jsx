@@ -35,6 +35,9 @@ export default class CampaignCard extends Component {
             )
         }
     }
+    generatePreviewPage() {
+        console.log(this.state.creativesForPreview)
+    }
     returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
     render() {
         return(
@@ -72,8 +75,8 @@ export default class CampaignCard extends Component {
                     </div>
                     <hr/>
                     <div className="buttons">
-                        <a className="button is-secondary">Preview Link</a>
-                        <a className="button is-primary">Generate Link</a>
+                        <a onClick={(e) => this.generatePreviewPage(e)} className="button is-secondary">Preview</a>
+                        <a className="button is-primary">Generate</a>
                     </div>
                 </div>
             </div>

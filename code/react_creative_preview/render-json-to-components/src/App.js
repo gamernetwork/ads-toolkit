@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CampaignCard from './components/CampaignCard'
+import CampaignCard from './components/CampaignCard';
+import PreviewModal from './components/PreviewModal';
 import axios from 'axios';
 import './App.css';
 
@@ -7,7 +8,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			campaignList: []
+			campaignList: [],
+			displayPreviewModal: false
 		}
 	}
 	componentDidMount() {
@@ -21,6 +23,17 @@ class App extends Component {
 			.catch(error => {
 				console.error('Error Fetching JSON:', error.response)
 			});
+	}
+	toggleModal() {
+		this.state.displayPreviewModal === true ? (
+			this.setState({
+				displayPreviewModal: false
+			})
+		) : (
+			this.setState({
+				displayPreviewModal: true
+			})
+		)
 	}
   	render() {
 		return (
@@ -55,6 +68,7 @@ class App extends Component {
 											title={campaign.name} 
 											creatives={campaign.creatives} 
 											takeovers={campaign.takeovers}
+											toggleModal={(e) => this.toggleModal(e)}
 										/>
 									);
 								})}
@@ -62,6 +76,12 @@ class App extends Component {
 						</div>
 					</section>
 				</div>
+				{this.state.displayPreviewModal === true && 
+					<PreviewModal 
+						data={null}
+						toggleModal={(e) => this.toggleModal(e)}
+					/>
+				}
 			</div>
 		);
   	}

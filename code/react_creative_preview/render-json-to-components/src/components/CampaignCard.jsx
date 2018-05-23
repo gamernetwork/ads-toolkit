@@ -9,7 +9,8 @@ export default class CampaignCard extends Component {
             creatives: this.props.creatives,
             takeovers: this.props.takeovers,
             creativesForPreview: [],
-            takeoversForPreview: []
+            takeoversForPreview: [],
+            renderOverlay: false
         }
     }
     returnStateFromCheckbox(key, obj, val) {
@@ -35,8 +36,9 @@ export default class CampaignCard extends Component {
             )
         }
     }
-    generatePreviewPage() {
-        console.log(this.state.creativesForPreview)
+    generatePreviewPage(e) {
+        e.preventDefault();
+        this.props.toggleModal(e);
     }
     returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
     render() {

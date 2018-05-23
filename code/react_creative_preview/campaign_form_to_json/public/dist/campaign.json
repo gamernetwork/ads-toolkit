@@ -4,7 +4,8 @@
 		"name": {
 			"type": "string",
 			"description": "Campaign Title",
-			"minLength": 4
+			"minLength": 4,
+			"class" : "campaign-title"
 		},
 		"creatives": {
 			"type": "array",

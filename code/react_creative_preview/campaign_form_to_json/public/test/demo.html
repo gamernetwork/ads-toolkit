@@ -3,19 +3,57 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Advanced JSON Editor Example</title>
-	<style>
-	</style>
+	<title>Campaign Editor</title>
 	<script type="text/javascript" src="dist/jsoneditor.js"></script>
+	<!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
+	<link rel='stylesheet' href='//cdn.jsdelivr.net/foundation/5.0.2/css/foundation.min.css'>
+	<!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
+	<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+	<style>
+			h1 {
+				text-align: center;
+				margin: 2rem;
+			}
+			button {
+				margin-left: .5rem;
+			}
+			#editor_holder {
+				display: block;
+				width: 960px;
+				margin: 2rem auto;
+				
+			}
+			#submit {
+				display: block;
+				clear: both;
+				display: block;
+				left: 50%;
+				transform: translateX(-50%);
+				background: none;
+				color: #333;
+				border: 2px solid #0079A1;
+			}
+			.panel {
+				min-width: 600px;
+			}
+			#valid_indicator {
+				font-size: 1rem;
+				margin-left: 1rem;
+			}
+		</style>
+	<script>
+		// Set the default CSS theme and icon library globally
+		JSONEditor.defaults.theme = 'foundation5';
+		JSONEditor.defaults.iconlib = 'fontawesome4';
+	</script>
 </head>
 
 <body>
-	<h1>Create Campaign JSON</h1>
-
-	<button id='submit'>Submit (console.log)</button>
-	<span id='valid_indicator'></span>
-
+	<h1>Campaign Manager</h1>
+	<button id='submit'>Update Campaigns<span id='valid_indicator'></span></button>
 	<div id='editor_holder'></div>
+	
+	
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect('localhost:3000');
@@ -42,7 +80,11 @@
 			var editor = new JSONEditor(document.getElementById('editor_holder'), {
 				// Enable fetching schemas via ajax
 				ajax: true,
-				theme: 'barebones',
+				disable_collapse: true,
+				disable_array_delete: true,
+				disable_array_reorder: true,
+				disable_edit_json: true,
+				disable_properties: true,
 				// The schema for the editor
 				schema: {
 					type: "array",
@@ -50,7 +92,7 @@
 					format: "tabs",
 					items: {
 						title: "Campaign",
-						headerTemplate: "{{i}} - {{self.name}}",
+						headerTemplate: "{{self.name}}",
 						oneOf: [{
 							$ref: "dist/campaign.json",
 							title: "Campaign"
@@ -86,6 +128,10 @@
 					indicator.style.color = 'green';
 					indicator.textContent = "valid";
 				}
+			});
+			// document.querySelector('.button-group').appendChild(submitButton);
+			editor.on('ready', function(){
+
 			});
 		}
 	</script>

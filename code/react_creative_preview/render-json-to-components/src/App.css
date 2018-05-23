@@ -1,0 +1,10 @@
+.campaign-card {
+	min-height: 150px;
+	width: 100%;
+}
+
+input {
+	position: relative;
+	bottom: .08rem;
+	margin-right: .5rem;
+}

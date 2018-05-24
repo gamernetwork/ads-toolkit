@@ -9,7 +9,8 @@ class App extends Component {
 		super(props);
 		this.state = {
 			campaignList: [],
-			displayPreviewModal: false
+			displayPreviewModal: false,
+			modalData: null
 		}
 	}
 	componentDidMount() {
@@ -24,14 +25,15 @@ class App extends Component {
 				console.error('Error Fetching JSON:', error.response)
 			});
 	}
-	toggleModal() {
+	toggleModal(e, data) {
 		this.state.displayPreviewModal === true ? (
 			this.setState({
 				displayPreviewModal: false
 			})
 		) : (
 			this.setState({
-				displayPreviewModal: true
+				displayPreviewModal: true,
+				modalData: data
 			})
 		)
 	}
@@ -68,7 +70,7 @@ class App extends Component {
 											title={campaign.name} 
 											creatives={campaign.creatives} 
 											takeovers={campaign.takeovers}
-											toggleModal={(e) => this.toggleModal(e)}
+											toggleModal={(e, data) => this.toggleModal(e, data)}
 										/>
 									);
 								})}
@@ -78,8 +80,8 @@ class App extends Component {
 				</div>
 				{this.state.displayPreviewModal === true && 
 					<PreviewModal 
-						data={null}
-						toggleModal={(e) => this.toggleModal(e)}
+						data={this.state.modalData}
+						toggleModal={(e, data) => this.toggleModal(e, data)}
 					/>
 				}
 			</div>

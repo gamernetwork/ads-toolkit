@@ -38,7 +38,12 @@ export default class CampaignCard extends Component {
     }
     generatePreviewPage(e) {
         e.preventDefault();
-        this.props.toggleModal(e);
+        const previewData = {
+            title: this.state.title,
+            creatives: this.state.creativesForPreview,
+            takeovers: this.state.takeoversForPreview
+        }
+        this.props.toggleModal(e, previewData);
     }
     returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
     render() {

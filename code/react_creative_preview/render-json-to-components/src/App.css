@@ -8,3 +8,8 @@ input {
 	bottom: .08rem;
 	margin-right: .5rem;
 }
+
+.preview-page {
+	width: 95%;
+	height: 90%;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CampaignCard from './components/CampaignCard';
 import PreviewModal from './components/PreviewModal';
 import axios from 'axios';
+import { renderToString } from 'react-dom/server';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
 		this.state = {
 			campaignList: [],
 			displayPreviewModal: false,
-			modalData: null
+			pageData: null
 		}
 	}
 	componentDidMount() {
@@ -33,10 +34,12 @@ class App extends Component {
 		) : (
 			this.setState({
 				displayPreviewModal: true,
-				modalData: data
+				pageData: data
 			})
 		)
+
 	}
+
   	render() {
 		return (
 			<div className="App">
@@ -79,10 +82,7 @@ class App extends Component {
 					</section>
 				</div>
 				{this.state.displayPreviewModal === true && 
-					<PreviewModal 
-						data={this.state.modalData}
-						toggleModal={(e, data) => this.toggleModal(e, data)}
-					/>
+					<PreviewModal page={this.state.pageData} />
 				}
 			</div>
 		);

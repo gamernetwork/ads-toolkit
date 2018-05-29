@@ -185,7 +185,7 @@
                     break;
                     case 'moddb.com':
                     case 'indiedb.com':
-                        halfpageContainer = '.supporter';
+                        halfpageContainer = '.column.span-300.last';
                     break;
                     case 'metabomb.net':
                         halfpageContainer = 'aside';
@@ -247,10 +247,10 @@
                 var page_wrapper = '#td-outer-wrap > .td-outer-container';
             }
             if(this_site == 'moddb.com' || this_site == 'indiedb.com') {
-                parent.$('body').prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;background: " + takeover_bg_color + " url(" + takeover_skin_image + ") no-repeat center " + skin_top_offset + "px''></div>");
+                parent.$('body').css('background', takeover_bg_color + ' url(' + takeover_skin_image + ') no-repeat center ' + skin_top_offset + 'px').prepend("<div id='gn_takeover' style='cursor: pointer; position: absolute; display: block; top: 0; left: 0; z-index: 1; width: 100%; height: 100%;'></div>");
                 parent.$('#gn_takeover').click(function(){
-                    window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
-                });
+                 window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+            });
             } else {
                 if(page_wrapper !== '#site-wrapper'){
                     parent.jQuery('body').addClass('skin');

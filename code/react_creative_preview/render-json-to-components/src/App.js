@@ -36,7 +36,7 @@ class App extends Component {
 				displayPreviewModal: true,
 				pageData: data
 			})
-		)
+		);
 
 	}
 
@@ -82,7 +82,7 @@ class App extends Component {
 					</section>
 				</div>
 				{this.state.displayPreviewModal === true && 
-					<PreviewModal page={this.state.pageData} />
+					<PreviewModal page={this.state.pageData} closeModal={(e, data) => this.toggleModal(e, null)} />
 				}
 			</div>
 		);

@@ -10,9 +10,10 @@ export default class CampaignCard extends Component {
             takeovers: this.props.takeovers,
             creativesForPreview: [],
             takeoversForPreview: [],
-            renderOverlay: false
+            previewData: {}
         }
     }
+
     returnStateFromCheckbox(key, obj, val) {
         if(key === 'creative') {
             val === true ? (
@@ -21,7 +22,7 @@ export default class CampaignCard extends Component {
                 })
             ) : (
                 this.setState({
-                    creativesForPreview: this.state.creativesForPreview.splice(0,this.state.creativesForPreview.indexOf(obj))
+                    creativesForPreview: this.state.creativesForPreview.splice(0, this.state.creativesForPreview.indexOf(obj))
                 })
             )
         } else {
@@ -31,21 +32,40 @@ export default class CampaignCard extends Component {
                 })
             ) : (
                 this.setState({
-                    takeoversForPreview: this.state.takeoversForPreview.splice(0,this.state.takeoversForPreview.indexOf(obj))
+                    takeoversForPreview: this.state.takeoversForPreview.splice(0, this.state.takeoversForPreview.indexOf(obj))
                 })
             )
         }
     }
-    generatePreviewPage(e) {
+
+    showPreviewPage(e) {
         e.preventDefault();
-        const previewData = {
-            title: this.state.title,
-            creatives: this.state.creativesForPreview,
-            takeovers: this.state.takeoversForPreview
-        }
-        this.props.toggleModal(e, previewData);
+        this.setState({
+            previewData: {
+                title: this.state.title,
+                creatives: this.state.creativesForPreview,
+                takeovers: this.state.takeoversForPreview
+            }
+        }, function(e) {
+            this.props.toggleModal(e, this.state.previewData);
+        })
     }
+
+    returnPreviewPage(e) {
+        e.preventDefault();
+        this.setState({
+            previewData: {
+                title: this.state.title,
+                creatives: this.state.creativesForPreview,
+                takeovers: this.state.takeoversForPreview
+            }
+        }, function(e) {
+            this.props.returnPage(e, this.state.previewData);
+        });
+    }
+
     returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
+
     render() {
         return(
             <div className="column is-4">
@@ -82,8 +102,8 @@ export default class CampaignCard extends Component {
                     </div>
                     <hr/>
                     <div className="buttons">
-                        <a onClick={(e) => this.generatePreviewPage(e)} className="button is-secondary">Preview</a>
-                        <a className="button is-primary">Generate</a>
+                        <a onClick={(e) => this.showPreviewPage(e)} className="button is-secondary">Preview</a>
+                        <a onClick={(e) => this.returnPreviewPage(e)} className="button is-primary">Generate</a>
                     </div>
                 </div>
             </div>

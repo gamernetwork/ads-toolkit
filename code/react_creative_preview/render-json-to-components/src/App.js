@@ -29,9 +29,15 @@ class App extends Component {
 			.catch(error => {
 				console.error('Error Fetching JSON:', error.response)
 			});
+			axios.get('https://partner.googleadservices.com/gampad/ads?gct=GyMSSdk5ABMKmwL4DAGKGJQCKowCCAkQIEoAWICAgKCbusOpdbgBjviy-4IE0gIJdGV4dC9odG1s8ALsCfgCbpADAKIDEhDsCRhuKICAgKCbusOpdeABAKIDHBABGAEogICAoJu6w_LKAVILQlVUVE9OX1RFWFSiAxQQARgBKICAgKCbuoiIJVIEU0tJTsgD7AnQA27wAwLKBYABaHR0cHM6Ly93d3cuZXZlb25saW5lLmNvbS9ydS8_dXRtX3NvdXJjZT1kYm0mdXRtX21lZGl1bT1jcG0mdXRtX2NhbXBhaWduPTIwMTgwNl9CcmFuZF9HTl9sYW5nX3RvJnV0bV90ZXJtPXJ1JnV0bV9jb250ZW50PWduXzAwMDH6BgIoALIBAhgBGN6YwNgFKAAw3rT13wU4AFgBagZfYmxhbmtwyse52AU&iu=43340684&gdfp_req=1&height=110&width=1260&impl=ifr')
+			.then(res => {
+				console.log(res.data)
+			})
+
 	}
+
 	// Toggle preview modal, set pageData to the returned state from campaignCard
-	toggleModal(e, data) {
+	toggleModal(e) {
 		this.state.displayPreviewModal === true ? (
 			this.setState({
 				displayPreviewModal: false
@@ -42,6 +48,7 @@ class App extends Component {
 			})
 		);
 	}
+
 	generatePreviewPage(e, data) {
 		this.setState({
 			pageData: data

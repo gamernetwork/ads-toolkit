@@ -102,8 +102,9 @@ export default class CampaignCard extends Component {
                     </div>
                     <hr/>
                     <div className="buttons">
+                        <a onClick={(e) => this.returnPreviewPage(e)} className="button is-secondary">Save</a>
                         <a onClick={(e) => this.showPreviewPage(e)} className="button is-secondary">Preview</a>
-                        <a onClick={(e) => this.returnPreviewPage(e)} className="button is-primary">Generate</a>
+                        <a className="button is-primary">Generate</a>
                     </div>
                 </div>
             </div>

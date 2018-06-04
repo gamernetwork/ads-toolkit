@@ -28,8 +28,8 @@ export default class PreviewPage extends Component {
                         default: 
                             takeoverFormat = <EGHomepage leaderboard={leaderboard} halfpage={halfpage}/>
                         break;
-                        case 'Rockpapershotgun':
-                        break;
+                        // case 'Rockpapershotgun':
+                        // break;
                     }
                     return(
                         <div className="takeover-container">

@@ -3,7 +3,6 @@ import renderHTML from 'react-render-html';
 
 const PreviewModal = (props) => {
     if(props.hideShow === true) {
-        console.log(props.page)
         return (
             <div className="modal is-active has-text-white">
                 <div onClick={(e) => props.closeModal(e)} className="modal-background">

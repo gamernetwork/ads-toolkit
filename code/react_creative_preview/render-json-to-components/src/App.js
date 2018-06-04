@@ -31,6 +31,7 @@ class App extends Component {
 			.catch(error => {
 				console.error('Error Fetching JSON:', error.response)
 			});
+
 	}
 
 	// Toggle preview modal, set pageData to the returned state from campaignCard

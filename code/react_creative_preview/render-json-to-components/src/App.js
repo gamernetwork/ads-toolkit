@@ -64,11 +64,11 @@ class App extends Component {
 		])
 		.then(axios.spread((leaderboard, halfpage) => { 
 			this.setState({
-				takeovers: {
+				takeovers: [...this.state.takeovers, {
 					site: takeover.site,
 					leaderboard: leaderboard.data,
 					halfpage: halfpage.data
-				}
+				}]
 			}, () => {
 				this.writePreviewPage()
 			})

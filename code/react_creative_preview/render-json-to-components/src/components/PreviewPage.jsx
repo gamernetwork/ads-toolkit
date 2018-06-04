@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import EGHomepage from './sitetemplates/EGHomepage';
+import EGHomepage from './sitetemplates/EGHomepage';
 
 export default class PreviewPage extends Component {
     constructor(props) {
@@ -7,15 +7,13 @@ export default class PreviewPage extends Component {
         this.state = {
             title: this.props.title,
             creatives: this.props.creatives,
-            takeovers: this.props.takeovers
+            takeovers: this.props.takeovers,
+            removeBindings: `
+                <script>parent.jQuery('html').unbind();</script>
+            `
         } 
     }
     
-
-    componentWillMount() {
-        console.log('hi')
-    }
-
     render() {
         return (
             <div className="page-wrapper">
@@ -28,8 +26,9 @@ export default class PreviewPage extends Component {
                         <iframe title={creative.link} key={creative.link} src={creative.link} width={width} height={height} frameBorder="0"></iframe>
                     );
                 })}
-                <iframe sandbox={"allow-same-origin allow-scripts allow-popups allow-forms"} width={1260} height={250} srcDoc={this.state.takeovers.leaderboard} frameBorder="0"></iframe>
-                {/* {this.state.takeovers.map(takeover => {
+                {/* <iframe sandbox={"allow-same-origin allow-scripts allow-popups allow-forms"} width={1260} height={250} srcDoc={this.state.takeovers.leaderboard + this.state.removeBindings} frameBorder="0"></iframe> */}
+                {this.state.takeovers.map(takeover => {
+                    console.log(takeover)
                     let takeoverFormat;
                     switch(takeover.site) {
                         case 'Eurogamer':
@@ -41,7 +40,7 @@ export default class PreviewPage extends Component {
                         
                         </div>
                     )
-                })} */}
+                })}
             </div>
         );
     }

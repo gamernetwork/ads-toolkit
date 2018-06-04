@@ -1,5 +1,11 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 .campaign-card {
-	min-height: 150px;
+	height: 100%;
 	width: 100%;
 }
 
@@ -26,4 +32,16 @@ iframe {
 	text-align: center;
 	margin: 2rem;
 }
+
+.takeover-container {
+	margin: 2rem 0;
+}
+
+.takeover-container-iframe {
+	width: 100%;
+	height: 1316px;
+	margin: 0;
+	padding: 0;
+}
+
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EGHomepage from './sitetemplates/js/EGHomepage';
+import ReactDOMServer from 'react-dom/server';
 
 export default class PreviewPage extends Component {
     constructor(props) {
@@ -24,15 +25,17 @@ export default class PreviewPage extends Component {
                     const leaderboard = takeover.leaderboard.data + this.state.removeBindings;
                     const halfpage = takeover.halfpage.data;
                     switch(takeover.site) {
-                        case 'Eurogamer':
+                        default: 
                             takeoverFormat = <EGHomepage leaderboard={leaderboard} halfpage={halfpage}/>
+                        break;
+                        case 'Rockpapershotgun':
                         break;
                     }
                     return(
                         <div className="takeover-container">
                             <h2 className="title is-2 has-text-centered">{takeover.site}</h2>
                             <h2 className="subtitle is-5 has-text-centered">Desktop Takeover</h2>
-                            {takeoverFormat}
+                            <iframe className="takeover-container-iframe" scrolling={"no"} sandbox={"allow-same-origin allow-scripts allow-popups allow-forms"} srcDoc={ReactDOMServer.renderToStaticMarkup(takeoverFormat)} width={1920} height={1316} frameBorder="0"></iframe>
                         </div>
                     )
                 })}

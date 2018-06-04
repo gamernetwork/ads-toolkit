@@ -20,7 +20,7 @@ class App extends Component {
 	}
 	// On mount, get the creatives JSON
 	componentDidMount() {
-		axios.get('https://images.eurogamer.net/2018/george.francis/previewjsontest/testjson.json')
+		axios.get('https://images.eurogamer.net/2018/george.francis/reactcomptest3//testjson.json')
 			.then(res => {
 				const campaigns = res.data;
 				// Add campaigns to campaignList state
@@ -31,7 +31,6 @@ class App extends Component {
 			.catch(error => {
 				console.error('Error Fetching JSON:', error.response)
 			});
-
 	}
 
 	// Toggle preview modal, set pageData to the returned state from campaignCard

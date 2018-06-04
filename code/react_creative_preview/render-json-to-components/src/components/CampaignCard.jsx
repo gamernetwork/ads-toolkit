@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Checkbox from './Checkbox';
 
+
 export default class CampaignCard extends Component {
     constructor(props) {
         super(props);

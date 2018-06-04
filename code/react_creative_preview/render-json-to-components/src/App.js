@@ -13,12 +13,13 @@ class App extends Component {
 			campaignList: [],
 			displayPreviewModal: false,
 			pageData: null,
+			takeovers: [],
 			previewPage: null
 		}
 	}
 	// On mount, get the creatives JSON
 	componentDidMount() {
-		axios.get('http://images.eurogamer.net/2018/george.francis/reactcomptest/testjson.json')
+		axios.get('https://images.eurogamer.net/2018/george.francis/previewjsontest/testjson.json')
 			.then(res => {
 				const campaigns = res.data;
 				// Add campaigns to campaignList state
@@ -29,11 +30,6 @@ class App extends Component {
 			.catch(error => {
 				console.error('Error Fetching JSON:', error.response)
 			});
-			axios.get('https://partner.googleadservices.com/gampad/ads?gct=GyMSSdk5ABMKmwL4DAGKGJQCKowCCAkQIEoAWICAgKCbusOpdbgBjviy-4IE0gIJdGV4dC9odG1s8ALsCfgCbpADAKIDEhDsCRhuKICAgKCbusOpdeABAKIDHBABGAEogICAoJu6w_LKAVILQlVUVE9OX1RFWFSiAxQQARgBKICAgKCbuoiIJVIEU0tJTsgD7AnQA27wAwLKBYABaHR0cHM6Ly93d3cuZXZlb25saW5lLmNvbS9ydS8_dXRtX3NvdXJjZT1kYm0mdXRtX21lZGl1bT1jcG0mdXRtX2NhbXBhaWduPTIwMTgwNl9CcmFuZF9HTl9sYW5nX3RvJnV0bV90ZXJtPXJ1JnV0bV9jb250ZW50PWduXzAwMDH6BgIoALIBAhgBGN6YwNgFKAAw3rT13wU4AFgBagZfYmxhbmtwyse52AU&iu=43340684&gdfp_req=1&height=110&width=1260&impl=ifr')
-			.then(res => {
-				console.log(res.data)
-			})
-
 	}
 
 	// Toggle preview modal, set pageData to the returned state from campaignCard
@@ -51,14 +47,44 @@ class App extends Component {
 
 	generatePreviewPage(e, data) {
 		this.setState({
-			pageData: data
+			pageData: data,
 		}, () => {
-			this.setState({
-				previewPage: ReactDOMServer.renderToStaticMarkup(<PreviewPage data={this.state.pageData}/>)
-			}, () => {
-				console.log(this.state.previewPage)
-			});
+			this.writePreviewPage();
+			this.state.pageData.takeovers.map(takeover => {
+				this.fetchTakeoverCode(takeover);
+				return false;
+			})
 		})
+	}
+
+	fetchTakeoverCode(takeover) {
+		axios.all([
+			axios.get(takeover.leaderboard),
+			axios.get(takeover.halfpage)
+		])
+		.then(axios.spread((leaderboard, halfpage) => { 
+			this.setState({
+				takeovers: {
+					site: takeover.site,
+					leaderboard: leaderboard.data,
+					halfpage: halfpage.data
+				}
+			}, () => {
+				this.writePreviewPage()
+			})
+		}))
+	}
+
+	writePreviewPage() {
+		this.setState({
+			previewPage: ReactDOMServer.renderToStaticMarkup(
+				<PreviewPage 
+					creatives={this.state.pageData.creatives} 
+					takeovers={this.state.takeovers}
+					title={this.state.pageData.title}
+				/>
+			)
+		});
 	}
 	
   	render() {
@@ -95,7 +121,7 @@ class App extends Component {
 											title={campaign.name} 
 											creatives={campaign.creatives} 
 											takeovers={campaign.takeovers}
-											toggleModal={(e, data) => this.toggleModal(e, data)}
+											toggleModal={(e) => this.toggleModal(e)}
 											returnPage={(e, data) => this.generatePreviewPage(e, data)}
 										/>
 									);
@@ -104,9 +130,7 @@ class App extends Component {
 						</div>
 					</section>
 				</div>
-				{this.state.displayPreviewModal === true && 
-					<PreviewModal page={this.state.previewPage} closeModal={(e, data) => this.toggleModal(e, null)} />
-				}
+				<PreviewModal page={this.state.previewPage} hideShow={this.state.displayPreviewModal} closeModal={(e) => this.toggleModal(e)} />
 			</div>
 		);
   	}

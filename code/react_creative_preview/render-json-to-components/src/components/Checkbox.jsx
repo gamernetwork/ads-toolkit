@@ -21,7 +21,6 @@ export default class Checkbox extends Component {
             } else {
                 this.props.returnFunc('takeover', this.props.returnObj, this.state.isChecked)
             }
-            
         });
     }
     render() {

@@ -5,6 +5,7 @@ import PreviewPage from './components/PreviewPage';
 import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import './App.css';
+import { write } from 'fs';
 
 class App extends Component {
 	constructor(props) {
@@ -49,30 +50,8 @@ class App extends Component {
 		this.setState({
 			pageData: data,
 		}, () => {
-			this.writePreviewPage();
-			this.state.pageData.takeovers.map(takeover => {
-				this.fetchTakeoverCode(takeover);
-				return false;
-			})
+			this.writePreviewPage()
 		})
-	}
-
-	fetchTakeoverCode(takeover) {
-		axios.all([
-			axios.get(takeover.leaderboard),
-			axios.get(takeover.halfpage)
-		])
-		.then(axios.spread((leaderboard, halfpage) => { 
-			this.setState({
-				takeovers: [...this.state.takeovers, {
-					site: takeover.site,
-					leaderboard: leaderboard.data,
-					halfpage: halfpage.data
-				}]
-			}, () => {
-				this.writePreviewPage()
-			})
-		}))
 	}
 
 	writePreviewPage() {
@@ -80,7 +59,7 @@ class App extends Component {
 			previewPage: ReactDOMServer.renderToStaticMarkup(
 				<PreviewPage 
 					creatives={this.state.pageData.creatives} 
-					takeovers={this.state.takeovers}
+					takeovers={this.state.pageData.takeovers}
 					title={this.state.pageData.title}
 				/>
 			)

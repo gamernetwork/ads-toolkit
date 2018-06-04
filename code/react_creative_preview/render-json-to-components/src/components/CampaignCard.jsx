@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Checkbox from './Checkbox';
+import axios from 'axios';
+
 
 
 export default class CampaignCard extends Component {
@@ -28,9 +30,7 @@ export default class CampaignCard extends Component {
             )
         } else {
             val === true ? (
-                this.setState({
-                    takeoversForPreview: [...this.state.takeoversForPreview, obj]
-                })
+                this.fetchTakeoverCode(obj)
             ) : (
                 this.setState({
                     takeoversForPreview: this.state.takeoversForPreview.splice(0, this.state.takeoversForPreview.indexOf(obj))
@@ -64,6 +64,22 @@ export default class CampaignCard extends Component {
             this.props.returnPage(e, this.state.previewData);
         });
     }
+
+    fetchTakeoverCode(takeover) {
+		axios.all([
+			axios.get(takeover.leaderboard),
+			axios.get(takeover.halfpage)
+		])
+		.then(axios.spread((leaderboard, halfpage) => { 
+            this.setState({
+                takeoversForPreview: [...this.state.takeoversForPreview, {
+                    site: takeover.site,
+                    leaderboard: leaderboard,
+                    halfpage: halfpage
+                }]
+            })
+		}))
+	}
 
     returnStateFromCheckbox = this.returnStateFromCheckbox.bind(this);
 

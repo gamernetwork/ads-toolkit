@@ -19,6 +19,7 @@ export default class PreviewPage extends Component {
             <div className="page-wrapper">
             <div id="page-wrapper"></div>
                 <h1 className="title is-1">{this.state.title}</h1>
+                <hr/>
                 {this.state.creatives.map(creative => {
                     const width = creative.format.slice(0, creative.format.indexOf('x'));
                     const height = creative.format.slice(creative.format.indexOf('x') + 1);
@@ -37,7 +38,8 @@ export default class PreviewPage extends Component {
                     }
                     return(
                         <div className="takeover-container">
-                        
+                            <h2 className="title is-3 has-text-centered">{takeover.site}</h2>
+                            {takeoverFormat}
                         </div>
                     )
                 })}

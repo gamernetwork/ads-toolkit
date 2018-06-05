@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Checkbox from './Checkbox';
 import axios from 'axios';
-import $ from 'jquery';
 
 
 

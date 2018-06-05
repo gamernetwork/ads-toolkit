@@ -62,6 +62,8 @@ class App extends Component {
 					title={this.state.pageData.title}
 				/>
 			)
+		}, () => {
+			console.log(this.state.previewPage)
 		});
 	}
 	// Render the app

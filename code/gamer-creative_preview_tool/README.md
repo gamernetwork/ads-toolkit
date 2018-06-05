@@ -14,5 +14,7 @@ The preview tool gets everything it needs from standard DFP urls, meaning that a
 
 ## Usage 
 
-For local development, just clone and run **npm run dev** 
-This will start a local express server as well as one for the client side of the app. 
++ Clone 
++ NPM Install 
++ npm run dev
+

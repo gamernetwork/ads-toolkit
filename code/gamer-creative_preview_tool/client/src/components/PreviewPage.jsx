@@ -20,6 +20,56 @@ export default class PreviewPage extends Component {
     render() {
         return (
             <div className="page-wrapper">
+                        <div className="styled">
+            {/* Page styling */}
+            <style dangerouslySetInnerHTML={{__html: `
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                
+                .campaign-card {
+                    height: 100%;
+                    width: 100%;
+                }
+                
+                input {
+                    position: relative;
+                    bottom: .08rem;
+                    margin-right: .5rem;
+                }
+                
+                iframe {
+                    position: relative;
+                    display: block;
+                    margin: 4rem auto 4rem auto;
+                    z-index: 1;
+                }
+                
+                .preview-content {
+                    width: 95%;
+                    height: 90%;
+                    background: #f9f9f9;
+                }
+                
+                .preview-content h1 {
+                    text-align: center;
+                    margin: 2rem;
+                }
+                
+                .takeover-container {
+                    margin: 2rem 0;
+                }
+                
+                .takeover-container-iframe {
+                    width: 100%;
+                    height: 1316px;
+                    margin: 0;
+                    padding: 0;
+                }
+            `}} />
+            </div>
                 <h1 className="title is-1">{this.state.title}</h1>
                 <hr/>
                 {/* For each takeover passed to props, return a new site specific takeover page */}

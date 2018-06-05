@@ -1,0 +1,23 @@
+{
+  "name": "reactexpress",
+  "version": "1.0.0",
+  "description": "boilerplate for react and express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client \""
+  },
+  "author": "george francis",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "nodemon": "^1.17.5"
+  }
+}

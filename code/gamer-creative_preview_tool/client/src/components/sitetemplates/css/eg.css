@@ -1,0 +1,74 @@
+* {
+    margin: 0; 
+    padding: 0;
+}
+
+.eg iframe {
+    margin: 0;
+}
+
+.eg #page-wrapper {
+    position: relative;
+    clear: both;
+}
+
+.eg .advert#leaderboard {
+    width: 1260px;
+    margin: 0 auto;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.eg#page-wrapper {
+    min-width: 1260px;
+}
+
+.eg .document-wrapper {
+    width: 1260px;
+    margin: 0 auto;
+    clear: both;
+    max-width: none;
+}
+.eg .document {
+    min-height: 1066px;
+    background: #f9f9f9;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.eg .advert {
+    display: block;
+    text-align: center;
+    margin: 0 auto 32px;
+    clear: both;
+}
+
+.eg .main {
+    clear: both;
+    width: 100%;
+    float: left;
+    position: relative;
+    padding-right: 316px;
+    min-height: 632px;
+}
+
+.eg .sidebar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 300px;
+}
+
+.eg #skyscraper {
+    width: 300px;
+    min-height: 250px;
+}
+
+.eg .site-bg {
+    position: absolute;
+    width: 1280px;
+}

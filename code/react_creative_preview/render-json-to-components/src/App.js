@@ -5,7 +5,6 @@ import PreviewPage from './components/PreviewPage';
 import axios from 'axios';
 import ReactDOMServer from 'react-dom/server';
 import './App.css';
-import { write } from 'fs';
 
 class App extends Component {
 	constructor(props) {
@@ -33,7 +32,7 @@ class App extends Component {
 			});
 	}
 
-	// Toggle preview modal, set pageData to the returned state from campaignCard
+	// Toggle preview modal
 	toggleModal(e) {
 		this.state.displayPreviewModal === true ? (
 			this.setState({
@@ -45,7 +44,7 @@ class App extends Component {
 			})
 		);
 	}
-
+	// Passed to campaigncard preview button, sets pageData state to returned creatives
 	generatePreviewPage(e, data) {
 		this.setState({
 			pageData: data,
@@ -53,7 +52,7 @@ class App extends Component {
 			this.writePreviewPage()
 		})
 	}
-
+	// Render pagedata state to static HTML, this is passed to the preview modal and also rendered to a file
 	writePreviewPage() {
 		this.setState({
 			previewPage: ReactDOMServer.renderToStaticMarkup(
@@ -65,10 +64,11 @@ class App extends Component {
 			)
 		});
 	}
-	
+	// Render the app
   	render() {
 		return (
 			<div className="App">
+			{/* General structure / styling */}
 				<nav className="navbar is-light" aria-label="main navigation">
 					<div className="navbar-brand">
 						<a className="navbar-item">
@@ -109,6 +109,7 @@ class App extends Component {
 						</div>
 					</section>
 				</div>
+				{/* Preview overlay */}
 				<PreviewModal page={this.state.previewPage} hideShow={this.state.displayPreviewModal} closeModal={(e) => this.toggleModal(e)} />
 			</div>
 		);

@@ -9,6 +9,8 @@ export default class Checkbox extends Component {
             format: this.props.format
         }
     }
+    // Keep checked value tied to state
+    // Format is only defined for a standalone creative, so is used to check what to pass to returnFunc (returnStateFromCheckbox in campaignCard)
     handleChange(e) {
         const target = e.target;
         const val = target.type === 'checkbox' ? target.checked : target.value;

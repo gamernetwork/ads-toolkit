@@ -20,7 +20,7 @@ export default class PreviewPage extends Component {
     render() {
         return (
             <div className="page-wrapper">
-                        <div className="styled">
+            <div className="styled">
             {/* Page styling */}
             <style dangerouslySetInnerHTML={{__html: `
                 * {
@@ -28,7 +28,9 @@ export default class PreviewPage extends Component {
                     padding: 0;
                     box-sizing: border-box;
                 }
-                
+                .page-wrapper {
+                    margin-top: 2rem;
+                }
                 .campaign-card {
                     height: 100%;
                     width: 100%;
@@ -70,7 +72,7 @@ export default class PreviewPage extends Component {
                 }
             `}} />
             </div>
-                <h1 className="title is-1">{this.state.title}</h1>
+                <h1 className="title is-1 has-text-centered">{this.state.title}</h1>
                 <hr/>
                 {/* For each takeover passed to props, return a new site specific takeover page */}
                 {this.state.takeovers.map(takeover => {

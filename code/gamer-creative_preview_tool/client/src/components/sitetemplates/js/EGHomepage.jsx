@@ -1,5 +1,4 @@
 import React from 'react';
-import bg from '../img/egbg.jpg'
 
 // A copy of the eurogamer takeover format, used to render EG takeovers
 const EGHomepage = props => {
@@ -107,7 +106,7 @@ const EGHomepage = props => {
                 <div className="document-wrapper">
                     <div className="document">
                         <div className="main">
-                            <img className="site-bg" src={bg} alt=""/>
+                            <img className="site-bg" src={'https://images.eurogamer.net/2018/george.francis/egbg.72f3e7c8.jpg'} alt=""/>
                         </div>
                         <div className="sidebar">
                             <div id="skyscraper">

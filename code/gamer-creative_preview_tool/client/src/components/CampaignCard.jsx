@@ -13,7 +13,9 @@ export default class CampaignCard extends Component {
             takeovers: this.props.takeovers,
             creativesForPreview: [],
             takeoversForPreview: [],
-            previewData: {}
+            previewData: {},
+            hasGeneratedPage: false,
+            pageLink: null
         }
     }
     /* 
@@ -80,7 +82,17 @@ export default class CampaignCard extends Component {
                 }]
             })
 		}))
-	}
+    }
+    generatePage(e) {
+        this.setState({
+            hasGeneratedPage: true
+        })
+        this.props.savePage(res => {
+            this.setState({
+                pageLink: res.data.path
+            })
+        });
+    }
     // Render campaign card
     render() {
         return(
@@ -126,8 +138,13 @@ export default class CampaignCard extends Component {
                     <div className="buttons">
                         <a onClick={(e) => this.returnPreviewPage(e)} className="button is-secondary">Save</a>
                         <a onClick={(e) => this.props.toggleModal(e)} className="button is-secondary">Preview</a>
-                        <a onClick={e => this.props.savePage(e)} className="button is-primary">Generate</a>
+                        <a onClick={e => this.generatePage(e)} className="button is-primary">Generate</a>
                     </div>
+                    
+                    {
+                        // If page link has been returned, display it within campaignCard
+                        this.state.pageLink !== null && <React.Fragment><hr/> Link: <input readOnly value={this.state.pageLink} type="text"/></React.Fragment>
+                    }
                 </div>
             </div>
         );

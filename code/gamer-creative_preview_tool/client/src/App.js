@@ -66,12 +66,19 @@ class App extends Component {
 			// console.log(this.state.previewPage)
 		});
 	}
-	savePreviewPage() {
-		console.log(this.state.previewPage)
+	// Save generated page to disk
+	savePreviewPage(callback) {
+		// Post message to server
 		axios.post('/api/page', {
+			title: this.state.pageData.title,
 			page: this.state.previewPage
 		}) 
+		// When file has been written, trigger callback
+		.then(res => {
+			callback(res);
+		})
 	}
+	savePreviewPage = this.savePreviewPage.bind(this)
 	// Render the app
   	render() {
 		return (

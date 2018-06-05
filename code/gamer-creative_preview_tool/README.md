@@ -20,10 +20,12 @@ The preview tool gets everything it needs from standard DFP urls, meaning that a
 ## Installation
 
 + git clone 
-+ npm install (install dependancies)
++ npm install (install dependencies)
 + npm run dev (start dev servers)
 
 ## Build 
+
+To build the production version of the app, run the following commands:
 
 + cd client 
 + npm run build

@@ -201,6 +201,11 @@
                     break;
                 }
                 var targetHalfpage = parent.jQuery(halfpageContainer).find('iframe');
+                if(targetHalfpage.length < 1) {
+                    if(this_site == 'nintendolife.com' || this_site === 'pushsquare.com') {
+                        targetHalfpage = parent.jQuery('#page-sidebar').find('iframe');
+                    }
+                }
                 var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
             }
             document.querySelector('.skin-load-test').src = takeover_skin_image;
@@ -215,6 +220,14 @@
         }
         if(IS_HALFPAGE) {
             if(!IS_DEV) {
+                window.addEventListener('load', function(){
+                    setTimeout(function(){
+                        if(document.body.style.display === 'none') {
+                            document.body.classList.remove('js-loading');
+                            document.body.style.display = 'block';
+                        }
+                    }, 2500);
+                })
                 window.addEventListener('message', function(e) {
                     if(e.data.includes('leaderboard+skin_loaded')) {
                         document.body.classList.remove('js-loading');

@@ -31,7 +31,6 @@ class App extends Component {
 				console.error('Error Fetching JSON:', error.response)
 			});
 	}
-
 	// Toggle preview modal
 	toggleModal(e) {
 		this.state.displayPreviewModal === true ? (
@@ -63,6 +62,7 @@ class App extends Component {
 				/>
 			)
 		}, () => {
+			// Leaving this is for debuggin
 			// console.log(this.state.previewPage)
 		});
 	}

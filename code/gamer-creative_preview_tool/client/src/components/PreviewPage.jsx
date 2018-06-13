@@ -22,6 +22,7 @@ export default class PreviewPage extends Component {
             <div className="page-wrapper">
             <div className="styled">
             {/* Page styling */}
+            {/* May move to styled components */}
             <style dangerouslySetInnerHTML={{__html: `
                 * {
                     margin: 0;

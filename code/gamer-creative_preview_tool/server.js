@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 var createHTML = require('create-html')
 const app = express();
+const path = require('path');
 const fs = require('fs');
 
 const port = 5000;
@@ -11,6 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }));
 app.use(bodyParser.json({limit: '10mb'}));
 
 app.use(express.static(`${__dirname}/generated_pages`));
+// app.use(express.static(`${__dirname}/client/build`));
+
+// app.get('/', function (req, res) {
+//     res.sendFile(`${__dirname}/build/index.html`);
+// });
+  
 
 // On post request, generate a static.html file with page contents
 app.post('/api/page', (req, res) => {
@@ -31,6 +38,6 @@ app.post('/api/page', (req, res) => {
     });
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Server started on ${port}`);
 }); 

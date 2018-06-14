@@ -1,0 +1,255 @@
+<div class="fishbowl">
+
+	<style type="text/css">
+		.fixed {
+			position: fixed;
+			backface-visibility: hidden;
+			transform: translateZ(0px);
+		}
+
+		div.fishbowl-clipper {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			clip-path: inset(0 0 0 0);
+			clip: rect(0px auto auto 0px);
+			overflow: hidden;
+		}
+
+		div.fishbowl-wrapper {
+			top: 0;
+			left: 0;
+			transform-origin: 0 0;
+		}
+
+		div.fishbowl-background {
+			width: 100%;
+			height: 100%;
+		}
+
+		a.fishbowl-fullscreen {
+			bottom: 0;
+			left: 0;
+			top: 0;
+			right: 0;
+			z-index: 10;
+		}
+
+		#fishbowl__autoplaying-video{
+			position: absolute;
+			left: 0;
+			top: 0px;
+			width: 100%;
+		}
+
+		.fishbowl__top-content {
+			position: absolute;
+			top: 0;
+			left: 0;
+			min-height: 80px;
+			background: #fff;
+			width: 100%;
+			text-align: left;
+		}
+
+		.fishbowl__top-content .ad-notification {
+			position: relative;
+			box-sizing: border-box;
+			width: 100%;
+			height: 1rem;
+			margin-bottom: 1.5rem;
+			display: flex;
+			justify-content: center;
+			border-bottom: 1px solid #ddd;
+			padding: .5rem;
+			align-items: center;
+		}
+
+		.fishbowl__top-content .ad-notification p {
+			padding-bottom: .5rem;
+		}
+
+		.fishbowl__top-content h2 {
+			margin-left: 1rem;
+			max-width: 60%;
+			text-wrap: break-word;
+			float: left;
+		}
+
+		.fishbowl__top-content p {
+			margin: .75rem 1rem 1.5rem 1rem;
+			float: left;
+		}
+
+		.fishbowl__top-content button {
+			max-width: 40%;
+			width: 80px;
+			height: 1.5rem;
+			float: right;
+			margin-right: 1rem;
+			border: 1px solid #333;
+			background: none;
+		}
+
+		.fishbowl__bottom-content {
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			min-height: 40px;
+			padding: 1rem;
+			background: #fff;
+			width: 100%;
+			text-align: left;
+		}
+	</style>
+
+	<div class="fishbowl-clipper">
+		<div class="fishbowl-wrapper fixed">
+			<div class="fishbowl-background fixed"></div>
+            <video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
+                <source src="assets/godw_360.mp4" type="video/mp4">
+			</video>
+			<a class="fishbowl-fullscreen fixed" href="" target="_blank"></a>
+		</div> 
+	</div>
+	<div class="fishbowl__top-content">
+		<div class="ad-notification">
+			<p>Advertisment</p>
+		</div>
+		<h2>God Of War |</h2>
+		<button>CTA</button>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, quaerat!</p>
+	</div>
+	<div class="fishbowl__bottom-content">
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, quaerat!</p>
+	</div>
+</div>
+
+<style type="text/css">
+	div.fishbowl-fallback {
+		display: block;
+		position: absolute;
+		width: 320px;
+		height: 500px;
+		margin: 0 auto;
+		background: url('assets/bg.jpg') center -7px no-repeat;
+		background-size: cover;
+	}
+</style>
+
+<a href="" target="_blank">
+	<div class="fishbowl-fallback"></div>
+</a>
+
+<script type="text/javascript">
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	ga('create', 'UA-23103987-1', 'auto', {
+		'name': 'showcase'
+	});
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	var config = {
+		src: 'assets/bg.jpg',
+		clipHeight: 500,
+		imgWidth: 360,
+		imgHeight: 704
+	};
+
+	var this_site = '%%SITE%%';
+
+	var $ = jQuery.noConflict();
+	var $fishbowl, $clipper, $background, $fixed, $frame, $ad, $mpu;
+	var $splats, $logo, splat_timeout;
+	var this_site = '%%SITE%%';
+
+	// if('[%MP4_LINK%]' !== '') {
+	// 	document.querySelector('#fishbowl-auto-vid').src = '[%MP4_LINK%]';
+	// }
+
+	$(document).ready(function () {
+
+		$fishbowl = $('div.fishbowl');
+		$clipper = $('div.fishbowl-clipper');
+		$background = $('div.fishbowl-background');
+		$wrapper = $('div.fishbowl-wrapper');
+		$fallback = $('div.fishbowl-fallback');
+		$frame = $(frameElement);
+		$ad = $(frameElement.parentNode.parentNode);
+		$mpu = $(frameElement.parentNode.parentNode.parentNode);
+		windowHeight = top.window.innerHeight;
+		autoplayingVideo = document.querySelector('#fishbowl-auto-vid'); 
+		setup();
+
+		$(parent.window).on('resize', onResize);
+		window.top.addEventListener('orientationchange', onResize, false);
+	});
+
+	function setup() {
+		$mpu.css({
+			width: "100vw",
+			left: "calc((100vw - 100%) / -2)",
+			position: 'relative',
+			overflow: 'visible',
+			transform: 'inherit'
+		});
+
+		$ad.css({
+			minHeight: '440px'
+		})
+
+		$background.css({
+			background: 'url(' + config.src + ') top center/100% no-repeat'
+		});
+
+		$frame.css({
+			height: config.clipHeight + 'px'
+		});
+
+		$clipper.css({
+			height: config.clipHeight + 'px'
+		});
+
+		$ad.append($fishbowl);
+
+		if ('assets/bg.jpg' !== '') {
+			$fallback.css({
+				background: 'url(assets/bg.jpg) top center/100% no-repeat'
+			});
+		}
+		onResize();
+	}
+
+	function onResize() {
+		var w = window.top.innerWidth || window.top.document.documentElement.clientWidth || window.top.document.body.clientWidth;
+		var h = window.top.innerHeight || window.top.document.documentElement.clientHeight || window.top.document.body.clientHeight;
+
+		if (w > h || w > 500) { // in landscape mode or on tablet
+			$fallback.show();
+			$fishbowl.hide();
+		} else {
+			$fishbowl.show();
+			$fallback.hide();
+			$wrapper.css({
+				transform: 'scale(' + (screen.width / config.imgWidth) + ') translateZ(0px)',
+				width: config.imgWidth + 'px',
+				height: config.imgHeight + 'px'
+			});
+		}
+	}
+
+	function getWidth(w) {
+		return 'calc(100% + ' + w + 'px)';
+	}
+</script>

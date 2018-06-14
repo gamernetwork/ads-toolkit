@@ -1,6 +1,18 @@
 <div class="fishbowl">
 
 	<style type="text/css">
+		@font-face {
+			font-family: Gibson;
+			font-style: normal;
+			font-weight: 400;
+			src: url(./assets/fonts/gibson_reg.woff2);
+		}
+		@font-face {
+			font-family: Gibson;
+			font-style: bold;
+			font-weight: 600;
+			src: url(./assets/fonts/gibson_bold.woff2);
+		}
 		.fixed {
 			position: fixed;
 			backface-visibility: hidden;
@@ -50,23 +62,29 @@
 			background: #fff;
 			width: 100%;
 			text-align: left;
+			-webkit-font-smoothing: antialiased;
+			font-family: 'Gibson';
 		}
 
 		.fishbowl__top-content .ad-notification {
 			position: relative;
 			box-sizing: border-box;
-			width: 100%;
-			height: 1rem;
+			width: calc(100% - 2rem);
+			height: .75rem;
 			margin-bottom: 1.5rem;
 			display: flex;
 			justify-content: center;
 			border-bottom: 1px solid #ddd;
 			padding: .5rem;
 			align-items: center;
+			font-weight: normal;
+			font-size: 1rem;
+			margin-left: 1rem;
+			color: #333;
 		}
 
 		.fishbowl__top-content .ad-notification p {
-			padding-bottom: .6rem;
+			padding-bottom: .3rem;
 		}
 
 		.fishbowl__top-content h2 {
@@ -74,21 +92,29 @@
 			max-width: 60%;
 			text-wrap: break-word;
 			float: left;
+			font-weight: bold;
+			color: #0084cc;
 		}
 
 		.fishbowl__top-content p {
 			margin: .75rem 1rem 1.5rem 1rem;
 			float: left;
+			font-weight: 300;
+			color: #333;
+			overflow-wrap: break-word;
+			hyphens: auto;
 		}
 
 		.fishbowl__top-content button {
 			max-width: 40%;
-			width: 80px;
+			width: 90px;
 			height: 1.5rem;
 			float: right;
 			margin-right: 1rem;
-			border: 1px solid #333;
-			background: none;
+			background: #002351;
+			font-family: 'Gibson';
+			color: white;
+			font-weight: bold;
 		}
 
 		.fishbowl__bottom-content {
@@ -100,6 +126,25 @@
 			background: #fff;
 			width: 100%;
 			text-align: left;
+			overflow-wrap: break-word;
+			font-family: 'Gibson';
+			
+		}
+		.fishbowl__bottom-content, a, p {
+			font-weight: normal;
+			color: #333;
+			text-decoration: none;
+		}
+
+		.fishbowl__bottom-content p {
+			overflow-wrap: break-word;
+			hyphens: auto;
+		}
+
+		.fishbowl__bottom-content hr {
+			margin: 1rem 0 0 0;
+			color: #ddd;
+			opacity: .25;
 		}
 	</style>
 
@@ -109,7 +154,7 @@
             <video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
                 <source src="assets/godw_360.mp4" type="video/mp4">
 			</video>
-			<a class="fishbowl-fullscreen fixed" href="" target="_blank"></a>
+			<a class="fishbowl-fullscreen fixed" href="test" target="_blank"></a>
 		</div> 
 	</div>
 	<div class="fishbowl__top-content">
@@ -117,11 +162,16 @@
 			<p>Advertisment</p>
 		</div>
 		<h2>God Of War |</h2>
-		<button>CTA</button>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, quaerat!</p>
+		<button>Jetzt kaufen</button>
+		<a href="#" target="_blank">
+			<p>Gnadenlose Kämpfe, atemberaubende Grafik - optimiert für PS4 Pro!</p>
+		</a>
 	</div>
 	<div class="fishbowl__bottom-content">
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, quaerat!</p>
+		<a href="#" target="_blank">
+			<p>Erlebt Kratos' neues Abenteuer jetzt auf PlayStation 4</p>
+		</a>
+		<hr>
 	</div>
 </div>
 

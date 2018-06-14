@@ -5,13 +5,13 @@
 			font-family: Gibson;
 			font-style: normal;
 			font-weight: 400;
-			src: url();
+			src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_reg.woff2');
 		}
 		@font-face {
 			font-family: Gibson;
 			font-style: bold;
 			font-weight: 600;
-			src: url();
+			src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_bold.woff2');
 		}
 		.fixed {
 			position: fixed;
@@ -74,7 +74,6 @@
 			margin-bottom: 1.5rem;
 			display: flex;
 			justify-content: center;
-			border-bottom: 1px solid #ddd;
 			padding: .5rem;
 			align-items: center;
 			font-weight: normal;
@@ -85,6 +84,7 @@
 
 		.fishbowl__top-content .ad-notification p {
 			padding-bottom: .3rem;
+			font-weight: bold;
 		}
 
 		.fishbowl__top-content h2 {
@@ -111,6 +111,7 @@
 			height: 1.5rem;
 			float: right;
 			margin-right: 1rem;
+			margin-top: .25rem;
 			background: #002351;
 			font-family: 'Gibson';
 			color: white;
@@ -119,7 +120,7 @@
 
 		.fishbowl__bottom-content {
 			position: absolute;
-			bottom: -5px;
+			bottom: 0;
 			left: 0;
 			min-height: 40px;
 			padding: 1rem;
@@ -130,7 +131,7 @@
 			font-family: 'Gibson';
 			
 		}
-		.fishbowl__bottom-content, a, p {
+		.fishbowl__bottom-content a, p {
 			font-weight: normal;
 			color: #333;
 			text-decoration: none;
@@ -152,7 +153,7 @@
 		<div class="fishbowl-wrapper fixed">
 			<div class="fishbowl-background fixed"></div>
             <video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
-                <source src="" type="video/mp4">
+                <source src="[%VIDEO%]" type="video/mp4">
 			</video>
 			<a class="fishbowl-fullscreen fixed" href="test" target="_blank"></a>
 		</div> 
@@ -171,7 +172,6 @@
 		<a href="#" target="_blank">
 			<p>Erlebt Kratos' neues Abenteuer jetzt auf PlayStation 4</p>
 		</a>
-		<hr>
 	</div>
 </div>
 
@@ -182,7 +182,7 @@
 		width: 320px;
 		height: 500px;
 		margin: 0 auto;
-		background: url('') center -7px no-repeat;
+		background: url('[%%BACKGROUND%%]') center -7px no-repeat;
 		background-size: cover;
 	}
 </style>
@@ -211,7 +211,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var config = {
-		src: 'assets/bg.jpg',
+		src: '[%BACKGROUND%]',
 		clipHeight: 500,
 		imgWidth: 360,
 		imgHeight: 704
@@ -223,10 +223,6 @@
 	var $fishbowl, $clipper, $background, $fixed, $frame, $ad, $mpu;
 	var $splats, $logo, splat_timeout;
 	var this_site = '%%SITE%%';
-
-	// if('[%MP4_LINK%]' !== '') {
-	// 	document.querySelector('#fishbowl-auto-vid').src = '[%MP4_LINK%]';
-	// }
 
 	$(document).ready(function () {
 
@@ -252,7 +248,8 @@
 			left: "calc((100vw - 100%) / -2)",
 			position: 'relative',
 			overflow: 'visible',
-			transform: 'inherit'
+			transform: 'inherit',
+			padding: 0
 		});
 
 		$ad.css({
@@ -275,7 +272,7 @@
 
 		if ('assets/bg.jpg' !== '') {
 			$fallback.css({
-				background: 'url(assets/bg.jpg) top center/100% no-repeat'
+				background: 'url([%BACKGROUND%]) top center/100% no-repeat'
 			});
 		}
 		onResize();

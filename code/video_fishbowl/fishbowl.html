@@ -64,8 +64,7 @@
 			text-align: left;
 			-webkit-font-smoothing: antialiased;
 			font-family: 'Gibson';
-			margin-top: -32px;
-			padding-top: 16px;
+			margin-top: -16px;
 		}
 
 		.fishbowl__top-content .ad-notification {
@@ -73,7 +72,7 @@
 			box-sizing: border-box;
 			width: calc(100% - 2rem);
 			height: .75rem;
-			margin-bottom: 1.5rem;
+			margin-bottom: 1rem;
 			display: flex;
 			justify-content: center;
 			padding: .5rem;
@@ -84,35 +83,37 @@
 			color: #333;
 		}
 
-		.fishbowl__top-content .ad-notification p {
+		.fishbowl__ad-notification {
 			padding-bottom: .3rem;
-			font-weight: bold;
+			font-weight: normal;
+			color: #002351;
 		}
 
-		.fishbowl__top-content h2 {
-			margin-left: 1rem;
-			max-width: 60%;
-			text-wrap: break-word;
+		.fishbowl__title {
+			margin-left: 24px !important;
+			max-width: 50% !important;
+			text-wrap: break-word !important;
 			float: left;
-			font-weight: bold;
-			color: #0084cc;
+			font-weight: bold; 
+			color: #0084cc !important;
+			line-height: 1.5 !important;
 		}
 
-		.fishbowl__top-content p {
-			margin: .75rem 1rem 1.5rem 1rem;
+		.fishbowl__top-content-text {
+			margin: .75rem 1rem 1rem 24px !important;
 			float: left;
 			font-weight: 300;
 			color: #333;
-			overflow-wrap: break-word;
+			overflow-wrap: break-word; 
 			hyphens: auto;
 		}
 
-		.fishbowl__top-content button {
-			max-width: 40%;
+		.fishbowl__button {
+			max-width: 40%; 
 			width: 90px;
 			height: 1.5rem;
 			float: right;
-			margin-right: 1rem;
+			margin-right: 24px;
 			margin-top: .25rem;
 			background: #002351;
 			font-family: 'Gibson';
@@ -125,7 +126,7 @@
 			bottom: 0;
 			left: 0;
 			min-height: 40px;
-			padding: 1rem;
+			padding: 1rem 24px;
 			background: #fff;
 			width: 100%;
 			text-align: left;
@@ -133,21 +134,16 @@
 			font-family: 'Gibson';
 			
 		}
-		.fishbowl__bottom-content a, p {
+		.fishbowl__bottom-content > a, p {
 			font-weight: normal;
 			color: #333;
 			text-decoration: none;
 		}
 
-		.fishbowl__bottom-content p {
+		.fishbowl__bottom-content-text {
 			overflow-wrap: break-word;
 			hyphens: auto;
-		}
-
-		.fishbowl__bottom-content hr {
-			margin: 1rem 0 0 0;
-			color: #ddd;
-			opacity: .25;
+			margin-top: .5rem;
 		}
 	</style>
 
@@ -162,17 +158,17 @@
 	</div>
 	<div class="fishbowl__top-content">
 		<div class="ad-notification">
-			<p>Advertisment</p>
+			<p class="fishbowl__ad-notification">ANZEIGE</p>
 		</div>
-		<h2>God Of War |</h2>
-		<button>Jetzt kaufen</button>
+		<h2 class="fishbowl__title">[%TITLE%]</h2>
+		<button class="fishbowl__button">[%CTA_TEXT%]</button>
 		<a href="#" target="_blank">
-			<p>Gnadenlose Kämpfe, atemberaubende Grafik - optimiert für PS4 Pro!</p>
+			<p class="fishbowl__top-content-text">[%TOP_CONTENT%]</p>
 		</a>
 	</div>
 	<div class="fishbowl__bottom-content">
 		<a href="#" target="_blank">
-			<p>Erlebt Kratos' neues Abenteuer jetzt auf PlayStation 4</p>
+			<p class="fishbowl__bottom-content-text">[%BOTTOM_CONTENT%]</p>
 		</a>
 	</div>
 </div>
@@ -278,6 +274,15 @@
 			});
 		}
 		onResize();
+
+		var gameTitle = parent.jQuery('.fishbowl__title');
+		var button = parent.jQuery('.fishbowl__button');
+		if(gameTitle[0].innerHTML.length > 45) {
+			gameTitle[0].style.maxWidth = 'none';
+			button[0].style.float = 'left';
+			button[0].style.marginLeft = '24px';
+			button[0].style.marginRight = 'none';
+		}
 	}
 
 	function onResize() {
@@ -296,6 +301,14 @@
 				height: config.imgHeight + 'px'
 			});
 		}
+	}
+	if(window.parent.window.location.href.includes('articles')) {
+		document.querySelector('.ad-notification').style.display = 'none';
+		document.querySelector('.fishbowl__top-content').style.marginTop = '0';
+		document.querySelector('.fishbowl__top-content').style.paddingTop = '1rem';
+		document.querySelector('.fishbowl__title').style.marginTop = '0';
+		document.querySelector('.fishbowl__title').style.marginBottom = '0';
+		document.querySelector('.fishbowl__bottom-content').style.borderBottom = '1px solid rgba(0,0,0,0.1)';
 	}
 
 	function getWidth(w) {

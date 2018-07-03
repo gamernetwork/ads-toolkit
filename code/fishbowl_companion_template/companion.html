@@ -1,0 +1,348 @@
+<div class="fishbowl-companion">
+	<style type="text/css">
+		.fishbowl-companion__fixed {
+			position: fixed;
+			backface-visibility: hidden;
+			transform: translateZ(0px);
+			pointer-events: none;
+		}
+
+		.fishbowl-companion__clipper {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			clip-path: inset(0,0,0,0);
+			clip: rect(0px, auto, auto, 0px);
+			overflow: hidden;
+		}
+
+		.fishbowl-companion__wrapper {
+			top: 0;
+			left: 0;
+			transform-origin: 0 0;
+		}
+
+		#fishbowl-companion__bg-image {
+			object-fit: fill;
+			width: 100vw;
+			height: 100vh;
+		}
+
+		.fishbowl-companion__frame-container {
+			width: 100%;
+			height: 250px;
+			position: relative;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.fishbowl-companion__frame {
+			position: absolute;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			transform: translateZ(0px);
+			transition: all 250ms ease;
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		.fishbowl-companion__frame:nth-of-type(1):after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: '';
+			width: 100%;
+			height: 100%;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		.fishbowl-companion__frame:nth-of-type(2):after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: '';
+			width: 100%;
+			height: 100%;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		.fishbowl-companion__frame:nth-of-type(3):after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			content: '';
+			width: 100%;
+			height: 100%;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		.fishbowl-companion__frame--visible {
+			opacity: 1;
+			pointer-events: all;
+		}
+	</style>
+
+	<div class="fishbowl-companion__clipper">
+		<div class="fishbowl-companion__frame-container">
+			<div class="fishbowl-companion__frame fishbowl-companion__frame--visible"></div>
+			<div id="video-frame" class="fishbowl-companion__frame"></div>
+			<div class="fishbowl-companion__frame"></div>
+		</div>
+		<div class="fishbowl-companion__wrapper fishbowl-companion__fixed">
+			<img id="fishbowl-companion__bg-image" src="[%BACKGROUND_IMAGE%]" alt="">
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	.fishbowl-companion__fallback {
+		display: block;
+		position: absolute;
+		width: 320px;
+		height: 440px;
+		margin: 0 auto;
+		background: url('[%BACKGROUND_IMAGE%]') center -7px no-repeat;
+		background-size: contain;
+	}
+</style>
+
+<a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank">
+	<div class="fishbowl-companion__fallback"></div>
+</a>
+
+<script type="text/javascript">
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	ga('create', 'UA-23103987-1', 'auto', {
+		'name': 'showcase'
+	});
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	parent.jQuery('head').append(
+		"<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'><\/script>"
+	);
+	parent.jQuery('head').append(
+		"<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>"
+	);
+
+	var config = {
+		clipHeight: 250,
+		imgWidth: 320,
+		imgHeight: 750
+	};
+
+	var $ = jQuery.noConflict();
+	var $fishbowl, $clipper, $background, $fixed, $frame, $ad, $mpu, $overlay;
+	var container_top;
+	var this_site = '%%SITE%%';
+	var is_local = false;
+
+	var analyticsRef = '[%ANALYTICS_REF%]';
+	var splitRef = analyticsRef.replace(/\s/g, '');
+
+	var frames = document.querySelectorAll('.fishbowl-companion__frame');
+
+	// X, Y, SCALE
+	var frame1Transform = ['[%BOTTOMX%]','[%BOTTOMY%]','[%BOTTOMSCALE%]'];
+	var frame2Transform  = ['[%MIDX%]','[%MIDY%]','[%MIDSCALE%]'];
+	var frame3Transform  = ['[%TOPX%]','[%TOPY%]','[%TOPSCALE%]'];
+
+	frames.forEach(function (el) {
+		el.classList.add(splitRef)
+	});
+
+	var frameStyles = document.createElement('style');
+	frameStyles.classList.add('framestyle');
+
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(1):after { background-image: url("[%BOTTOM_IMAGE%]"); }';
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(1):after { transform: translate('+frame1Transform[0]+'px,'+frame1Transform[1]+'px) scale('+frame1Transform[2]+') }';
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(2):after { background-image: url("[%MIDDLE_IMAGE%]");  }';
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(2):after { transform: translate('+frame2Transform[0]+'px,'+frame2Transform[1]+'px) scale('+frame2Transform[2]+') }';
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(3):after { background-image: url("[%TOP_IMAGE%]"); }';
+	frameStyles.innerHTML += '.' + splitRef +
+		'.fishbowl-companion__frame:nth-of-type(3):after { transform: translate('+frame3Transform[0]+'px,'+frame3Transform[1]+'px) scale('+frame3Transform[2]+') }';
+
+	parent.document.head.appendChild(frameStyles);
+
+	frames[0].addEventListener('click', function (e) {
+		e.preventDefault();
+		ga('showcase.send', 'event', analyticsRef, 'Click Top Zone', this_site);
+		window.open('%%CLICK_URL_UNESC%%' + '[%TOP_LINK%]', '_blank');	
+	});  
+
+	frames[1].addEventListener('click', function (e) {
+		e.preventDefault();
+		ga('showcase.send', 'event', analyticsRef, 'Click Middle Zone', this_site);
+		window.open('%%CLICK_URL_UNESC%%' + '[%MIDDLE_LINK%]', '_blank');
+	});
+
+	frames[2].addEventListener('click', function (e) {
+		e.preventDefault();
+		ga('showcase.send', 'event', analyticsRef, 'Click Bottom Zone', this_site);
+		window.open('%%CLICK_URL_UNESC%%' + '[%BOTTOM_LINK%]', '_blank');
+	});
+
+	$(parent.document).ready(function () {
+		$fishbowl = $('div.fishbowl-companion');
+		$clipper = $('div.fishbowl-companion__clipper ');
+		$wrapper = $('div.fishbowl-companion__wrapper');
+		$fallback = $('div.fishbowl-companion__fallback');
+		$overlay = $('.fishbowl-companion__overlay');
+		$frame = $(frameElement);
+		$ad = $(frameElement.parentNode.parentNode);
+		setTimeout(function () {
+			$mpu = $(frameElement.parentNode.parentNode.parentNode);
+			container_top = $mpu.offset().top;
+			setup();
+		}, 150);
+		$(parent.window).on('resize', onResize);
+		window.top.addEventListener('orientationchange', onResize, false);
+	});
+
+	function setup() {
+		var margin = 'inherit',
+			width = 'inherit';
+		var site = 'eurogamer';
+
+		if (site.includes('eurogamer')) site = 'eurogamer.net';
+
+		switch (site) {
+			case 'eurogamer.net':
+				break;
+			case 'nintendolife.com':
+			case 'pushsquare.com':
+			case 'roadtovr.com':
+				margin = -10;
+				width = getWidth(20);
+				break;
+			case 'usgamer.net':
+				if (parent.jQuery('.page.homepage')[0] != undefined) {
+					margin = -8;
+					width = getWidth(16);
+				} else {
+					margin = -16;
+					width = getWidth(32);
+				}
+				break;
+			case 'rockpapershotgun.com':
+				if (parent.jQuery('body.home')[0] == undefined) {
+					margin = -20;
+					width = getWidth(40);
+				}
+				break;
+			case 'vg247.com':
+				if (parent.jQuery('#article')[0] != undefined) {
+					margin = -12;
+					width = getWidth(24);
+				}
+				break;
+			case 'metabomb.net':
+				margin = -16;
+				width = getWidth(16);
+				$ad.css({
+					width: 'inherit'
+				});
+				break;
+		}
+
+		if (site != "eurogamer.net") {
+			$mpu.css({
+				width: width,
+				left: margin + 'px',
+				margin: 0,
+				position: 'relative',
+				overflow: 'visible',
+				transform: 'inherit'
+			});
+		} else {
+			$mpu.css({
+				width: "100vw",
+				left: "calc((100vw - 100%) / -2)",
+				position: 'relative',
+				overflow: 'visible',
+				transform: 'inherit'
+			});
+		}
+
+		$frame.css({
+			height: config.clipHeight + 'px'
+		});
+
+		$clipper.css({
+			height: config.clipHeight + 'px'
+		});
+
+		$ad.append($fishbowl);
+
+		onResize();
+	}
+
+	function onResize() {
+		var w = window.top.innerWidth || window.top.document.documentElement.clientWidth || window.top.document.body.clientWidth;
+		var h = window.top.innerHeight || window.top.document.documentElement.clientHeight || window.top.document.body.clientHeight;
+		if (w > h || w > 500) {
+			$fallback.show();
+			$fishbowl.hide();
+		} else {
+			$fishbowl.show();
+			$fallback.hide();
+		}
+	}
+
+	function getWidth(w) {
+		return 'calc(100% + ' + w + 'px)';
+	}
+
+	setInterval(function () {
+		var scroll_bottom = $(parent.document).scrollTop() + $(window.parent.window).height();
+		if (scroll_bottom >= container_top) {
+			if (scroll_bottom > container_top + $(window.parent.window).height() / 3) {
+				if (scroll_bottom < container_top + $(window.parent.window).height() / 3 * 2 - 100) {
+					frames[0].classList.add('fishbowl-companion__frame--visible');
+					frames[1].classList.remove('fishbowl-companion__frame--visible');
+				}
+			}
+			if (scroll_bottom > container_top + $(window.parent.window).height() / 3 * 2 - 100) {
+				if (scroll_bottom < container_top + $(window.parent.window).height() / 3 * 3 - 100) {
+					frames[0].classList.remove('fishbowl-companion__frame--visible');
+					frames[1].classList.add('fishbowl-companion__frame--visible');
+					frames[2].classList.remove('fishbowl-companion__frame--visible');
+				}
+
+			}
+			if (scroll_bottom > container_top + $(window.parent.window).height() / 3 * 3 - 100) {
+				frames[2].classList.add('fishbowl-companion__frame--visible');
+				frames[1].classList.remove('fishbowl-companion__frame--visible');
+			}
+		}
+	}, 50);
+</script>

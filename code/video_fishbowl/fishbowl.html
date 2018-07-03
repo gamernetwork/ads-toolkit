@@ -1,18 +1,24 @@
 <div class="fishbowl">
 
 	<style type="text/css">
+		* {
+			outline: none;
+		}
+
 		@font-face {
 			font-family: Gibson;
 			font-style: normal;
 			font-weight: 400;
 			src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_reg.woff2');
 		}
+
 		@font-face {
 			font-family: Gibson;
 			font-style: bold;
 			font-weight: 600;
 			src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_bold.woff2');
 		}
+
 		.fixed {
 			position: fixed;
 			backface-visibility: hidden;
@@ -47,7 +53,7 @@
 			z-index: 10;
 		}
 
-		#fishbowl__autoplaying-video{
+		#fishbowl__autoplaying-video {
 			position: absolute;
 			left: 0;
 			top: 0px;
@@ -65,6 +71,7 @@
 			-webkit-font-smoothing: antialiased;
 			font-family: 'Gibson';
 			margin-top: -16px;
+			box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 		}
 
 		.fishbowl__top-content .ad-notification {
@@ -72,7 +79,6 @@
 			box-sizing: border-box;
 			width: calc(100% - 2rem);
 			height: .75rem;
-			margin-bottom: 1rem;
 			display: flex;
 			justify-content: center;
 			padding: .5rem;
@@ -87,33 +93,37 @@
 			padding-bottom: .3rem;
 			font-weight: normal;
 			color: #002351;
+			font-size: .75em;
+			letter-spacing: .1em;
 		}
 
 		.fishbowl__title {
-			margin-left: 24px !important;
-			max-width: 50% !important;
+			margin-left: 12px !important;
+			max-width: 60%;
 			text-wrap: break-word !important;
 			float: left;
-			font-weight: bold; 
+			font-weight: bold;
 			color: #0084cc !important;
 			line-height: 1.5 !important;
+			margin-top: 0 !important;
+			margin-bottom: 0 !important;
 		}
 
 		.fishbowl__top-content-text {
-			margin: .75rem 1rem 1rem 24px !important;
+			margin: .5rem 1rem 1rem 12px !important;
 			float: left;
 			font-weight: 300;
 			color: #333;
-			overflow-wrap: break-word; 
+			overflow-wrap: break-word;
 			hyphens: auto;
 		}
 
 		.fishbowl__button {
-			max-width: 40%; 
+			max-width: 40%;
 			width: 90px;
 			height: 1.5rem;
 			float: right;
-			margin-right: 24px;
+			margin-right: 12px;
 			margin-top: .25rem;
 			background: #002351;
 			font-family: 'Gibson';
@@ -126,15 +136,17 @@
 			bottom: 0;
 			left: 0;
 			min-height: 40px;
-			padding: 1rem 24px;
+			padding: 1rem 12px;
 			background: #fff;
 			width: 100%;
 			text-align: left;
 			overflow-wrap: break-word;
 			font-family: 'Gibson';
-			
+			box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.2);
 		}
-		.fishbowl__bottom-content > a, p {
+
+		.fishbowl__bottom-content>a,
+		p {
 			font-weight: normal;
 			color: #333;
 			text-decoration: none;
@@ -150,11 +162,11 @@
 	<div class="fishbowl-clipper">
 		<div class="fishbowl-wrapper fixed">
 			<div class="fishbowl-background fixed"></div>
-            <video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
-                <source src="[%VIDEO%]" type="video/mp4">
+			<video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
+				<source src="[%VIDEO%]" type="video/mp4">
 			</video>
 			<a class="fishbowl-fullscreen fixed" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"></a>
-		</div> 
+		</div>
 	</div>
 	<div class="fishbowl__top-content">
 		<div class="ad-notification">
@@ -224,6 +236,15 @@
 	var $splats, $logo, splat_timeout;
 	var this_site = '%%SITE%%';
 
+	var intersectionCheck;
+	var adHeight;
+	var adOffsetTop;
+	let topScrollPos;
+	var adOffsetBottom;
+	var interSectionOffset = 50;
+	var windowHeight;
+	var autoplayingVideo;
+
 	$(document).ready(function () {
 
 		$fishbowl = $('div.fishbowl');
@@ -235,11 +256,16 @@
 		$ad = $(frameElement.parentNode.parentNode);
 		$mpu = $(frameElement.parentNode.parentNode.parentNode);
 		windowHeight = top.window.innerHeight;
-		autoplayingVideo = document.querySelector('#fishbowl-auto-vid'); 
+		autoplayingVideo = document.querySelector('#fishbowl__autoplaying-video');
 		setup();
 
 		$(parent.window).on('resize', onResize);
 		window.top.addEventListener('orientationchange', onResize, false);
+
+
+		adOffsetTop = $ad[0].getBoundingClientRect().top;
+		adHeight = $ad[0].getBoundingClientRect().height;
+		adOffsetBottom = $ad.offset().top + $ad.outerHeight(true);
 	});
 
 	function setup() {
@@ -279,11 +305,17 @@
 
 		var gameTitle = parent.jQuery('.fishbowl__title');
 		var button = parent.jQuery('.fishbowl__button');
-		if(gameTitle[0].innerHTML.length > 45) {
+		if (gameTitle[0].innerHTML.length > 30) {
+			gameTitle[0].style.setProperty( 'max-width', 'none', 'important' );
+			gameTitle[0].style.setProperty( 'margin-top', '0', 'important');
 			gameTitle[0].style.maxWidth = 'none';
 			button[0].style.float = 'left';
-			button[0].style.marginLeft = '24px';
+			button[0].style.marginLeft = '12px';
 			button[0].style.marginRight = 'none';
+
+			if (window.parent.window.location.href.includes('articles')) { 
+				jQuery('.fishbowl__title')[0].style.setProperty( 'margin-bottom', '.25rem', 'important' );
+			}
 		}
 	}
 
@@ -304,16 +336,26 @@
 			});
 		}
 	}
-	if(window.parent.window.location.href.includes('articles')) {
+	if (window.parent.window.location.href.includes('articles')) {
+		jQuery('.fishbowl__title')[0].style.setProperty( 'max-width', '60%', 'important' );
+		jQuery('.fishbowl__title')[0].style.setProperty( 'margin-top', '0', 'important' );
 		document.querySelector('.ad-notification').style.display = 'none';
 		document.querySelector('.fishbowl__top-content').style.marginTop = '0';
-		document.querySelector('.fishbowl__top-content').style.paddingTop = '1rem';
-		document.querySelector('.fishbowl__title').style.marginTop = '0';
-		document.querySelector('.fishbowl__title').style.marginBottom = '0';
+		document.querySelector('.fishbowl__top-content').style.paddingTop = '.5rem';
 		document.querySelector('.fishbowl__bottom-content').style.borderBottom = '1px solid rgba(0,0,0,0.1)';
 	}
 
 	function getWidth(w) {
 		return 'calc(100% + ' + w + 'px)';
 	}
+
+	intersectionCheck = setInterval(function () {
+		topScrollPos = $(parent.window).scrollTop();
+		if (adOffsetBottom < topScrollPos) {
+			autoplayingVideo.style.display = 'none';
+			console.log('out!')
+		} else {
+			autoplayingVideo.style.display = 'block';
+		}
+	}, 200);
 </script>

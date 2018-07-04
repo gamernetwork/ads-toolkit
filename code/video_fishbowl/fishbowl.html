@@ -65,7 +65,7 @@
 			top: 0;
 			left: 0;
 			min-height: 80px;
-			background: #fff;
+			background: #F1F5F7;
 			width: 100%;
 			text-align: left;
 			-webkit-font-smoothing: antialiased;
@@ -137,7 +137,7 @@
 			left: 0;
 			min-height: 40px;
 			padding: 1rem 12px;
-			background: #fff;
+			background: #F1F5F7;
 			width: 100%;
 			text-align: left;
 			overflow-wrap: break-word;
@@ -157,12 +157,27 @@
 			hyphens: auto;
 			margin-top: .5rem;
 		}
+
+		#fishbowl__autoplaying-video::-webkit-media-controls-panel { 
+			display: none!important;
+  			-webkit-appearance: none;
+		}
+
+		#fishbowl__autoplaying-video::-webkit-media-controls-play-button {
+			display: none!important;
+			-webkit-appearance: none;
+		}
+
+		#fishbowl__autoplaying-video::-webkit-media-controls-start-playback-button {
+			display: none!important;
+			-webkit-appearance: none;
+		}
 	</style>
 
 	<div class="fishbowl-clipper">
 		<div class="fishbowl-wrapper fixed">
 			<div class="fishbowl-background fixed"></div>
-			<video loop muted playsinline autoplay id="fishbowl__autoplaying-video">
+			<video loop muted playsinline autoplay id="fishbowl__autoplaying-video" poster="[%BACKGROUND%]">
 				<source src="[%VIDEO%]" type="video/mp4">
 			</video>
 			<a class="fishbowl-fullscreen fixed" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"></a>

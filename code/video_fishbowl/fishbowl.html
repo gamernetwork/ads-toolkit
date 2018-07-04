@@ -179,7 +179,7 @@
 		<div class="fishbowl-wrapper fixed">
 			<div class="fishbowl-background fixed"></div>
 			<video loop muted playsinline autoplay id="fishbowl__autoplaying-video" poster="[%BACKGROUND%]">
-				<source src="[%VIDEO%]" type="video/mp4">
+				<source src="" type="video/mp4">
 			</video>
 			<a class="fishbowl-fullscreen fixed" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"></a>
 		</div>
@@ -374,6 +374,10 @@
 			autoplayingVideo.style.display = 'block';
 		}
 	}, 200);
+
+	if('[%VIDEO_URL%]' === '') {
+		document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_MACRO%]'
+	}
 </script>
 
 [%CUSTOM_HTML%]

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0; 
+            padding: 0;
+        }
+        .ad-wrapper {
+            width: 300px;
+            height: 250px;
+            overflow: hidden;
+        }
+        .cube-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            perspective: 1200px;
+            perspective-origin: 50% 100px;
+        }
+        .cube {
+            position: relative;
+            top: 1rem;
+            width: 250px;
+            transform: translate3d(0,0,0);
+            will-change: transform;
+            transform-style: preserve-3d;
+            transition: transform 800ms cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            cursor: move;
+            animation: cubeIntro 2000ms ease;
+        }
+        .cube div {
+            position: absolute;
+            width: 250px;
+            height: 208px;
+            background-size: cover;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);
+        }
+        .back {
+            transform: translateZ(-125px) rotateY(180deg);
+            background: #333;
+            background-image: url('[%BACK_IMAGE%]');
+        }
+        .right {
+            transform: rotateY(-270deg) translateX(125px);
+            transform-origin: top right;
+            background: #333;
+            background-image: url('[%RIGHT_IMAGE%]');
+        }
+        .left {
+            transform: rotateY(270deg) translateX(-125px);
+            transform-origin: center left;
+            background: #333;
+            background-image: url('[%LEFT_IMAGE%]');
+        }
+        .front {
+            transform: translateZ(125px);
+            background: #333;
+            background-image: url('[%FRONT_IMAGE%]');
+        }
+        .cube-link {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @keyframes cubeIntro {
+            0% {
+                transform: rotateY(0)
+            }
+            15% {
+                transform: rotateY(20deg);
+            }
+            100% {
+                transform: rotateY(-360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-wrapper">
+        <div class="cube-wrapper">
+            <div class="cube">
+                <div class="back" rel="[%BACK_LINK%]">
+                </div>
+                <div class="right" rel="[%RIGHT_LINK%]">
+                </div>
+                <div class="left" rel="[%LEFT_LINK%]">
+                </div>
+                <div class="front" rel="[%FRONT_LINK%]">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-23103987-1', 'auto', {
+            'name': 'showcase'
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script type="text/javascript">
+        // The cube as a whole
+        var cube = document.querySelector('.cube');
+        // Each 'side' div
+        var sides = cube.querySelectorAll('div');
+        // Keeping track of this var so it can be continually incremented / decreased
+        var cubeRotateVal = 0;
+        // Padding between when a user swipes, and when they can swipe again
+        var isAnimating = true;
+        // For the triggering of the 'auto' step animation
+        var autoRotateInc = 0;
+        // RAF for the auto' step animation, using this method as animations wont que if window isn't focused thanks to RAF
+        var autoCubeRaf;
+        // Hammer to unify touch / mouse events in a nice way
+        var hammer = new Hammer(cube);
+
+        // Add tap event listeners to each side
+        for(var i = sides.length - 1; i >= 0; i--) {
+            var side = sides[i];
+            new Hammer(side).on('tap', function(e) {
+                var link = e.target.getAttribute('rel');    
+                var sideName = e.target.classList[0].toUpperCase();
+                ga('showcase.send', 'event', analyticsRef, 'Click Cube:' + ' ' + sideName, this_site);
+                window.open('%%CLICK_URL_ESC%%' + link, '_blank');
+            });
+        }
+
+        // Add touch / mouse listeners to cube
+        hammer.on('panleft panright tap press', function(e) {
+            // On first touch / click event, cancel the auto step animation
+            if(!isAnimating) {
+                cancelAnimationFrame(autoCubeRaf);
+            }
+            // Get event type and direction, if cube is not animating, handle the swipe and animate te cube
+            var eventType = e.type;
+            if(!isAnimating) {
+                handleSwipe(eventType);
+                handleAnimation();
+            }
+            ga('showcase.send', 'event', analyticsRef, 'User Interacted With Cube', this_site);
+        });
+
+        // Rotate the cube 90degrees
+        function rotateCube(dir) {
+            cubeRotateVal += 90 * dir;
+            cube.style.transform = 'rotateY('+cubeRotateVal+'deg)';
+        }
+
+        // Detect the event type and animate cube accordingly, tap is default, press may be used in the future
+        function handleSwipe(eventType) {
+            switch(eventType) {
+                case 'panright':
+                    rotateCube(1);
+                break;
+                case 'panleft': 
+                    rotateCube(-1);
+                break;
+                case 'press':
+                break;
+                default:
+                break;
+            }
+        }
+
+        // Ensure that users cannot trigger another animation whilst the cube is animating, event listeners for transition states didnt play nicely!
+        function handleAnimation() {
+            isAnimating = true;
+            setTimeout(function(){
+                isAnimating = false;
+            }, 800);
+        }
+
+        // Not very scientific, just increment the autoRotateInc val, and everytime a multiple of 150 is reached, rotate the cube automatically
+        function autoRotateCube() {
+            autoRotateInc += 1;
+            if(autoRotateInc % 150 === 0 ) {
+                rotateCube(-1);
+            }
+            autoCubeRaf = requestAnimationFrame(autoRotateCube);
+        }
+
+        // Listen for the end of the 'intro' animation, and begin the auto rotate step animation and set is animating to false, enabling touch events
+        cube.addEventListener('animationend', function(){
+            autoRotateCube();
+            isAnimating = false;
+        });
+
+        var analyticsRef = '[%ANALYTICS_REF%]';
+        var this_site = '%%SITE%%';
+    </script>
+</body>
+</html>

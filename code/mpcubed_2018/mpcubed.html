@@ -228,7 +228,9 @@
             containerTop = parentContainer.getBoundingClientRect().top;
             scrollBottom = window.parent.window.pageYOffset + window.parent.window.innerHeight;
             if (scrollBottom >= containerTop) {
-                cube.style.animationPlayState = 'running';
+                setTimeout(function(){
+                    cube.style.animationPlayState = 'running';
+                }, 300);
                 clearInterval(intersectionInterval);
             }
         }, 250);

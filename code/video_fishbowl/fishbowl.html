@@ -375,8 +375,10 @@
 		}
 	}, 200);
 
-	if('[%VIDEO_URL%]' === '') {
-		document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_MACRO%]'
+	if('[%VIDEO_URL%]' == '') {
+		document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_MACRO%]';
+	} else {
+		document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_URL%]';
 	}
 </script>
 

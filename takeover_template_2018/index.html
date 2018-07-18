@@ -276,6 +276,10 @@
                     this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
                     this.style.setProperty('background-repeat', 'no-repeat', 'important');
                 });
+                if(this_site == 'rockpapershotgun.com') {
+                    parent.jQuery('#gn_takeover').css('height', '1316px');
+                    parent.jQuery('#gn_takeover').css('z-index', '-1');
+                }
                 parent.jQuery('#gn_takeover').click(function(){
                 window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
                 });

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
+    "build-inline": "webpack --config webpack.prod-inline.js",
     "dev": "webpack-dev-server --open --config webpack.dev.js"
   },
   "keywords": [],

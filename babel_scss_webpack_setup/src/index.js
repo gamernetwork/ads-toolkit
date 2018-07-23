@@ -2,7 +2,7 @@ import './scss/main.scss';
 
 class TestClass {
   constructor() {
-    this.name = 'Testing';
+    this.name = 'Testing Injection';
   }
 
   printName() {

@@ -163,7 +163,7 @@
         var takeover_bg_color = 'black';  
         /******** Toggle for dev / prod ********/
         var IS_DEV = true;
-        var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').includes('halfpage');
+        var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').indexOf('halfpage') >= 0;
         // Add if halfpage = 300x1050 on Pushsquare / Nintendolife
         var extendHalfpageNLPS = true;
         /******** Leave This Stuff ********/
@@ -174,7 +174,11 @@
         /******** Animation sync ********/
         var has_skin_loaded = false;
         // Adjust skin height
-        this_site.includes('eurogamer') ? skin_height = 1316 : skin_height = 1300;
+        if(this_site.indexOf('eurogamer') >= 0) {
+            skin_height = 1316;
+        } else {
+            skin_height = 1300;
+        }
         // Pause animation and hide till assets and skin image have loaded (leaderboard code)
         if(!IS_HALFPAGE) {
             // Target halfpage iframe to be sent postMessage alerting that leaderboard and skin have loaded
@@ -228,9 +232,9 @@
                             document.body.style.display = 'block';
                         }
                     }, 2500);
-                })
+                });
                 window.addEventListener('message', function(e) {
-                    if(e.data.includes('leaderboard+skin_loaded')) {
+                    if(e.data.indexOf('leaderboard+skin_loaded') >= 0) {
                         document.body.classList.remove('js-loading');
                         document.body.style.display = 'block';
                     }
@@ -252,7 +256,7 @@
                 parent.jQuery('.inset').css({'position' : 'relative'});
                 parent.jQuery('.insert.for-desktop').css({'padding' : '0'});
                 parent.jQuery('.masthead .insert').css({'min-height':'auto'});
-                frameElement.style.width = '1280px';
+                window.frameElement.style.width = '1280px';
             }
             if(this_site == 'indiedb.com') {
                 var skin_top_offset = '-38';
@@ -290,10 +294,10 @@
                     parent.jQuery('.document').css({'padding':'0'});
                     parent.jQuery('.billboard-container').css({'padding':'0'});
                     parent.jQuery('.billboard.advert').css({'padding':'0','width':'1260px'});
-                    frameElement.style.width = '1260px';
+                    window.frameElement.style.width = '1260px';
                 }
                 if(leaderboard_height){
-                    frameElement.style.height = leaderboard_height + 'px';
+                    window.frameElement.style.height = leaderboard_height + 'px';
                     parent.jQuery(page_wrapper).each(function () {
                         this.style.setProperty( 'position', 'relative' );
                     });
@@ -349,8 +353,13 @@
         var AUTOPLAYING_WRAPPER = document.querySelector('.autoplaying-video-wrapper');
         AUTOPLAYING_BUTTON.addEventListener('click', function(e) {
             e.preventDefault();
-            this.classList.contains('pause') ? this.classList.remove('pause') : this.classList.add('pause');
-            this.classList.contains('pause') ? AUTOPLAYING_VIDEO.play() : AUTOPLAYING_VIDEO.pause();
+            if(this.classList.contains('pause')) {
+                this.classList.remove('pause');
+                AUTOPLAYING_VIDEO.play();
+            } else {
+                this.classList.add('pause');
+                AUTOPLAYING_VIDEO.pause();
+            }   
         });
         // Hide / show video with intersection observer 
         if('IntersectionObserver' in window) {

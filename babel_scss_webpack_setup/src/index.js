@@ -1,12 +1,14 @@
+import './scss/main.scss';
+
 class TestClass {
   constructor() {
-    this.name = 'Testing...';
+    this.name = 'Testing';
   }
 
   printName() {
     const el = document.createElement('h1');
     el.innerHTML = this.name;
-    el.style.opacity = 0.9;
+    el.style.opacity = 1;
     document.body.appendChild(el);
   }
 }

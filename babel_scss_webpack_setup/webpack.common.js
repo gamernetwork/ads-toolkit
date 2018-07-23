@@ -16,36 +16,35 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)|bower_components/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', {
-                targets: {
-                  browsers: ['> 1%', 'Last 2 versions', 'ie >= 10'],
-                },
-              }],
-            ],
-          },
+    rules: [{
+      test: /\.js$/,
+      exclude: /(node_modules)|bower_components/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            ['env', {
+              targets: {
+                browsers: ['> 1%', 'Last 2 versions', 'ie >= 10'],
+              },
+            }],
+          ],
         },
       },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /(node_modules)|bower_components/,
-        loader: 'eslint-loader',
-      }],
+    },
+    {
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: /(node_modules)|bower_components/,
+      loader: 'eslint-loader',
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader',
+      ],
+    }],
   },
 };

@@ -1,11 +1,11 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #ffffff;
+  font-family: Helvetica;
+  background: #fff;
+  color: #333;
 }
 
 h1 {
-  font-size: 3rem;
-  color: rebeccapurple;
-  opacity: 1;
+  font-size: calc(100vw / 30);
 }

@@ -37,5 +37,9 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0"
-  }
+  },
+  "browserslist": [
+    "cover 99.5%",
+    "not ie <= 10"
+  ]
 }

@@ -1,10 +1,11 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: system-ui;
+  font-family: system-ui, serif;
   background: #fff;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  color: gray(10);
+
+  h1 {
+    color: gray(90);
+  }
 }

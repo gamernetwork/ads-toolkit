@@ -1,6 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -9,6 +10,7 @@ module.exports = {
       title: 'Title Here',
       template: './src/index.html',
     }),
+    new StyleLintPlugin(),
   ],
   output: {
     filename: '[name].bundle.js',
@@ -22,11 +24,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            ['env', {
-              targets: {
-                browsers: ['> 1%', 'Last 2 versions', 'ie >= 10'],
-              },
-            }],
+            ['env'],
           ],
         },
       },

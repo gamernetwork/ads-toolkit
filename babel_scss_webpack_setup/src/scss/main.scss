@@ -4,4 +4,11 @@ body {
   font-family: Helvetica;
   background: #fff;
   color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::placeholder {
+  color: gray;
 }

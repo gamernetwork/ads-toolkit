@@ -3,6 +3,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: system-ui;
   background: #fff;
-  color: gray(15);
-  display: grid;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }

@@ -11,7 +11,7 @@ module.exports = merge(common, {
   optimization: {
     minimize: true,
   },
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ['./src/index.js'],
   mode: 'production',
   module: {
     rules: [
@@ -20,6 +20,7 @@ module.exports = merge(common, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          'postcss-loader',
           'sass-loader',
         ],
       },

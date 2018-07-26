@@ -3,13 +3,17 @@
 ## Features 
 
 + ESLint config based on Airbnb's JS guidelines. Adapted a bit for ads-purposes. 
-+ Full Babel support 
++ Babel 
 + Can produce bundled .js files for microsites or insert bundled scripts internally for ad-formats / templates
++ Postcss loader to use CSS 0 + features 
++ Sass / SCSS Compiler
++ Style linting
 
 ## Usage
 
 + Work in src/ 
 + Use index.js as the entrypoint, other than that, any file structure / setup is fine
++ Edit `browserslist` in package.json to target specific browsers. The defaults should be fine for most cases though. 
 
 ### Dev
 

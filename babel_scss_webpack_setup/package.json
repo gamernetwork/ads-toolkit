@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js --internal false",
-    "build-internal": "webpack --config webpack.prod.js --internal true",
+    "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --open --config webpack.dev.js"
   },
   "keywords": [],

@@ -1,0 +1,9 @@
+{
+  "extends": "standard",
+  "rules": {
+    "no-var": "error",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "semi": 0,
+    "no-console": "error"
+  }
+} 

@@ -199,7 +199,7 @@
     var supersize_me = false;
     var takeover_bg_color = 'black';
     /******** Toggle for dev / prod ********/
-    var IS_DEV = true;
+    var IS_DEV = false;
     var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').indexOf('halfpage') >= 0;
     // Add if halfpage = 300x1050 on Pushsquare / Nintendolife
     var extendHalfpageNLPS = true;
@@ -248,7 +248,11 @@
             targetHalfpage = parent.jQuery('#page-sidebar').find('iframe');
           }
         }
-        var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
+        try {
+          var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
+        } catch(e) {
+          console.log('Could not find target halfpage')
+        }
       }
       document.querySelector('.skin-load-test').src = takeover_skin_image;
       document.body.classList.add('js-loading');
@@ -256,7 +260,11 @@
         document.body.classList.remove('js-loading');
         document.body.style.display = 'block';
         if (!IS_DEV) {
-          targetHalfpageContentWindow.postMessage('leaderboard+skin_loaded', window.parent.window.location.href);
+          try {
+            targetHalfpageContentWindow.postMessage('leaderboard+skin_loaded', window.parent.window.location.href);
+          } catch(e) {
+            console.log('Target halfpage not defined, postMessage failed')
+          }
         }
       });
     }
@@ -368,7 +376,11 @@
           window.frameElement.style.width = '1260px';
         }
         if (leaderboard_height) {
-          window.frameElement.style.height = leaderboard_height + 'px';
+          try {
+            window.frameElement.style.height = leaderboard_height + 'px';
+          } catch(e) {
+            console.log('Could not interact with parent IFrame, or parent IFrame does not exist');
+          }
           parent.jQuery(page_wrapper).each(function () {
             this.style.setProperty('position', 'relative');
           });

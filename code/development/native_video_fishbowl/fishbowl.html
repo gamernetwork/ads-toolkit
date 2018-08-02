@@ -1,0 +1,385 @@
+<div class="fishbowl">
+
+  <style type="text/css">
+    * {
+      outline: none;
+    }
+
+    @font-face {
+      font-family: Gibson;
+      font-style: normal;
+      font-weight: 400;
+      src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_reg.woff2');
+    }
+
+    @font-face {
+      font-family: Gibson;
+      font-style: bold;
+      font-weight: 600;
+      src: url('https://cdn.gamer-network.net/2018/george.francis/video-fishbowl-test-assets/gibson_bold.woff2');
+    }
+
+    .fixed {
+      position: fixed;
+      backface-visibility: hidden;
+      transform: translateZ(0px);
+    }
+
+    div.fishbowl-clipper {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      clip-path: inset(0 0 0 0);
+      clip: rect(0px auto auto 0px);
+      overflow: hidden;
+    }
+
+    div.fishbowl-wrapper {
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    div.fishbowl-background {
+      width: 100%;
+      height: 100%;
+    }
+
+    a.fishbowl-fullscreen {
+      bottom: 0;
+      left: 0;
+      top: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    #fishbowl__autoplaying-video {
+      position: absolute;
+      left: 0;
+      top: 0px;
+      width: 100%;
+    }
+
+    .fishbowl__top-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-height: 80px;
+      background: [%BACKGROUND_COLOR%];
+      width: 100%;
+      text-align: left;
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Gibson';
+      margin-top: -16px;
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .fishbowl__top-content .ad-notification {
+      position: relative;
+      box-sizing: border-box;
+      width: calc(100% - 2rem);
+      height: .75rem;
+      display: flex;
+      justify-content: center;
+      padding: .5rem;
+      align-items: center;
+      font-weight: normal;
+      font-size: 1rem;
+      margin-left: 1rem;
+      color: #333;
+    }
+
+    .fishbowl__ad-notification {
+      padding-bottom: .3rem;
+      margin-top: 1rem;
+      font-weight: normal;
+      color: #002351;
+      font-size: .75em;
+      letter-spacing: .1em;
+    }
+
+    .fishbowl__title {
+      margin-left: 12px !important;
+      max-width: 60%;
+      text-wrap: break-word !important;
+      float: left;
+      font-weight: bold;
+      color: #0084cc !important;
+      line-height: 1.5 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    .fishbowl__top-content-text {
+      margin: .5rem 1rem 1rem 12px !important;
+      float: left;
+      font-weight: 300;
+      color: #333;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .fishbowl__button {
+      max-width: 40%;
+      width: 90px;
+      height: 1.5rem;
+      float: right;
+      margin-right: 12px;
+      margin-top: .25rem;
+      background: #002351;
+      font-family: 'Gibson';
+      color: white;
+      font-weight: bold;
+    }
+
+    .fishbowl__bottom-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      min-height: 40px;
+      padding: 1rem 12px;
+      background: [%BACKGROUND_COLOR%];
+      width: 100%;
+      text-align: left;
+      overflow-wrap: break-word;
+      font-family: 'Gibson';
+      box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .fishbowl__bottom-content>a,
+    p {
+      font-weight: normal;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .fishbowl__bottom-content-text {
+      overflow-wrap: break-word;
+      hyphens: auto;
+      margin-top: .5rem;
+    }
+
+    #fishbowl__autoplaying-video::-webkit-media-controls-panel {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    #fishbowl__autoplaying-video::-webkit-media-controls-play-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+
+    #fishbowl__autoplaying-video::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none;
+    }
+  </style>
+
+  <div class="fishbowl-clipper">
+    <div class="fishbowl-wrapper fixed">
+      <div class="fishbowl-background fixed"></div>
+      <video loop muted playsinline autoplay id="fishbowl__autoplaying-video" poster="[%BACKGROUND%]">
+        <source src="" type="video/mp4">
+      </video>
+      <a class="fishbowl-fullscreen fixed" href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"></a>
+    </div>
+  </div>
+  <div class="fishbowl__top-content">
+    <div class="ad-notification">
+      <p class="fishbowl__ad-notification">ANZEIGE</p>
+    </div>
+    <h2 class="fishbowl__title">[%TITLE%]</h2>
+    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank">
+      <button class="fishbowl__button">[%CTA_TEXT%]</button>
+    </a>
+    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank">
+      <p class="fishbowl__top-content-text">[%TOP_CONTENT%]</p>
+    </a>
+  </div>
+  <div class="fishbowl__bottom-content">
+    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank">
+      <p class="fishbowl__bottom-content-text">[%BOTTOM_CONTENT%]</p>
+    </a>
+  </div>
+</div>
+
+<style type="text/css">
+  div.fishbowl-fallback {
+    display: block;
+    position: absolute;
+    width: 320px;
+    height: 500px;
+    margin: 0 auto;
+    background: url('[%BACKGROUND%]') center -7px no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<a href="" target="_blank">
+  <div class="fishbowl-fallback"></div>
+</a>
+
+<script type="text/javascript">
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-23103987-1', 'auto', {
+    'name': 'showcase'
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+  var config = {
+    src: '[%BACKGROUND%]',
+    clipHeight: 500,
+    imgWidth: 360,
+    imgHeight: 704
+  };
+
+  var this_site = '%%SITE%%';
+
+  var $ = jQuery.noConflict();
+  var $fishbowl, $clipper, $background, $fixed, $frame, $ad, $mpu;
+  var $splats, $logo, splat_timeout;
+  var this_site = '%%SITE%%';
+
+  var intersectionCheck;
+  var adHeight;
+  var adOffsetTop;
+  let topScrollPos;
+  var adOffsetBottom;
+  var interSectionOffset = 50;
+  var windowHeight;
+  var autoplayingVideo;
+
+  $(document).ready(function () {
+
+    $fishbowl = $('div.fishbowl');
+    $clipper = $('div.fishbowl-clipper');
+    $background = $('div.fishbowl-background');
+    $wrapper = $('div.fishbowl-wrapper');
+    $fallback = $('div.fishbowl-fallback');
+    $frame = $(frameElement);
+    $ad = $(frameElement.parentNode.parentNode);
+    $mpu = $(frameElement.parentNode.parentNode.parentNode);
+    windowHeight = top.window.innerHeight;
+    autoplayingVideo = document.querySelector('#fishbowl__autoplaying-video');
+    setup();
+
+    $(parent.window).on('resize', onResize);
+    window.top.addEventListener('orientationchange', onResize, false);
+
+
+    adOffsetTop = $ad[0].getBoundingClientRect().top;
+    adHeight = $ad[0].getBoundingClientRect().height;
+    adOffsetBottom = $ad.offset().top + $ad.outerHeight(true);
+  });
+
+  function setup() {
+    $mpu.css({
+      width: "100vw",
+      left: "calc((100vw - 100%) / -2)",
+      position: 'relative',
+      overflow: 'visible',
+      transform: 'inherit',
+      padding: 0
+    });
+
+    $ad.css({
+      minHeight: '440px'
+    })
+
+    $background.css({
+      background: 'url(' + config.src + ') top center/100% no-repeat'
+    });
+
+    $frame.css({
+      height: config.clipHeight + 'px'
+    });
+
+    $clipper.css({
+      height: config.clipHeight + 'px'
+    });
+
+    $ad.append($fishbowl);
+
+    if ('assets/bg.jpg' !== '') {
+      $fallback.css({
+        background: 'url([%BACKGROUND%]) top center/100% no-repeat'
+      });
+    }
+    onResize();
+
+    var gameTitle = parent.jQuery('.fishbowl__title');
+    var button = parent.jQuery('.fishbowl__button');
+    if (gameTitle[0].innerHTML.length > 30) {
+      gameTitle[0].style.setProperty('max-width', 'none', 'important');
+      gameTitle[0].style.setProperty('margin-top', '0', 'important');
+      gameTitle[0].style.maxWidth = 'none';
+      button[0].style.float = 'left';
+      button[0].style.marginLeft = '12px';
+      button[0].style.marginRight = 'none';
+
+      if (window.parent.window.location.href.includes('articles')) {
+        jQuery('.fishbowl__title')[0].style.setProperty('margin-bottom', '.25rem', 'important');
+      }
+    }
+  }
+
+  function onResize() {
+    var w = window.top.innerWidth || window.top.document.documentElement.clientWidth || window.top.document.body.clientWidth;
+    var h = window.top.innerHeight || window.top.document.documentElement.clientHeight || window.top.document.body.clientHeight;
+
+    if (w > h || w > 500) { // in landscape mode or on tablet
+      $fallback.show();
+      $fishbowl.hide();
+    } else {
+      $fishbowl.show();
+      $fallback.hide();
+      $wrapper.css({
+        transform: 'scale(' + (screen.width / config.imgWidth) + ') translateZ(0px)',
+        width: config.imgWidth + 'px',
+        height: config.imgHeight + 'px'
+      });
+    }
+  }
+  if (window.parent.window.location.href.includes('articles')) {
+    jQuery('.fishbowl__title')[0].style.setProperty('max-width', '60%', 'important');
+    jQuery('.fishbowl__title')[0].style.setProperty('margin-top', '0', 'important');
+    document.querySelector('.ad-notification').style.display = 'none';
+    document.querySelector('.fishbowl__top-content').style.marginTop = '0';
+    document.querySelector('.fishbowl__top-content').style.paddingTop = '.5rem';
+    document.querySelector('.fishbowl__bottom-content').style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+  }
+
+  function getWidth(w) {
+    return 'calc(100% + ' + w + 'px)';
+  }
+
+  intersectionCheck = setInterval(function () {
+    topScrollPos = $(parent.window).scrollTop();
+    if (adOffsetBottom < topScrollPos) {
+      autoplayingVideo.style.display = 'none';
+      console.log('out!')
+    } else {
+      autoplayingVideo.style.display = 'block';
+    }
+  }, 200);
+
+  if ('[%VIDEO_URL%]' == '') {
+    document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_MACRO%]';
+  } else {
+    document.querySelector('#fishbowl__autoplaying-video').querySelector('source').src = '[%VIDEO_URL%]';
+  }
+</script>
+
+[%CUSTOM_HTML%]

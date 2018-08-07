@@ -7,6 +7,12 @@ const app = express();
 
 const directory = 'creatives'
 
+if (!fs.existsSync(__dirname + `/${directory}`)) {
+  fs.mkdirSync(__dirname + `/${directory}`, err => {
+    if (err) res.status(500).send(err);
+  });
+};
+
 let zippedCreatives;
 let unzippedCreatives;
 let campaignTitle;

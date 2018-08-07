@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', (req, res) => {
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+  if (!req.files.creative)
+    return res.send('Please Select Some Files To Upload!');
 
   zippedCreatives = [];
   unzippedCreatives = [];
@@ -40,7 +40,7 @@ app.post('/upload', (req, res) => {
     });
   };
 
-  if(files.length > 1) {
+  if (files.length > 1) {
     files.forEach(((file, index) => {
       file.mv(__dirname + `/${directory}/${campaignTitle}/${file.name}`, function (err) {
         if (err)
@@ -73,13 +73,15 @@ function unzip() {
 }
 
 function extractZip(src) {
-  if (!fs.existsSync( __dirname + `/${directory}/${campaignTitle}/unzipped/`)) {
+  if (!fs.existsSync(__dirname + `/${directory}/${campaignTitle}/unzipped/`)) {
     fs.mkdirSync(__dirname + `/${directory}/${campaignTitle}/unzipped/`, err => {
       if (err) res.status(500).send(err);
     });
   };
-  extract(src, {dir: __dirname + `/${directory}/${campaignTitle}/unzipped/`}, err => {
-    if(err) throw err;
+  extract(src, {
+    dir: __dirname + `/${directory}/${campaignTitle}/unzipped/`
+  }, err => {
+    if (err) throw err;
   });
 }
 

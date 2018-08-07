@@ -11,13 +11,10 @@
 </head>
 
 <body>
+
   <form ref='uploadForm' id='uploadForm' action='http://localhost:3000/upload' method='post' campaign="test" encType="multipart/form-data">
-    Files:
-    <input type="file" name="creative" multiple/> 
-    <br>
-    Campaign Title:
-    <input type="text" name="campaign">
-    <br>
+    Files: <input type="file" name="creative" multiple/> 
+    Campaign Title: <input type="text" name="campaign">
     <input type='submit' value='Upload' />
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

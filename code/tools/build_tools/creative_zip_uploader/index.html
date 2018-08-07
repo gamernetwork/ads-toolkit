@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>File Upload Test</title>
+  <style>
+  </style>
+</head>
+
+<body>
+  <form ref='uploadForm' id='uploadForm' action='http://localhost:3000/upload' method='post' campaign="test" encType="multipart/form-data">
+    Files:
+    <input type="file" name="creative" multiple/> 
+    <br>
+    Campaign Title:
+    <input type="text" name="campaign">
+    <br>
+    <input type='submit' value='Upload' />
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $('#uploadForm').submit(function(e) {
+      e.preventDefault();
+      var form = $(this);
+      $.ajax({
+        type: 'POST',
+        method: 'POST',
+        data: new FormData(this),
+        type: form.attr('method'),
+        url: form.attr('action'),
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          console.log(data)
+        },
+        error: function(data) {
+          console.log(data)
+        }
+      });
+      return false;
+    }); 
+  </script>
+</body>
+
+</html>

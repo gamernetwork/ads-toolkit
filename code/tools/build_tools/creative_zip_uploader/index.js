@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 app.post('/upload', (req, res) => {
   if (!req.files.creative)
-    return res.send('Please Select Some Files To Upload!');
+    return res.status(500).write('Please Select Some Files To Upload!');
 
   zippedCreatives = [];
   unzippedCreatives = [];
@@ -61,7 +61,7 @@ app.post('/upload', (req, res) => {
       if (err)
         return res.status(500).send(err);
       extractZip(__dirname + `/${directory}/${campaignTitle}/${files.name}`);
-      res.send(__dirname + `/${directory}/${campaignTitle}/${files.name}`);
+      res.send(`/${directory.split('/')[1]}/${campaignTitle}/unzipped/${files.name}`.split('.zip')[0] + '/');
     });
   }
 });

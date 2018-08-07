@@ -1,9 +1,8 @@
 const express = require('express');
 
-
 const app = express();
-const generator = require('./generator');
-const uploader = require('./uploader');
+const generator = require('./generator/generator');
+const uploader = require('./uploader/uploader');
 
 uploader.setup(app);
 generator.setup(app);

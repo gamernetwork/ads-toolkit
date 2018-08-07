@@ -5,10 +5,9 @@ const extract = require('extract-zip');
 
 /* UPLOADER */
 
-exports.setup = function (app) {
-
+exports.setup = app => {
   // Directory to save creatives to
-  const directory = 'static/creatives'
+  const directory = '../static/creatives'
 
   // If directory does not exist, create it
   if (!fs.existsSync(__dirname + `/${directory}`)) {

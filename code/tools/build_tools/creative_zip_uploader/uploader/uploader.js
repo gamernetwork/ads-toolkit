@@ -57,7 +57,7 @@ exports.setup = app => {
           // Push .zip location to zippedCreatives
           zippedCreatives.push(__dirname + `/${directory}/${campaignTitle}/${file.name}`);
           // Remove 'static/' and .zip from unzippedCreatives link and add unzipped/ path to the url
-          unzippedCreatives.push(`/${directory.split('/')[1]}/${campaignTitle}/unzipped/${file.name}`.split('.zip')[0] + '/');
+          unzippedCreatives.push(`/${directory.split('/')[2]}/${campaignTitle}/unzipped/${file.name}`.split('.zip')[0] + '/');
           // Index is used to only send reponse when each .zip file has been uploaded / urls have been created and stored in their respective arrays
           index++;
           if (index === files.length) {

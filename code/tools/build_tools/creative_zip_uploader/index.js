@@ -20,8 +20,8 @@ let campaignTitle;
 app.use(fileUpload());
 app.use(express.static('static/'));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+app.get('/uploader', (req, res) => {
+  res.sendFile(__dirname + '/uploader.html');
 });
 
 app.post('/upload', (req, res) => {

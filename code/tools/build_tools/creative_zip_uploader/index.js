@@ -5,7 +5,7 @@ const extract = require('extract-zip');
 
 const app = express();
 
-const directory = 'creatives'
+const directory = 'static/creatives'
 
 if (!fs.existsSync(__dirname + `/${directory}`)) {
   fs.mkdirSync(__dirname + `/${directory}`, err => {
@@ -47,7 +47,7 @@ app.post('/upload', (req, res) => {
           return res.status(500).send(err);
         var str = __dirname + `/${directory}/${campaignTitle}/${file.name}`
         zippedCreatives.push(str);
-        unzippedCreatives.push(str.split('.zip')[0] + '/');
+        unzippedCreatives.push(`/${directory.split('/')[1]}/${campaignTitle}/unzipped/${file.name}`.split('.zip')[0] + '/');
         index++;
         if (index === files.length) {
           // Files Are Uploaded

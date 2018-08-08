@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const createHTML = require('create-html');
+const cheerio = require('cheerio');
 
 module.exports = app => {
   // Array to store iFrame strings, later injected into the page index.html
@@ -15,7 +16,7 @@ module.exports = app => {
     // Check for title
     if (PAGE_TITLE.length > 1) {
       // Check for creatives
-      if(CREATIVE_URLS !== '') {
+      if (CREATIVE_URLS !== '') {
         makePageDir(PREVIEW_PAGE_DIR, CREATIVE_URLS, PAGE_TITLE);
       } else {
         return res.status(500).send('Please Add Some Creatives!');
@@ -70,7 +71,7 @@ module.exports = app => {
   }
 
   function generateIframes(creatives) {
-    if(creatives.constructor === Array) {
+    if (creatives.constructor === Array) {
       creatives.forEach(creative => {
         iFrames.push(createIframe(creative));
       })
@@ -87,22 +88,25 @@ module.exports = app => {
   function createIndex(dir) {
     const html = createHTML({
       title: 'Test',
-      body: [iFrames.join(' ')],
-      head: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>',
-      script: ['https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.min.js'],
+      body: [iFrames.join('') + '<script>$("iframe").iFrameResize();</script>'],
+      head: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + '<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.min.js"></script>',
     });
 
     fs.writeFile(dir + '/index.html', html, err => {
-      if(err) console.log(err);
+      if (err) console.log(err);
     })
   }
 
   function injectIframeScripts(title, creatives) {
     creatives.forEach(creative => {
       var url = './static/pages/' + title + '/creatives/' + creative.split('unzipped/')[1] + '/index.html';
-      console.log('./static/pages/' + title + '/creatives/' + creative.split('unzipped/')[1] + '/index.html');
       fs.readFile(url, 'utf8', (err, data) => {
-        console.log(data)
+        const newVal = data;
+        var before = newVal.split('</body>')[0];
+        var after = newVal.split('</body>')[1];
+        var middle = '<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.contentWindow.min.js"></script>';
+        var final = before + middle + after;
+        fs.writeFileSync(url, final, 'utf8');
       })
     })
   }

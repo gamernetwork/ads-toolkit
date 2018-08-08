@@ -55,7 +55,7 @@ module.exports = app => {
             // Files Are Uploaded
             res.send(unzippedCreatives)
             // Unzip the uploaded files
-            unzip();
+            unzipCreatives();
           }
         });
       }));
@@ -70,7 +70,7 @@ module.exports = app => {
     }
   });
 
-  function unzip() {
+  function unzipCreatives() {
     zippedCreatives.forEach(entry => {
       extractZip(entry);
     })

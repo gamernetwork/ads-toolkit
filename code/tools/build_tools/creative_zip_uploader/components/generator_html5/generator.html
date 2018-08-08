@@ -13,7 +13,7 @@
   <div class="container">
     <h1>HTML5 Preview Page Generator</h1>
     <form ref='html5Form' id='html5GenForm' action='http://localhost:3000/generateHTML5' method='post' encType="multipart/form-data">
-      Campaign Title:
+      Page Title:
       <input type="text" name="campaign"> Creatives:
       <input type="text" name="creative">
       <button class="add-creative-btn">Add Creative</button>
@@ -45,7 +45,7 @@
             console.log(data);
           },
           error: function (data) {
-            console.log(data);
+            alert(data.responseText);
           }
         });
         return false;

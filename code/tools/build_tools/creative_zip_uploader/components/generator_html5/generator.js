@@ -24,6 +24,7 @@ module.exports = app => {
     } else {
       return res.status(500).send('Please Add A Page Title!');
     }
+    res.send(PREVIEW_PAGE_DIR + 'index.html');
   });
 
   // Create directory for the preview page
@@ -41,7 +42,7 @@ module.exports = app => {
       copyCreativeDirs(dir, creatives, title);
     }
     generateIframes(creatives);
-    createIndex(dir);
+    createIndex(dir, title);
     injectIframeScripts(title, creatives);
   }
 
@@ -82,13 +83,13 @@ module.exports = app => {
 
   function createIframe(creative) {
     let entryPath = 'creatives/' + creative.split('unzipped/')[1] + 'index.html';
-    return `<iframe src="${entryPath}" scrolling="no"></iframe>`;
+    return `<iframe src="${entryPath}" scrolling="no" style=""></iframe>`;
   }
 
-  function createIndex(dir) {
+  function createIndex(dir, title) {
     const html = createHTML({
-      title: 'Test',
-      body: [iFrames.join('') + '<script>$("iframe").iFrameResize();</script>'],
+      title: title,
+      body: [iFrames.join('') + '<script>$("iframe").iFrameResize({log: false, sizeWidth: true});</script>'],
       head: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + '<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.min.js"></script>',
     });
 
@@ -97,17 +98,28 @@ module.exports = app => {
     })
   }
 
+  function injectResizerScript(data, url) {
+    const newVal = data;
+    var before = newVal.split('</body>')[0];
+    var after = newVal.split('</body>')[1];
+    var middle = '<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.contentWindow.min.js"></script>';
+    var final = before + middle + after;
+    fs.writeFileSync(url, final, 'utf8');
+  }
+
   function injectIframeScripts(title, creatives) {
-    creatives.forEach(creative => {
-      var url = './static/pages/' + title + '/creatives/' + creative.split('unzipped/')[1] + '/index.html';
-      fs.readFile(url, 'utf8', (err, data) => {
-        const newVal = data;
-        var before = newVal.split('</body>')[0];
-        var after = newVal.split('</body>')[1];
-        var middle = '<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.contentWindow.min.js"></script>';
-        var final = before + middle + after;
-        fs.writeFileSync(url, final, 'utf8');
+    if(creatives.constructor === Array) {
+      creatives.forEach(creative => {
+        var url = './static/pages/' + title + '/creatives/' + creative.split('unzipped/')[1] + '/index.html';
+        fs.readFile(url, 'utf8', (err, data) => {
+          injectResizerScript(data, url);
+        })
       })
-    })
+    } else {
+      var url = './static/pages/' + title + '/creatives/' + creatives.split('unzipped/')[1] + '/index.html';
+      fs.readFile(url, 'utf8', (err, data) => {
+        injectResizerScript(data, url);
+      })
+    }
   }
 }

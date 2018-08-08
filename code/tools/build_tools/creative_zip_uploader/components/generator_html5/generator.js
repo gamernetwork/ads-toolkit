@@ -8,30 +8,38 @@ module.exports = app => {
     const PREVIEW_PAGE_DIR = path.join(__dirname, `/../../static/pages/${PAGE_TITLE}/`);
 
     if(PAGE_TITLE.length > 1) {
-      makePageDir(PREVIEW_PAGE_DIR);
+      makePageDir(PREVIEW_PAGE_DIR, CREATIVE_URLS, PAGE_TITLE);
     } else {
       console.log('No Title Specified');
     }
   });
 
-  function makePageDir(dir) {
+  function makePageDir(dir, creatives, title) {
     if(fs.existsSync(dir)) {
       console.log('Preview Page Title Already Exists');
     } else {
       fs.mkdirSync(dir, err => {
         if(err) {
           console.log(err);
-        } else {
-          copyCreativeDirs();
         }
-      })
+      });
+      copyCreativeDirs(dir, creatives, title);
     }
   }
 
-  function copyCreativeDirs() {
-    CREATIVE_URLS.forEach(url => {
-      console.log(url)
-      fs.copySync(url, PREVIEW_PAGE_DIR + '/creatives');
+  function copyCreativeDirs(dir, creatives, title) {
+    fs.mkdirSync(dir + '/creatives', err => {
+      if(err) {
+        console.log(err);
+      }
+    })
+    creatives.forEach(url => {
+      console.log(url.split('unzipped/')[1])
+      try {
+        fs.copySync(__dirname +  '/../../static/' + url + '/', './static/pages/' + title + '/creatives/' + url.split('unzipped/')[1]);
+      } catch(err) {
+        console.log(err)
+      }
     });
   }
 } 

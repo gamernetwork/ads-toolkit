@@ -29,7 +29,6 @@ module.exports = app => {
   }
 
   function copyCreativeDirs() {
-    console.log('yo')
     CREATIVE_URLS.forEach(url => {
       console.log(url)
       fs.copySync(url, PREVIEW_PAGE_DIR + '/creatives');

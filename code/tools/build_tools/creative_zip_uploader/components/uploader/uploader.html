@@ -93,9 +93,7 @@
           }
         },
         error: function (data) {
-          let dataElem = document.createElement('p');
-          dataElem.innerHTML = data;
-          document.querySelector('.container').append(dataElem);
+          alert(data.responseText);
         }
       });
       return false;

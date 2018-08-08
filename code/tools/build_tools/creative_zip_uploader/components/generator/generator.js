@@ -1,4 +1,4 @@
-exports.setup = function(app) {
+module.exports = app => {
   app.get('/generator', (req, res) => {
     res.sendFile(__dirname + '/generator.html');
   });

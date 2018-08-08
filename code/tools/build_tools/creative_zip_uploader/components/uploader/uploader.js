@@ -1,13 +1,11 @@
-const express = require('express');
-const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const extract = require('extract-zip');
 
 /* UPLOADER */
 
-exports.setup = app => {
+module.exports = app => {
   // Directory to save creatives to
-  const directory = '../static/creatives'
+  const directory = '../../static/creatives'
 
   // If directory does not exist, create it
   if (!fs.existsSync(__dirname + `/${directory}`)) {
@@ -20,17 +18,10 @@ exports.setup = app => {
   let unzippedCreatives;
   let campaignTitle;
 
-  app.use(fileUpload());
-  app.use(express.static('static/'));
-
-  app.get('/uploader', (req, res) => {
-    res.sendFile(__dirname + '/uploader.html');
-  });
-
   app.post('/upload', (req, res) => {
     // If no files are present, return before any errors occur!
     if (!req.files.creative)
-      return res.status(500).write('Please Select Some Files To Upload!');
+      return res.status(500).send('Please Select Some Files To Upload!');
 
     // Reset zipped / unzipped creatives arrays
     zippedCreatives = [];
@@ -56,8 +47,8 @@ exports.setup = app => {
             return res.status(500).send(err);
           // Push .zip location to zippedCreatives
           zippedCreatives.push(__dirname + `/${directory}/${campaignTitle}/${file.name}`);
-          // Remove 'static/' and .zip from unzippedCreatives link and add unzipped/ path to the url
-          unzippedCreatives.push(`/${directory.split('/')[2]}/${campaignTitle}/unzipped/${file.name}`.split('.zip')[0] + '/');
+          // Remove '../../static/' and .zip from unzippedCreatives link and add unzipped/ path to the url
+          unzippedCreatives.push(`/${directory.split('/')[3]}/${campaignTitle}/unzipped/${file.name}`.split('.zip')[0] + '/');
           // Index is used to only send reponse when each .zip file has been uploaded / urls have been created and stored in their respective arrays
           index++;
           if (index === files.length) {
@@ -74,7 +65,7 @@ exports.setup = app => {
         if (err)
           return res.status(500).send(err);
         extractZip(__dirname + `/${directory}/${campaignTitle}/${files.name}`);
-        res.send(`/${directory.split('/')[1]}/${campaignTitle}/unzipped/${files.name}`.split('.zip')[0] + '/');
+        res.send(`/${directory.split('/')[3]}/${campaignTitle}/unzipped/${files.name}`.split('.zip')[0] + '/');
       });
     }
   });

@@ -1,2 +1,6 @@
 @import './utils/mixins';
 @import './utils/base.scss';
+
+body {
+  background-image: url('../assets/logo.png');
+}

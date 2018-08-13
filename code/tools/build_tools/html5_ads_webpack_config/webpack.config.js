@@ -28,7 +28,7 @@ module.exports = env => {
         filename: '[name].css'
       }),
       new CopyWebpackPlugin([
-        {from: 'src/assets', to: 'assets'}
+        {from: 'src/assets', to: 'assets', test: /\.(png|jpg|svg)$/}
       ]),
       new ZipPlugin({
         filename: 'html5_ad.zip',
@@ -77,6 +77,8 @@ module.exports = env => {
             {
               loader: 'file-loader',
               options: {
+                emitFile: false,
+                name: '[name].[ext]',
                 outputPath: 'assets/'
               }
             }

@@ -157,7 +157,7 @@
     <img src="" class="reference-overlay">
     <!-- Autoplaying Video -->
     <div class="autoplaying-video-wrapper">
-      <a class="video-overlay-link" href="#"></a>
+      <a class="video-overlay-link" href="https://www.youtube.com/embed/OHRYEAlxu2g"></a>
       <!-- Dimensions set here to take care of Safari -->
       <video width="" height="" loop="yes" muted="yes" class="autoplaying-video" autoplay>
         <source src="" type="video/mp4">
@@ -203,6 +203,18 @@
     var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').indexOf('halfpage') >= 0;
     // Add if halfpage = 300x1050 on Pushsquare / Nintendolife
     var extendHalfpageNLPS = true;
+    // Youtube Iframe api
+    var tag = document.createElement('script');
+    tag.id = 'iframe-demo';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    // Video Popup
+    var videoLink;
+    var getDur;
+    var watchTime = 0;
+    var hasEnded = false;
     /******** Leave This Stuff ********/
     var takeover_skin_link = '%%DEST_URL%%';
     var page_wrapper = '#page-wrapper';
@@ -250,7 +262,7 @@
         }
         try {
           var targetHalfpageContentWindow = targetHalfpage[0].contentWindow;
-        } catch(e) {
+        } catch (e) {
           console.log('Could not find target halfpage')
         }
       }
@@ -262,7 +274,7 @@
         if (!IS_DEV) {
           try {
             targetHalfpageContentWindow.postMessage('leaderboard+skin_loaded', window.parent.window.location.href);
-          } catch(e) {
+          } catch (e) {
             console.log('Target halfpage not defined, postMessage failed')
           }
         }
@@ -340,7 +352,7 @@
           this.style.setProperty('background-position', 'center ' + skin_top_offset + 'px', 'important');
           this.style.setProperty('background-repeat', 'no-repeat', 'important');
         });
-        if(this_site === 'metabomb.net') {
+        if (this_site === 'metabomb.net') {
           parent.jQuery('#gn_takeover').css('z-index', '1');
           parent.jQuery('.billboard-container').css('position', 'relative');
           parent.jQuery('.billboard-container').css('z-index', '1');
@@ -378,7 +390,7 @@
         if (leaderboard_height) {
           try {
             window.frameElement.style.height = leaderboard_height + 'px';
-          } catch(e) {
+          } catch (e) {
             console.log('Could not interact with parent IFrame, or parent IFrame does not exist');
           }
           parent.jQuery(page_wrapper).each(function () {
@@ -422,24 +434,98 @@
     parent.jQuery('head').append(
       "<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>"
     );
-    // Fancybox open code
-    var videoOverlayLink = document.querySelector('.video-overlay-link');
-    videoOverlayLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      ga('showcase.send', 'event', analytics_ref, 'Click Leaderboard Video', this_site);
-      parent.jQuery.fancybox({
-        type: 'iframe',
-        href: this.href,
-        maxWidth: 1262,
-        maxHeight: 710,
-        fitToView: false,
-        width: '90%',
-        height: '90%',
-        autoSize: false,
-        scrolling: 'no',
-        padding: '0'
+    // Tracking Code
+    function onYouTubeIframeAPIReady() {
+      jQuery(document).ready(function () {
+        var $LINK = jQuery('.video-overlay-link');
+        $LINK.on('click', function (e) {
+          e.preventDefault();
+          videoLink = this.href;
+          ga('showcase.send', 'event', {
+            'eventCategory': analytics_ref,
+            'eventAction': 'Video Started Playing',
+            'eventLabel': '%%SITE%%'
+          });
+          hasEnded = false;
+          parent.jQuery.fancybox({
+            type: 'iframe',
+            href: videoLink + '?enablejsapi=1&autoplay=1',
+            controls: 0,
+            maxWidth: 1262,
+            maxHeight: 710,
+            fitToView: false,
+            width: '90%',
+            height: '90%',
+            autoSize: false,
+            scrolling: 'no',
+            padding: '0',
+            afterShow: function () {
+              if (videoLink.includes('youtube')) {
+                var $VIDEO_IFRAME = parent.jQuery('.fancybox-inner').find('iframe').attr('id');
+                var iframeSelection = parent.jQuery('#' + $VIDEO_IFRAME + '')[0];
+                player = new YT.Player(iframeSelection, {
+                  events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                  }
+                });
+
+                function onPlayerReady(event) {
+                  var VIDEO_TIME = player.getDuration();
+                  var VIDEO_QUARTILE = VIDEO_TIME / 4;
+                  var hasHit25 = false;
+                  var hasHit50 = false;
+                  var hasHit75 = false;
+                  var hasHit100 = false;
+                  getDur = setInterval(function () {
+                    watchTime = parseInt(player.getCurrentTime().toFixed(0));
+                    if (watchTime > VIDEO_QUARTILE && watchTime < VIDEO_QUARTILE * 2) {
+                      if (!hasHit25) {
+                        sendAnalytics(25);
+                        hasHit25 = true;
+                      }
+                    } else if (watchTime > VIDEO_QUARTILE * 2 && watchTime < VIDEO_QUARTILE * 3) {
+                      if (!hasHit50) {
+                        sendAnalytics(50);
+                        hasHit50 = true;
+                      }
+                    } else if (watchTime > VIDEO_QUARTILE * 3 && watchTime < VIDEO_QUARTILE * 4) {
+                      if (!hasHit75) {
+                        sendAnalytics(75);
+                        hasHit75 = true;
+                      }
+                    } else {
+
+                    }
+                  }, 100);
+                }
+
+                function onPlayerStateChange(event) {
+                  if (event.data === 0) {
+                    clearInterval(getDur);
+                    hasEnded = true;
+                    sendAnalytics(100);
+                  }
+                }
+              } 
+            },
+            afterClose: function () {
+              if (!hasEnded) {
+                clearInterval(getDur);
+              }
+            }
+          });
+        });
       });
-    });
+
+      function sendAnalytics(percent) {
+        ga('showcase.send', 'event', {
+          'eventCategory': analytics_ref,
+          'eventAction': 'Overlay Video: Watched ' + percent + '%',
+          'eventLabel': this_site
+        });
+      }
+    }
     // Play / pause button code
     var AUTOPLAYING_BUTTON = document.querySelector('.autoplaying-video__button');
     var AUTOPLAYING_VIDEO = document.querySelector('.autoplaying-video');

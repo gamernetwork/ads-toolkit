@@ -72,6 +72,7 @@
       width: 500px;
       height: 250px;
       overflow: hidden;
+      display: none;
     }
 
     /* Video overlay */
@@ -157,7 +158,7 @@
     <img src="" class="reference-overlay">
     <!-- Autoplaying Video -->
     <div class="autoplaying-video-wrapper">
-      <a class="video-overlay-link" href="https://www.youtube.com/embed/OHRYEAlxu2g"></a>
+      <a class="video-overlay-link" href=""></a>
       <!-- Dimensions set here to take care of Safari -->
       <video width="" height="" loop="yes" muted="yes" class="autoplaying-video" autoplay>
         <source src="" type="video/mp4">
@@ -199,7 +200,7 @@
     var supersize_me = false;
     var takeover_bg_color = 'black';
     /******** Toggle for dev / prod ********/
-    var IS_DEV = false;
+    var IS_DEV = true;
     var IS_HALFPAGE = document.querySelector('.ad-wrapper').getAttribute('rel').indexOf('halfpage') >= 0;
     // Add if halfpage = 300x1050 on Pushsquare / Nintendolife
     var extendHalfpageNLPS = true;

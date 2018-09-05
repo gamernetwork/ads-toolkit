@@ -1,2 +1,7 @@
+// Normalize and other libs
+@import './lib/lib';
+// Reset 
 @import './base/reset';
-@import './base/type';
+// Color variables
+@import './variables/colors.scss';
+

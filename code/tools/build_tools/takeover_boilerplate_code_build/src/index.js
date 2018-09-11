@@ -10,6 +10,7 @@ export const init = props => {
       skinImg: props.skinImage,
       skinLink: props.skinLink,
       skinHeight: props.skinHeight,
+      skinTopOffset: props.skinTopOffset,
       leaderboardHeight: props.leaderboardHeight,
       supersize: props.supersize,
       skinlong: props.skinLong

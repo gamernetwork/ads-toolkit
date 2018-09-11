@@ -8,6 +8,7 @@ export function applyBaseStyles(props) {
   let leaderboard_height = props.leaderboardHeight;
   let supersize_me = props.supersize;
   let extendHalfpageNLPS = props.skinLong;
+  let skin_top_offset = props.skinTopOffset;
 
   // Apply metabomb styles
   if (this_site == 'metabomb.net') {
@@ -37,7 +38,7 @@ export function applyBaseStyles(props) {
 
   // Apply indiedb specific styles
   if (this_site == 'indiedb.com') {
-    var skin_top_offset = '-38';
+    skin_top_offset = '-38';
   }
 
   // Apply road to vr specific styles

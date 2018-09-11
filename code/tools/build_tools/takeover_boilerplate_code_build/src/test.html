@@ -7,5 +7,35 @@
   <title></title>
 </head>
 <body>
+  <script>
+    // Wait for overtake lib to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Some vars may need to be public
+      var analytics_ref = 'ANALYTICS_REF_HERE';
+      var takeover_skin_image = '%%FILE:SKIN%%';
+      var skin_top_offset = '0';
+      var leaderboard_height = '250';
+      var supersize_me = false;
+      var takeover_bg_color = 'black';
+      var takeover_skin_link = '%%DEST_URL%%';
+      var page_wrapper = '#page-wrapper';
+      var this_site = '%%SITE%%';
+      var skin_height = 1300;
+      // Init takeover code
+      overtake.init({
+        dev: true,
+        analytics: analytics_ref,
+        skinImage: takeover_skin_image,
+        skinTopOffset: skin_top_offset,
+        leaderboardHeight: leaderboard_height,
+        supersize: false,
+        takeoverBGColor: 'black',
+        skinLink: takeover_skin_link,
+        pageWrapper: page_wrapper,
+        site: this_site,
+        skinHeight: skin_height
+      });
+    });
+  </script>
 </body>
 </html>

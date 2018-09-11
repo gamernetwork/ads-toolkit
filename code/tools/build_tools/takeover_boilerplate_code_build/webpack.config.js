@@ -11,8 +11,9 @@ module.exports = env => {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, VERSION_PATH),
-      filename: 'takeover-boilerplate.min.js',
-      library: 'takeoverCode'
+      filename: 'overtake.min.js',
+      library: 'overtake',
+      libraryTarget: 'var'
     },
     devtool: env.NODE_ENV === 'development' ? 'inline-source-map' : 'source-map',
     devServer: {

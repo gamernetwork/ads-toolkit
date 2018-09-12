@@ -54,7 +54,6 @@ export function applyBaseStyles(props, clickUrlEsc) {
     );
 
     parent.$('#gn_takeover').click(function () {
-      console.log(this, takeover_skin_link)
       window.open(clickUrlEsc + takeover_skin_link, '_blank');
     });
   } else {
@@ -90,9 +89,12 @@ export function applyBaseStyles(props, clickUrlEsc) {
       parent.jQuery('#gn_takeover').css('z-index', '-1');
     }
 
+    if(this_site == 'eurogamer.net') {
+      parent.jQuery('#gn_takeover').css('height', '1316px');
+    }
+
     // Attatch click listener to #gn_takeover
     parent.jQuery('#gn_takeover').click(function () {
-      console.log(this, takeover_skin_link)
       window.open(clickUrlEsc + takeover_skin_link, '_blank');
     });
 
@@ -168,7 +170,6 @@ export function applyBaseStyles(props, clickUrlEsc) {
     parent.jQuery('html').bind('click', function (e) {
       if ((e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= skin_height + parent.jQuery(page_wrapper)
         .position().top)) {
-        console.log(this, takeover_skin_link)
         window.open(clickUrlEsc + takeover_skin_link, '_blank');
       }
     });

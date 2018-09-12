@@ -1,4 +1,5 @@
-import {applyBaseStyles} from './components/base-styles';
+import {applyBaseStyles} from './js/components/base-styles';
+import {syncIframes} from './js/components/sync-iframes';
 
 export const init = (props, clickUrlEsc) => {
   // Apply skin styles if not in local dev mode
@@ -16,6 +17,8 @@ export const init = (props, clickUrlEsc) => {
       skinlong: props.skinLong,
     }, clickUrlEsc)
   );
+
+  syncIframes(props.site);
 }
 
 

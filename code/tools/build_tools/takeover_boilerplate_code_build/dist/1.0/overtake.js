@@ -901,6 +901,23 @@ function videoLightbox(el, analytics) {
     }
   };
 }
+// CONCATENATED MODULE: ./src/js/components/analytics.js
+function addAnalytics() {
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m);
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  window.ga('create', 'UA-23103987-1', 'auto', {
+    'name': 'showcase'
+  });
+}
 // EXTERNAL MODULE: ./src/css/main.css
 var main = __webpack_require__(28);
 
@@ -912,6 +929,8 @@ var main = __webpack_require__(28);
 
 
 
+
+addAnalytics();
 var src_lightbox;
 var src_init = function init(props, clickUrlEsc) {
   // Apply skin styles if not in local dev mode

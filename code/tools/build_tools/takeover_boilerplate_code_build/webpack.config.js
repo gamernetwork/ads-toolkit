@@ -52,9 +52,6 @@ module.exports = env => {
       new UnminifiedWebpackPlugin({
         exclude: /\.css$/
       }),
-      new HtmlWebpackPlugin({
-        template: './src/test.html'
-      }),
       new MiniCssExtractPlugin({
         filename: '[name].css'
       })

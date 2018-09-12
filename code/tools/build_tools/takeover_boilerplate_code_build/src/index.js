@@ -4,6 +4,8 @@ import {videoLightbox} from './js/components/video-player';
 
 import './css/main.css';
 
+console.log('test cache')
+
 let lightbox;
 
 export const init = (props, clickUrlEsc) => {

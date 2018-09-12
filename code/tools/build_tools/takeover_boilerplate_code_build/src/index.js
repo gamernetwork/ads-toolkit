@@ -1,10 +1,10 @@
+import 'core-js/fn/string/includes';
+
 import {applyBaseStyles} from './js/components/base-styles';
 import {syncIframes} from './js/components/sync-iframes';
 import {videoLightbox} from './js/components/video-player';
 
 import './css/main.css';
-
-console.log('test cache')
 
 let lightbox;
 

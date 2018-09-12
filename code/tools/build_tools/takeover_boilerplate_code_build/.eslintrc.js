@@ -3,7 +3,9 @@ module.exports = {
   "parser": "babel-eslint",
   "env": {
     "browser": "true",
-    "jquery": true
+    "jquery": true,
+    "amd": true,
+    "node": true
   },
   "rules": {
       // enable additional rules

@@ -8,7 +8,6 @@ const CURRENT_VERSION = '1.0';
 const VERSION_PATH = `dist/${CURRENT_VERSION}`;
 
 module.exports = env => {
-  console.log(env)
   return {
     entry: './src/index.js',
     output: {

@@ -50,7 +50,9 @@ module.exports = env => {
     },
     plugins: [
       new CleanWebpackPlugin([VERSION_PATH]),
-      new UnminifiedWebpackPlugin(),
+      new UnminifiedWebpackPlugin({
+        exclude: /\.css$/
+      }),
       new HtmlWebpackPlugin({
         template: './src/test.html'
       }),

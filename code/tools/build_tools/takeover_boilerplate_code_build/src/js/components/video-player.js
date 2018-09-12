@@ -1,5 +1,4 @@
 export function videoLightbox(el, analytics) {
-  console.log(analytics)
   // Youtube Iframe api
   let tag = document.createElement('script');
   tag.id = 'iframe-demo';

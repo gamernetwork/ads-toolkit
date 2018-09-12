@@ -51,7 +51,6 @@
   width: 0;
   height: 0;
   overflow: hidden;
-  display: none;
 }
 
 #autoplaying-video-wrapper:after {

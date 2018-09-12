@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/gamernetwork/ads-toolkit/master/code/tools/build_tools/takeover_boilerplate_code_build/dist/1.0/main.css">
+  <!-- CSS -->
+  <style>
+    #ad-wrapper {
+      background-image: url('');
+    }
+    #autoplaying-video-wrapper {
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 250px;
+    }
+    #autoplaying-video-wrapper:after {
+      background-image: url('');
+    }
+    #video-overlay-link {
+      background-image: url('');
+    }
+  </style>
+</head>
+
+<body class="js-loading" style="display:none;">
+  <div id="ad-wrapper" rel="eg-leaderboard">
+    <!-- Autoplaying Video -->
+    <div id="autoplaying-video-wrapper">
+      <a id="video-overlay-link" href=""></a>
+      <video width="300" height="250" loop="yes" muted="yes" id="autoplaying-video" autoplay>
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+    <!-- Click Through Link -->
+    <a id="ad-wrapper-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
+    <!-- Skin Load Test -->
+    <img id="skin-load-test" src="" alt="">
+  </div>
+  <!-- Init Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      overtake.init({
+        dev: false,
+        analytics: 'ANALYTICS_REF_HERE',
+        skinImage: '%%FILE:SKIN%%',
+        skinTopOffset: '0',
+        leaderboardHeight: '250',
+        supersize: false,
+        takeoverBGColor: 'black',
+        skinLink: '%%DEST_URL%%',
+        pageWrapper: '#page-wrapper',
+        site: '%%SITE%%',
+        skinHeight: 1300,
+        skinLong: true
+      }, '%%CLICK_URL_ESC%%');
+    });
+  </script>
+  <script src="https://cdn.rawgit.com/gamernetwork/ads-toolkit/master/code/tools/build_tools/takeover_boilerplate_code_build/dist/1.0/overtake.min.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 import {applyBaseStyles} from './components/base-styles';
 
-export const init = props => {
+export const init = (props, clickUrlEsc) => {
   // Apply skin styles if not in local dev mode
   !props.dev && (
     applyBaseStyles({
@@ -13,8 +13,8 @@ export const init = props => {
       skinTopOffset: props.skinTopOffset,
       leaderboardHeight: props.leaderboardHeight,
       supersize: props.supersize,
-      skinlong: props.skinLong
-    })
+      skinlong: props.skinLong,
+    }, clickUrlEsc)
   );
 }
 

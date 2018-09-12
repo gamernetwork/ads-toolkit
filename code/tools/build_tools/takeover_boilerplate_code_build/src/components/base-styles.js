@@ -1,10 +1,10 @@
-export function applyBaseStyles(props) {
+export function applyBaseStyles(props, clickUrlEsc) {
   let this_site = props.site;
   let page_wrapper = props.pageWrapper;
   let takeover_bg_color = props.takeoverBGColor;
-  let takeover_skin_image = props.skinImage;
+  let takeover_skin_image = props.skinImg;
   let takeover_skin_link = props.skinLink;
-  let skin_height = props.skin_height;
+  let skin_height = props.skinHeight;
   let leaderboard_height = props.leaderboardHeight;
   let supersize_me = props.supersize;
   let extendHalfpageNLPS = props.skinLong;
@@ -54,7 +54,8 @@ export function applyBaseStyles(props) {
     );
 
     parent.$('#gn_takeover').click(function () {
-      window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+      console.log(this, takeover_skin_link)
+      window.open(clickUrlEsc + takeover_skin_link, '_blank');
     });
   } else {
 
@@ -91,7 +92,8 @@ export function applyBaseStyles(props) {
 
     // Attatch click listener to #gn_takeover
     parent.jQuery('#gn_takeover').click(function () {
-      window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+      console.log(this, takeover_skin_link)
+      window.open(clickUrlEsc + takeover_skin_link, '_blank');
     });
 
     // Adjust leaderboard height and padding
@@ -166,7 +168,8 @@ export function applyBaseStyles(props) {
     parent.jQuery('html').bind('click', function (e) {
       if ((e.target == parent.jQuery(page_wrapper)[0]) && (e.pageY <= skin_height + parent.jQuery(page_wrapper)
         .position().top)) {
-        window.open('%%CLICK_URL_ESC%%' + takeover_skin_link, '_blank');
+        console.log(this, takeover_skin_link)
+        window.open(clickUrlEsc + takeover_skin_link, '_blank');
       }
     });
   }

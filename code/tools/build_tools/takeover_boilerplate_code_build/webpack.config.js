@@ -2,11 +2,13 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const CURRENT_VERSION = '1.0';
 const VERSION_PATH = `dist/${CURRENT_VERSION}`;
 
 module.exports = env => {
+  console.log(env)
   return {
     entry: './src/index.js',
     output: {
@@ -36,6 +38,13 @@ module.exports = env => {
             }
           },
           exclude: /node_modules/
+        },
+        {
+          test: /\.css$/,
+          use: [
+            env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader'
+          ]
         }
       ]
     },
@@ -44,6 +53,9 @@ module.exports = env => {
       new UnminifiedWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './src/test.html'
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].min.css'
       })
     ]
   }

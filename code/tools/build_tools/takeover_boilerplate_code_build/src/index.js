@@ -1,7 +1,10 @@
 import {applyBaseStyles} from './js/components/base-styles';
 import {syncIframes} from './js/components/sync-iframes';
+import {videoLightbox} from './js/components/video-player';
 
 import './css/main.css';
+
+let lightbox;
 
 export const init = (props, clickUrlEsc) => {
   // Apply skin styles if not in local dev mode
@@ -19,10 +22,11 @@ export const init = (props, clickUrlEsc) => {
       skinlong: props.skinLong,
     }, clickUrlEsc)
   );
-
   syncIframes(props.site, props.skinImage);
+
+  lightbox = el => {
+    videoLightbox(el, props.analytics);
+  }
 }
 
-
-
-
+export {lightbox};

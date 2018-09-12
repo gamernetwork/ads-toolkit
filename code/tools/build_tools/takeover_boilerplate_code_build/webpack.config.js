@@ -55,7 +55,7 @@ module.exports = env => {
         template: './src/test.html'
       }),
       new MiniCssExtractPlugin({
-        filename: '[name].min.css'
+        filename: '[name].css'
       })
     ]
   }

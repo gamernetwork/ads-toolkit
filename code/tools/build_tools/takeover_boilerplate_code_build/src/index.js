@@ -20,7 +20,7 @@ export const init = (props, clickUrlEsc) => {
     }, clickUrlEsc)
   );
 
-  syncIframes(props.site);
+  syncIframes(props.site, props.skinImage);
 }
 
 

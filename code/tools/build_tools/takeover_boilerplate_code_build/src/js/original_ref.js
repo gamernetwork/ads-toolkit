@@ -29,7 +29,7 @@ var skin_height = 1300;
 /******** Animation sync ********/
 var has_skin_loaded = false;
 // Adjust skin height
-if (this_site.indexOf('eurogamer') >= 0) {
+if (this_site.includes('eurogamer') || ) {
   skin_height = 1316;
 } else {
   skin_height = 1300;

@@ -132,7 +132,7 @@ export function applyBaseStyles(props, clickUrlEsc) {
       try {
         window.frameElement.style.height = leaderboard_height + 'px';
       } catch (e) {
-        console.log('Could not interact with parent IFrame, or parent IFrame does not exist');
+        console.warn('Could not interact with parent IFrame, or parent IFrame does not exist'); // eslint-disable-line no-console
       }
       parent.jQuery(page_wrapper).each(function () {
         this.style.setProperty('position', 'relative');

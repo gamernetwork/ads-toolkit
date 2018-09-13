@@ -16,11 +16,11 @@ export const init = (props, clickUrlEsc) => {
   // Apply skin styles if not in local dev mode
   !props.dev && (
     applyBaseStyles({
-      site: props.site != null ? props.site : '%%SITE%%', 
+      site: props.site, 
       pageWrapper: props.pageWrapper != null ? props.pageWrapper : '#page-wrapper', 
       takeoverBGColor: props.takeoverBGColor != null ? props.takeoverBGColor : 'black', 
-      skinImg: props.skinImg != null ? props.skinImage : '%%FILE:SKIN%%',
-      skinLink: props.skinLink != null ? props.skinLink : '%%DEST_URL%%',
+      skinImg: props.skinImg,
+      skinLink: props.skinLink,
       skinHeight: props.skinHeight != null ? props.skinHeight : 1300,
       skinTopOffset: props.skinTopOffset != null ? props.skinTopOffset: '0',
       leaderboardHeight: props.leaderboardHeight != null ? props.leaderboardHeight : '250',
@@ -28,7 +28,7 @@ export const init = (props, clickUrlEsc) => {
       skinlong: props.skinLong != null ? props.skinLong : true,
     }, clickUrlEsc)
   );
-  syncIframes(props.site != null ? props.site : '%%SITE%%', props.skinImg != null ? props.skinImage : '%%FILE:SKIN%%');
+  syncIframes(props.site, props.skinImg);
 
   lightbox = el => {
     videoLightbox(el, props.analytics);

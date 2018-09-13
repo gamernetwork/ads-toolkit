@@ -12,6 +12,7 @@ addAnalytics();
 let lightbox;
 
 export const init = (props, clickUrlEsc) => {
+  console.log(props.site)
   // Apply skin styles if not in local dev mode
   !props.dev && (
     applyBaseStyles({

@@ -1,8 +1,8 @@
-// Normalize and other libs
+// Libraris
 @import './lib/lib';
+// Variables
+@import './variables/colors';
+@import './variables/typography';
+@import './variables/breakpoints';
 // Reset 
 @import './base/reset';
-// Color variables
-@import './variables/colors.scss';
-// Typography variables 
-@import './variables/typography.scss';

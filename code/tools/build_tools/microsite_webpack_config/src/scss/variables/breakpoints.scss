@@ -1,0 +1,4 @@
+
+// For sass-breakpoints lib, convert px to ems and default to max-width
+$breakpoint-to-ems: true;
+$breakpoint-default-feature: max-width;

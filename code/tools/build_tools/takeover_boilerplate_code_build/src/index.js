@@ -28,7 +28,7 @@ export const init = (props, clickUrlEsc) => {
       skinlong: props.skinLong != null ? props.skinLong : true,
     }, clickUrlEsc)
   );
-  syncIframes(props.site, props.skinImage);
+  syncIframes(props.site != null ? props.site : '%%SITE%%', props.skinImg != null ? props.skinImage : '%%FILE:SKIN%%');
 
   lightbox = el => {
     videoLightbox(el, props.analytics);

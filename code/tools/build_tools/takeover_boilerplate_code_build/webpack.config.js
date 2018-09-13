@@ -55,5 +55,5 @@ module.exports = env => {
         filename: '[name].css'
       })
     ]
-  }
-}
+  };
+};

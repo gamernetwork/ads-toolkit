@@ -908,10 +908,11 @@ function addAnalytics() {
     i[r] = i[r] || function () {
       (i[r].q = i[r].q || []).push(arguments);
     }, i[r].l = 1 * new Date();
-    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0]; // eslint-disable-line semi
+
     a.async = 1;
     a.src = g;
-    m.parentNode.insertBefore(a, m);
+    m.parentNode.insertBefore(a, m); // eslint-disable-line semi
   })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
   window.ga('create', 'UA-23103987-1', 'auto', {
@@ -933,8 +934,7 @@ var main = __webpack_require__(28);
 addAnalytics();
 var src_lightbox;
 var src_init = function init(props, clickUrlEsc) {
-  console.log(props.site); // Apply skin styles if not in local dev mode
-
+  // Apply skin styles if not in local dev mode
   !props.dev && applyBaseStyles({
     site: props.site,
     pageWrapper: props.pageWrapper != null ? props.pageWrapper : '#page-wrapper',

@@ -113,5 +113,5 @@ export function videoLightbox(el, analytics) {
         'eventLabel': this_site
       });
     }
-  }
+  };
 }

@@ -1,6 +1,5 @@
-
 // For sass-breakpoints lib, convert px to ems and default to max-width
-$breakpoint-to-ems: true;
-$breakpoint-default-feature: max-width;
+@include breakpoint-set('to ems', true);
+@include breakpoint-set('default feature', max-width);
 
 $bp-mobile: 540px;

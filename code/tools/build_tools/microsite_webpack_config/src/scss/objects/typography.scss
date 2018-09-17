@@ -3,7 +3,6 @@ body {
   font-family: $default-font-family;
   color: $text-primary;
   line-height: $lg-line-height;
-  padding: 1em;
 
   @include breakpoint($bp-mobile) {
     line-height: $base-line-height;
@@ -75,3 +74,6 @@ p {
   margin: 1em 0;
 }
 
+body {
+  display: grid;
+}

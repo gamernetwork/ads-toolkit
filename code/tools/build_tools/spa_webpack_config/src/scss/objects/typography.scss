@@ -1,0 +1,71 @@
+
+body {
+  font-family: $default-font-family;
+  color: $text-primary;
+  line-height: $lg-line-height;
+
+  @include breakpoint($bp-mobile) {
+    line-height: $base-line-height;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $heading-font-weight;
+}
+
+p {
+  font-weight: $body-font-weight;
+}
+
+h1 {
+  font-size: ms(4);
+
+  @include breakpoint($bp-mobile) {
+    font-size: ms(4, $thread: mobile)
+  }
+}
+
+h2 {
+  font-size: ms(3);
+
+  @include breakpoint($bp-mobile) {
+    font-size: ms(3, $thread: mobile)
+  }
+}
+
+h3 {
+  font-size: ms(2);
+
+  @include breakpoint($bp-mobile) {
+    font-size: ms(2, $thread: mobile)
+  }
+}
+
+h4 {
+  font-size: ms(1);
+
+  @include breakpoint($bp-mobile) {
+    font-size: ms(1, $thread: mobile)
+  }
+}
+
+h5 {
+  font-size: ms(0);
+
+  @include breakpoint($bp-mobile) {
+    font-size: ms(0, $thread: mobile)
+  }
+}
+
+h6 {
+  font-size: ms(-1);
+
+  @include breakpoint(540px) {
+    font-size: ms(-1, $thread: mobile)
+  }
+}
+
+p {
+  font-size: ms(0);
+  margin: 1em 0;
+}

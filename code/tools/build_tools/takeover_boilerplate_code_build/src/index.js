@@ -13,7 +13,7 @@ let lightbox;
 
 export const init = (props, clickUrlEsc) => {
   // Apply skin styles if not in local dev mode
-  !props.dev && (
+  (!props.dev && !document.querySelector('#ad-wrapper').getAttribute('rel').includes('halfpage')) && (
     applyBaseStyles({
       site: props.site, 
       pageWrapper: props.pageWrapper != null ? props.pageWrapper : '#page-wrapper', 

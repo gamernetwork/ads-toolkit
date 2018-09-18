@@ -16,13 +16,6 @@ export function videoLightbox(el, analytics) {
   let watchTime = 0;
   let hasEnded = false;
 
-  parent.jQuery('head').append(
-    "<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'></script>"
-  );
-  parent.jQuery('head').append(
-    "<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen'/>"
-  );
-
   // Tracking Code
   window.onYouTubeIframeAPIReady = function() { // eslint-disable-line no-unused-vars
     jQuery(document).ready(function () {
@@ -114,4 +107,13 @@ export function videoLightbox(el, analytics) {
       });
     }
   };
+}
+
+export function appendLightboxSource() {
+  parent.jQuery('head').append(
+    "<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'></script>"
+  );
+  parent.jQuery('head').append(
+    "<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen'/>"
+  );
 }

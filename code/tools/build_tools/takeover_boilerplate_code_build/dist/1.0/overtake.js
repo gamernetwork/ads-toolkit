@@ -700,9 +700,10 @@ function applyBaseStyles(props, clickUrlEsc) {
   }
 }
 // CONCATENATED MODULE: ./src/js/components/sync-iframes.js
-function syncIframes(site, skinImg) {
+function syncIframes(site, skinImg, dev) {
   var this_site = site;
-  var takeover_skin_image = skinImg; // Check if unit is a halfpage or leaderboard
+  var takeover_skin_image = skinImg;
+  var is_dev = dev; // Check if unit is a halfpage or leaderboard
 
   var is_halfpage = document.querySelector('#ad-wrapper').getAttribute('rel').includes('halfpage');
   var targetHalfpageContentWindow; // Leaderboard Code
@@ -769,6 +770,11 @@ function syncIframes(site, skinImg) {
     });
   } else {
     // Halfpage Code
+    if (is_dev) {
+      document.body.classList.remove('js-loading');
+      document.body.style.display = 'block';
+    }
+
     window.addEventListener('load', function () {
       // If no post message is received within a timeout time, show the creative
       setTimeout(function () {
@@ -802,9 +808,7 @@ function videoLightbox(el, analytics) {
   var videoLink;
   var getDur;
   var watchTime = 0;
-  var hasEnded = false;
-  parent.jQuery('head').append("<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'></script>");
-  parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen'/>"); // Tracking Code
+  var hasEnded = false; // Tracking Code
 
   window.onYouTubeIframeAPIReady = function () {
     // eslint-disable-line no-unused-vars
@@ -901,6 +905,10 @@ function videoLightbox(el, analytics) {
     }
   };
 }
+function appendLightboxSource() {
+  parent.jQuery('head').append("<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'></script>");
+  parent.jQuery('head').append("<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen'/>");
+}
 // CONCATENATED MODULE: ./src/js/components/analytics.js
 function addAnalytics() {
   (function (i, s, o, g, r, a, m) {
@@ -947,7 +955,8 @@ var src_init = function init(props, clickUrlEsc) {
     supersize: props.supersize != null ? props.supersize : false,
     skinlong: props.skinLong != null ? props.skinLong : true
   }, clickUrlEsc);
-  syncIframes(props.site, props.skinImg);
+  appendLightboxSource();
+  syncIframes(props.site, props.skinImg, props.dev);
 
   src_lightbox = function lightbox(el) {
     videoLightbox(el, props.analytics);

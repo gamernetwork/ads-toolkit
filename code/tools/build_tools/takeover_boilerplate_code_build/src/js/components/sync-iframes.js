@@ -1,6 +1,7 @@
-export function syncIframes(site, skinImg) {
+export function syncIframes(site, skinImg, dev) {
   const this_site = site;
   const takeover_skin_image = skinImg;
+  const is_dev = dev;
   // Check if unit is a halfpage or leaderboard
   const is_halfpage = document.querySelector('#ad-wrapper').getAttribute('rel').includes('halfpage');
   let targetHalfpageContentWindow;
@@ -61,6 +62,10 @@ export function syncIframes(site, skinImg) {
     });
   } else {
     // Halfpage Code
+    if(is_dev) {
+      document.body.classList.remove('js-loading');
+      document.body.style.display = 'block';
+    }
     window.addEventListener('load', function () {
       // If no post message is received within a timeout time, show the creative
       setTimeout(function () {
@@ -70,7 +75,6 @@ export function syncIframes(site, skinImg) {
         }
       }, 2500);
     });
-    
     // Resume animations and display on post message
     window.addEventListener('message', function (e) {
       if (e.data.indexOf('leaderboard+skin_loaded') >= 0) {

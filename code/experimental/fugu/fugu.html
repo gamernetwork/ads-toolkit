@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #ad-wrapper {
+      position: relative;
+      top: 0; left: 0;
+      width: 1200px;
+      height: 500px;
+      overflow: hidden;
+    }
+    #bg {
+      transform: translate3d(0px, 0px 0px);
+      will-change: transform;
+      /* fixed for that sweet animation fps */
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="ad-wrapper">
+    <img src="assets/trial_desktop_fishbowl2.jpg" id="bg">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations-next.min.js"></script>
+  <script>
+    (()=> {
+      // dom stuff
+      const frame = frameElement;
+      const targetFrameWidth = 1200;
+      const targetFrameHeight = 500;
+      const animDuration = 1000;
+      const parentWindow = window.parent.window;
+      const bg = document.querySelector('#bg');
+      // scroll pos calculation
+      let calcRaf;
+      let lastScrollTop;
+      let first = true
+      let initTopDist;
+      let mappedScrollVal;
+      // lerp
+      let scrollPerc = 0;
+      let lerpedScrollVal = 0;
+      const lerpAmount = 0.1; // lower the smooter
+      // bg anim keyframes
+      const bgKeyframes = [
+        {
+          transform: `translate3d(0px, 0px, 0px)`
+        },
+        {
+          transform: `translate3d(0px, 250px, 0px)`
+        }
+      ];
+      // bg anim
+      const bgAnimation = bg.animate(bgKeyframes, {
+        duration: animDuration,
+        fill: `forwards`,
+        easing: `linear`
+      });
+      // pause bg animation as will iterate on scroll
+      bgAnimation.pause();
+      // resize parent iframe
+      const initFrame = () => {
+        frame.width = `${targetFrameWidth}px`;
+        frame.height = `${targetFrameHeight}px`;
+      }
+      initFrame();
+      // setup intersection observer
+      const setupObserver = () => {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            entry.isIntersecting ? (
+              calculateFrameDistances(),
+              console.log(entry)
+            ) : (
+              cancelAnimationFrame(calcRaf)
+            )
+          })
+        });
+        observer.observe(bg);
+      }
+      // check if intersectionobserver is supported by default
+      if('IntersectionObserver' in window) {
+        setupObserver();
+      } else {
+        // add fallback / polyfill
+        return;
+      }
+      // scale an input to a new range
+      const scale = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      }
+      // calculate distances
+      const calculateFrameDistances = () => {
+        let currScrollTop = parentWindow.pageYOffset;
+        // only run if the parent scroll value has changed
+        if(currScrollTop !== lastScrollTop) {
+          let distFromTop = frameElement.getBoundingClientRect().top;
+          if(first) {
+            initTopDist = frameElement.getBoundingClientRect().top;
+            first = false;
+          }
+          mappedScrollVal = Math.round(scale(distFromTop, -targetFrameHeight, initTopDist, 1000, 0));
+          lastScrollTop = currScrollTop;
+        }
+        calcRaf = requestAnimationFrame(calculateFrameDistances);
+      }
+      // animate everything
+      const animate = (scrollVal) => {
+        let animVal = Math.round(scrollVal);
+        bgAnimation.currentTime = animVal;
+      }
+      // smooth out the janky mcjankerson
+      function lerpScrollInput ()  {
+        scrollPerc = mappedScrollVal || 0;
+        lerpedScrollVal += (scrollPerc-lerpedScrollVal)*lerpAmount;
+        animate(lerpedScrollVal);
+        requestAnimationFrame(lerpScrollInput);
+      }
+      lerpScrollInput();
+
+      window.parent.window.addEventListener('onwheel', (e) => {
+        console.log(e)
+      })
+    })();
+  </script>
+</body>
+</html>

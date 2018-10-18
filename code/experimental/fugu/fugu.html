@@ -37,18 +37,17 @@
     (()=> {
       // dom stuff
       const frame = frameElement;
+      const frameTopDist = frame.offsetTop;
       const targetFrameWidth = 1200;
       const targetFrameHeight = 500;
       const animDuration = 1000;
       const parentWindow = window.parent.window;
+      const parentWindowHeight = parentWindow.innerHeight;
       const bg = document.querySelector('#bg');
       // scroll pos calculation
       let calcRaf;
       let lastScrollTop;
-      let first = true
-      let initTopDist;
       let mappedScrollVal;
-      let initIntersection;
       // lerp
       let scrollPerc = 0;
       let lerpedScrollVal = 0;
@@ -106,27 +105,15 @@
         // only run if the parent scroll value has changed
         if(currScrollTop !== lastScrollTop) {
           let distFromTop = frameElement.getBoundingClientRect().top;
-          if(first) {
-            initTopDist = frameElement.getBoundingClientRect().top;
-            initIntersection = entry;
-            first = false;
-          }
-          // console.log(window.parent.window.innerHeight)
-          mappedScrollVal = scale((currScrollTop + window.parent.window.innerHeight) - frameElement.offsetTop, 0, window.parent.window.innerHeight + targetFrameHeight, 0, 1000);
-          // console.log(mappedScrollVal)
+          mappedScrollVal = scale((currScrollTop + parentWindowHeight) - frameTopDist, 0, parentWindowHeight + targetFrameHeight, 0, animDuration);
           lastScrollTop = currScrollTop;
         }
         calcRaf = requestAnimationFrame(calculateFrameDistances);
       }
-      // console.log(window.parent.window.innerHeight + 500)
       // animate everything
       const animate = (scrollVal) => {
-        
-        console.log((window.parent.window.pageYOffset + window.parent.window.innerHeight) - frameElement.offsetTop)
-        console.log( )
         let animVal = Math.round(scrollVal);
         bgAnimation.currentTime = animVal;
-        // console.log(bgAnimation.currentTime)
       }
       // smooth out the janky mcjankerson
       function lerpScrollInput ()  {

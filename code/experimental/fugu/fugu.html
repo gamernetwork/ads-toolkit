@@ -19,7 +19,7 @@
       overflow: hidden;
     }
     #bg {
-      transform: translate3d(0px, 0px 0px);
+      transform: translate3d(0px, 0px, 0px);
       will-change: transform;
       /* fixed for that sweet animation fps */
       position: fixed;
@@ -48,6 +48,7 @@
       let first = true
       let initTopDist;
       let mappedScrollVal;
+      let initIntersection;
       // lerp
       let scrollPerc = 0;
       let lerpedScrollVal = 0;
@@ -80,14 +81,13 @@
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             entry.isIntersecting ? (
-              calculateFrameDistances(),
-              console.log(entry)
+              calculateFrameDistances(entry)
             ) : (
               cancelAnimationFrame(calcRaf)
             )
           })
         });
-        observer.observe(bg);
+        observer.observe(frame);
       }
       // check if intersectionobserver is supported by default
       if('IntersectionObserver' in window) {
@@ -101,24 +101,32 @@
         return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
       }
       // calculate distances
-      const calculateFrameDistances = () => {
+      const calculateFrameDistances = (entry) => {
         let currScrollTop = parentWindow.pageYOffset;
         // only run if the parent scroll value has changed
         if(currScrollTop !== lastScrollTop) {
           let distFromTop = frameElement.getBoundingClientRect().top;
           if(first) {
             initTopDist = frameElement.getBoundingClientRect().top;
+            initIntersection = entry;
             first = false;
           }
-          mappedScrollVal = Math.round(scale(distFromTop, -targetFrameHeight, initTopDist, 1000, 0));
+          // console.log(window.parent.window.innerHeight)
+          mappedScrollVal = scale((currScrollTop + window.parent.window.innerHeight) - frameElement.offsetTop, 0, window.parent.window.innerHeight + targetFrameHeight, 0, 1000);
+          // console.log(mappedScrollVal)
           lastScrollTop = currScrollTop;
         }
         calcRaf = requestAnimationFrame(calculateFrameDistances);
       }
+      // console.log(window.parent.window.innerHeight + 500)
       // animate everything
       const animate = (scrollVal) => {
+        
+        console.log((window.parent.window.pageYOffset + window.parent.window.innerHeight) - frameElement.offsetTop)
+        console.log( )
         let animVal = Math.round(scrollVal);
         bgAnimation.currentTime = animVal;
+        // console.log(bgAnimation.currentTime)
       }
       // smooth out the janky mcjankerson
       function lerpScrollInput ()  {
@@ -128,10 +136,6 @@
         requestAnimationFrame(lerpScrollInput);
       }
       lerpScrollInput();
-
-      window.parent.window.addEventListener('onwheel', (e) => {
-        console.log(e)
-      })
     })();
   </script>
 </body>

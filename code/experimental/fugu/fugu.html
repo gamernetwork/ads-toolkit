@@ -26,24 +26,55 @@
       bottom: 0;
       width: 100%;
     }
+    #logo, #slogan, #btn, #explore {
+      position: fixed;
+      will-change: transform;
+      transform: translate3d(0px, 0px, 0px);
+      opacity: 0;
+    }
+    #slogan {
+      top: 200px;
+      left: 60px;
+    }
+    #btn {
+      top: 300px;
+      left: 70px;
+    }
+    #btn:hover {
+      filter: brightness(1.25);
+    }
+    #explore {
+      right: 85px;
+      bottom: 40px;
+    }
   </style>
 </head>
 <body>
   <div id="ad-wrapper">
-    <img src="assets/trial_desktop_fishbowl2.jpg" id="bg">
+    <img src="assets/bg.jpg" id="bg">
+    <!-- additional els -->
+    <img src="assets/logo.png" alt="" id="logo">
+    <img src="assets/slogan.png" alt="" id="slogan">
+    <img src="assets/button.png" alt="" id="btn">
+    <img src="assets/explorecontent.png" id="explore">
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations-next.min.js"></script>
   <script>
-    (()=> {
+    document.addEventListener('DOMContentLoaded', function() {
       // dom stuff
       const frame = frameElement;
-      const frameTopDist = frame.offsetTop;
+      const frameTopDist = $(frame).offset().top;
       const targetFrameWidth = 1200;
       const targetFrameHeight = 500;
       const animDuration = 1000;
       const parentWindow = window.parent.window;
       const parentWindowHeight = parentWindow.innerHeight;
       const bg = document.querySelector('#bg');
+      const logo = document.querySelector('#logo');
+      const slogan = document.querySelector('#slogan');
+      const button = document.querySelector('#btn');
+      const explore = document.querySelector('#explore');
       // scroll pos calculation
       let calcRaf;
       let lastScrollTop;
@@ -104,16 +135,116 @@
         let currScrollTop = parentWindow.pageYOffset;
         // only run if the parent scroll value has changed
         if(currScrollTop !== lastScrollTop) {
-          let distFromTop = frameElement.getBoundingClientRect().top;
           mappedScrollVal = scale((currScrollTop + parentWindowHeight) - frameTopDist, 0, parentWindowHeight + targetFrameHeight, 0, animDuration);
           lastScrollTop = currScrollTop;
         }
         calcRaf = requestAnimationFrame(calculateFrameDistances);
       }
+      // additional animations
+      const logoKeyframes = [
+        {
+          transform: `translate3d(-200px, 0px, 0px)`,
+          opacity: 0
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(200px, 0px, 0px)`,
+          opacity: 0
+        },
+      ];
+      const sloganKeyframes = [
+        {
+          transform: `translate3d(200px, 0px, 0px)`,
+          opacity: 0
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(-200px, 0px, 0px)`,
+          opacity: 0
+        },
+      ];
+      const buttonKeyframes = [
+        {
+          transform: `translate3d(0, 200px, 0px)`,
+          opacity: 0
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 1
+        },
+        {
+          transform: `translate3d(0px, 0px, 0px)`,
+          opacity: 0
+        }
+      ];
+      const exploreKeyframes = [
+        {
+          transform: `scale(0)`,
+          opacity: 0
+        },
+        {
+          transform: `scale(1)`,
+          opacity: 1
+        },
+        {
+          transform: `scale(1)`,
+          opacity: 1
+        },
+        {
+          transform: `scale(0)`,
+          opacity: 0
+        }
+      ];
+      const logoAnimation = logo.animate(logoKeyframes, {
+        duration: animDuration,
+        fill: `forwards`,
+        easing: `ease-in-out`
+      });
+      const sloganAnimation = slogan.animate(sloganKeyframes, {
+        duration: animDuration,
+        fill: `forwards`,
+        easing: `ease-in-out`
+      });
+      const buttonAnimation = button.animate(buttonKeyframes, {
+        duration: animDuration,
+        fill: `forwards`,
+        easing: `ease-in-out`
+      });
+      const exploreAnimation = explore.animate(exploreKeyframes, {
+        duration: animDuration,
+        fill: `forwards`,
+        easing: `ease-in-out`
+      })
+      logoAnimation.pause();
+      sloganAnimation.pause();
+      buttonAnimation.pause();
+      exploreAnimation.pause();
       // animate everything
       const animate = (scrollVal) => {
         let animVal = Math.round(scrollVal);
         bgAnimation.currentTime = animVal;
+        logoAnimation.currentTime = animVal;
+        sloganAnimation.currentTime = animVal;
+        buttonAnimation.currentTime = animVal;
+        exploreAnimation.currentTime = animVal;
       }
       // smooth out the janky mcjankerson
       function lerpScrollInput ()  {
@@ -123,7 +254,8 @@
         requestAnimationFrame(lerpScrollInput);
       }
       lerpScrollInput();
-    })();
+    });
+
   </script>
 </body>
 </html>

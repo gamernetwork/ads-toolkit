@@ -64,7 +64,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       // dom stuff
       const frame = frameElement;
-      const frameTopDist = $(frame).offset().top;
+      let frameTopDist = $(frame).offset().top;
       const targetFrameWidth = 1200;
       const targetFrameHeight = 500;
       const animDuration = 1000;
@@ -77,8 +77,9 @@
       const explore = document.querySelector('#explore');
       // scroll pos calculation
       let calcRaf;
-      let lastScrollTop;
-      let mappedScrollVal;
+      let lastScrollTop = 0;
+      let mappedScrollVal = 0;
+      let currScrollTop = 0;
       // lerp
       let scrollPerc = 0;
       let lerpedScrollVal = 0;
@@ -106,6 +107,10 @@
         frame.height = `${targetFrameHeight}px`;
       }
       initFrame();
+      // scale an input to a new range
+      const scale = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      }
       // setup intersection observer
       const setupObserver = () => {
         const observer = new IntersectionObserver(entries => {
@@ -124,15 +129,11 @@
         setupObserver();
       } else {
         // add fallback / polyfill
-        return;
-      }
-      // scale an input to a new range
-      const scale = (num, in_min, in_max, out_min, out_max) => {
-        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        calculateFrameDistances()
       }
       // calculate distances
-      const calculateFrameDistances = (entry) => {
-        let currScrollTop = parentWindow.pageYOffset;
+      function calculateFrameDistances ()  {
+        currScrollTop = parentWindow.pageYOffset;
         // only run if the parent scroll value has changed
         if(currScrollTop !== lastScrollTop) {
           mappedScrollVal = scale((currScrollTop + parentWindowHeight) - frameTopDist, 0, parentWindowHeight + targetFrameHeight, 0, animDuration);

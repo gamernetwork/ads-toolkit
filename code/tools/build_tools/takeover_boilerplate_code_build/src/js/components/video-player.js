@@ -1,4 +1,4 @@
-export function videoLightbox(el, analytics) {
+export function videoLightbox(el, analytics, site) {
   // Youtube Iframe api
   let tag = document.createElement('script');
   tag.id = 'iframe-demo';
@@ -8,7 +8,9 @@ export function videoLightbox(el, analytics) {
   let player;
 
   const analytics_ref = analytics;
-  const this_site = '%%SITE%%';
+  const this_site = site;
+
+  console.log(this_site);
 
   // Video Popup
   let videoLink;

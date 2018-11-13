@@ -31,7 +31,7 @@ export const init = (props, clickUrlEsc) => {
   syncIframes(props.site, props.skinImg, props.dev);
 
   lightbox = el => {
-    videoLightbox(el, props.analytics);
+    videoLightbox(el, props.analytics, props.site);
   };
 };
 

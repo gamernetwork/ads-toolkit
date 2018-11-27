@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'web-animations-js';
 
 document.addEventListener('DOMContentLoaded', function() {
   // dom stuff

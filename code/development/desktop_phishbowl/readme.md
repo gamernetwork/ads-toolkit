@@ -45,3 +45,10 @@ run through it's entire duration. A good way to see this in action is to view th
 example url at https://bit.ly/2R6MbiI
 + You will notice that the `keyframe` animations specified in `phishbowl.html` always contain
 4 keyframes. This is not required, however it is quite nice as it ensures that the animated item will always have reached its 'end' keyframe as the unit is in the center of the page.
+
+## Additional Documentation
+
++ Performance table: https://docs.google.com/spreadsheets/d/1GCsphzBeFJplWSF3z9jZPp3yYVh9uwsQvpFD0grk8ho/edit#gid=0
+
++ Development docs: 
+https://docs.google.com/document/d/1Q4_dm6MmvVespzVEokCCyF4JJ-VbtXr7-4kr6OdPxGc/edit

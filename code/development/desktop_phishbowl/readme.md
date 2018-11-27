@@ -36,3 +36,12 @@ If you wish to make any optimisations or additions to the code code, this is wha
 + Make changes in `src/phishbowl.js`, these will be reflected instantly in the browser
 + When you are done, run `npm run build`
 + Once built, navigate to `dist/` and follow the previous instructions to build a new creative
+
+## Development notes 
+
++ Each animation sequence's playback position is mapped to the on-screen position of the 
+ad-unit. This means that as the user scrolls past the creative, each sequence will always 
+run through it's entire duration. A good way to see this in action is to view the 
+example url at https://bit.ly/2R6MbiI
++ You will notice that the `keyframe` animations specified in `phishbowl.html` always contain
+4 keyframes. This is not required, however it is quite nice as it ensures that the animated item will always have reached its 'end' keyframe as the unit is in the center of the page.

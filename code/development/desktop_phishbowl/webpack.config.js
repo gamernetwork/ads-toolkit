@@ -6,10 +6,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = env => {
   return {
     entry: {
-      index: './src/index.js',
+      index: './src/phishbowl.js',
     },
     output: {
-      filename: '[name].js',
+      filename: 'phishbowl.min.js',
       path: path.resolve(__dirname, 'dist')
     },
     devServer: {

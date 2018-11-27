@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+    }
+
+    #ad-wrapper {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 1200px;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    #bg {
+      transform: translate3d(0px, 0px, 0px);
+      will-change: transform;
+      /* fixed for that sweet animation fps */
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .item {
+      position: fixed;
+      will-change: transform;
+      transform: translate3d(0px, 0px, 0px);
+      opacity: 0;
+      width: 150px;
+      height: 50px;
+      background: orange;
+    }
+
+    #item-1 {}
+
+    #item-2 {}
+
+    #item-3 {}
+
+    #item-4 {}
+  </style>
+  <div id="ad-wrapper">
+    <img src="" id="bg">
+    <!-- additional els -->
+    <img src="" class="item" id="item-1">
+    <img src="" class="item" id="item-2">
+    <img src="" class="item" id="item-3">
+    <img src="" class="item" id="item-4">
+  </div>
+  <script>
+    const item1Keyframes = [{
+        transform: `translate3d(-200px, 0px, 0px)`,
+        opacity: 0
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(200px, 0px, 0px)`,
+        opacity: 0
+      },
+    ];
+    const item2Keyframes = [{
+        transform: `translate3d(200px, 0px, 0px)`,
+        opacity: 0
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(-200px, 0px, 0px)`,
+        opacity: 0
+      },
+    ];
+    const item3Keyframes = [{
+        transform: `translate3d(0, 200px, 0px)`,
+        opacity: 0
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 1
+      },
+      {
+        transform: `translate3d(0px, 0px, 0px)`,
+        opacity: 0
+      }
+    ];
+    const item4Keyframes = [{
+        transform: `scale(0)`,
+        opacity: 0
+      },
+      {
+        transform: `scale(1)`,
+        opacity: 1
+      },
+      {
+        transform: `scale(1)`,
+        opacity: 1
+      },
+      {
+        transform: `scale(0)`,
+        opacity: 0
+      }
+    ];
+  </script>
+<script type="text/javascript" src="libs.js"></script><script type="text/javascript" src="index.js"></script></body>
+
+</html>

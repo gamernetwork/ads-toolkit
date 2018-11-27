@@ -45,6 +45,8 @@ run through it's entire duration. A good way to see this in action is to view th
 example url at https://bit.ly/2R6MbiI
 + You will notice that the `keyframe` animations specified in `phishbowl.html` always contain
 4 keyframes. This is not required, however it is quite nice as it ensures that the animated item will always have reached its 'end' keyframe as the unit is in the center of the page.
++ Animated items with the class `.video` will open a lightbox on click. Provide the url for 
+the video in the item's 'rel' attribute.
 
 ## Additional Documentation
 

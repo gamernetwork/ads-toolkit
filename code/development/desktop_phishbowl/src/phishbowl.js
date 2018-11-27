@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import 'web-animations-js';
 
+const jQuery = $.noConflict();
+
 document.addEventListener('DOMContentLoaded', function() {
   // dom stuff
   const frame = frameElement;
@@ -123,4 +125,30 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimationFrame(lerpScrollInput);
   }
   lerpScrollInput();
+
+  // Video Code 
+  parent.jQuery('head').append(
+    "<script type='text/javascript' src='//images.eurogamer.net/2014/plugins/fancybox/jquery.fancybox.min.js'><\/script>"
+  );
+  parent.jQuery('head').append(
+    "<link rel='stylesheet' href='//images.eurogamer.net/2014/plugins/fancybox/styles/jquery.fancybox.css' type='text/css' media='screen' \/>"
+  );
+
+  $('.video').click(function(e){
+    console.log($(this).attr('rel'))
+    e.preventDefault();
+    parent.jQuery.fancybox({
+      type: 'iframe',
+      href: $(this).attr('rel'),
+      controls: 0,
+      maxWidth: 1262,
+      maxHeight: 710,
+      fitToView: false,
+      width: '90%',
+      height: '90%',
+      autoSize: false,
+      scrolling: 'no',
+      padding: '0',
+    })
+  });
 });

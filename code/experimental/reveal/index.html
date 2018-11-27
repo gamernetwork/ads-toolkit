@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #reveal-wrapper {
+      position: relative;
+      max-width: 410px;
+      width: 100%;
+      height: 550px;
+      background: #333;
+      /* overflow: hidden; */
+    }
+    #reveal-wrapper:after {
+      position: absolute;
+      top: 0; left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      box-shadow: 2px 2px 10px 2px rgba(0,0,0,0.333);
+      pointer-events: none;
+    }
+    h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #111;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: opacity 500ms ease;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="reveal-wrapper">
+    <h1>Masking Demo</h1>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
+  <script>
+    (function() {
+      var app = new PIXI.Application(410, 550, { antialias: true });
+      document.querySelector('#reveal-wrapper').appendChild(app.view);
+
+      var stage = app.stage;
+
+      PIXI.loader.add('t1', 'assets/testbgdark.jpg');
+      PIXI.loader.add('t2', 'assets/testbg.jpg');
+      PIXI.loader.add('mask', 'assets/mask.png');
+      PIXI.loader.load(setup);
+
+      var dragging;
+
+      var brushSize = 40;
+
+      function setup(loader, resources) {
+        var background = new PIXI.Sprite(PIXI.Texture.WHITE);
+        stage.addChild(background);
+        background.width = app.screen.width;
+        background.height = app.screen.height;
+
+        var imageToReveal = new PIXI.Sprite(resources['t2'].texture);
+        stage.addChild(imageToReveal);
+        imageToReveal.width = app.screen.width;
+        imageToReveal.height = app.screen.height;
+
+        // prep circle texture
+        var brush = new PIXI.Sprite(resources['mask'].texture);
+        brush.width = brushSize;
+        brush.height = brushSize;
+        brush.anchor.set(0.5);
+
+        var renderTexture = new PIXI.RenderTexture.create(app.screen.width, app.screen.height);
+        var renderTextureSprite = new PIXI.Sprite(renderTexture);
+        
+        stage.addChild(renderTextureSprite);
+        imageToReveal.mask = renderTextureSprite;
+
+        app.stage.interactive = true;
+        app.stage.on('pointerdown', pointerDown);
+        app.stage.on('pointerup', pointerUp);
+        app.stage.on('pointermove', pointerMove);
+
+        function pointerMove(event) {
+          if(dragging) {
+            modulateBrush();
+            brush.position.copy(event.data.global);
+            app.renderer.render(brush, renderTexture, false , null, false);
+          }
+        }
+
+        function pointerDown(event) {
+          dragging = true;
+          pointerMove(event);
+          document.querySelector('h1').style.opacity = 0;
+        }
+
+        function pointerUp(event) {
+          dragging = false;
+          window.open('https://store.steampowered.com/app/449960/Book_of_Demons/', '_blank');
+        }
+
+        var hasNotMaxed = false;
+
+        function modulateBrush() {
+          if(brushSize >= 100) {
+            hasNotMaxed = true;
+          } 
+          if(brushSize <= 76) {
+            hasNotMaxed = false;
+          }
+          if(brushSize < 100 && !hasNotMaxed) {
+            brushSize += 0.5;
+          } else if(brushSize > 75 && hasNotMaxed) {
+            brushSize -= 0.5;
+          }
+          brush.width = brushSize;
+          brush.height = brushSize;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

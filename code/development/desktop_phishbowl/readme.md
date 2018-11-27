@@ -10,7 +10,7 @@ As this unit requires bespoke animation elements, there is not a template in GAM
 
 In order to create a new creative using this template: 
 
-+ Clone this repository
++ Fork / clone this repository
 + Navigate to `dist/`
 + Make a copy of the contents
 + Open up `index.html` with a live reload tool of you choice...
@@ -18,9 +18,21 @@ In order to create a new creative using this template:
 which will be displaying in an iframe
 + Navigate to `dist/phishbowl.html` and locate the `<script></script>` tag
 + Any changes you make here to the 'keyframes' objects within
-this script tag will determine the animation vtimeline's for each individual 
+this script tag will determine the animation timeline's for each individual 
 element (`#item-1` etc...)
 + The images with the classname `.item` are the animatable elements
 + When you are done and happy with the animation sequences, just copy and paste
 the contents of `phishbowl.html` into a new custom creative within GAM
-+ ** Be sure to add `phishbowl.min.js` as a file macro **
+
+** Be sure to add `phishbowl.min.js` as a file macro **
+
+## How to edit the lib
+
+If you wish to make any optimisations or additions to the code code, this is what you want to do... 
+
++ Clone this repository 
++ Run `npm install` to install node dependancies
++ To spin up a dev server, run `npm run dev`
++ Make changes in `src/phishbowl.js`, these will be reflected instantly in the browser
++ When you are done, run `npm run build`
++ Once built, navigate to `dist/` and follow the previous instructions to build a new creative

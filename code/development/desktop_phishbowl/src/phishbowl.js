@@ -4,7 +4,6 @@ import 'web-animations-js';
 document.addEventListener('DOMContentLoaded', function() {
   // dom stuff
   const frame = frameElement;
-  console.log(frame)
   let frameTopDist = $(frame).offset().top;
   const targetFrameWidth = 1200;
   const targetFrameHeight = 500;

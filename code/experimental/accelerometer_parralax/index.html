@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title></title>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+    * {
+      margin: 0;
+      box-sizing: inherit;
+    }
+    body {
+      -webkit-font-smoothing: antialiased;
+    }
+    #container {
+      position: relative;
+      width: 100%;
+      max-width: 411px;
+      height: 440px;
+    }
+    #scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      background: #000;
+      font-family: sans-serif;
+      overflow: hidden;
+      text-align: center;
+      padding-top: 2rem;
+    }
+    #scene:after {
+      position: absolute;
+      top: 0; left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      /* box-shadow: inset 0px 0px 20px 20px rgba(0,0,0,1); */
+    }
+    .layer {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 2rem 0;
+    }
+
+    h1 {
+      position: relative;
+      bottom: -50px;
+    }
+
+    h2 {
+      position: relative;
+      top: 25px;
+    }
+
+    button {
+      position: relative;
+      bottom: -150px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="scene">
+      <div data-depth="0.66" id="title" class="layer">
+        <h1>Parallax Accelerometer!</h1>
+      </div>
+      <div data-depth="0.33" id="subtitle" class="layer">
+        <h2>Rotate your phone?</h2>
+      </div>
+      <div data-depth="0.99" id="button" class="layer">
+        <button>Buy Something!</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js"></script>
+  <script>
+    (function(){
+      var scene = document.getElementById('scene');
+      var parallaxInstance = new Parallax(scene);
+    })();
+  </script>
+</body>
+</html>

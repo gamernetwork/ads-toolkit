@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.gamer-network.net/2018/plugins/overtake/1.0/main.css">
+  <!-- CSS -->
+  <style>
+    #ad-wrapper {
+      background-image: url('');
+    }
+    #autoplaying-video-wrapper {
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 250px;
+    }
+    #autoplaying-video-wrapper:after {
+      background-image: url('');
+    }
+    #video-overlay-link {
+      background-image: url('');
+    }
+  </style>
+</head>
+
+<body class="js-loading" style="display:none;">
+  <div id="ad-wrapper" rel="eg-leaderboard">
+    <!-- Autoplaying Video -->
+    <div id="autoplaying-video-wrapper">
+      <a id="video-overlay-link" href=""></a>
+      <video width="300" height="250" loop="yes" muted="yes" id="autoplaying-video" autoplay>
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+    <!-- Click Through Link -->
+    <a id="ad-wrapper-link" href="%%CLICK_URL_ESC%%%%DEST_URL%%" target="_blank"></a>
+    <!-- Skin Load Test -->
+    <img id="skin-load-test" src="" alt="">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Init Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      overtake.init({
+        dev: true,
+        analytics: 'ANALYTICS_REF_HERE',
+        site: '%%SITE%%',
+        skinImg: '%%FILE:SKIN%%',
+        skinLink: '%%DEST_URL%%'
+      }, '%%CLICK_URL_ESC%%');
+
+      overtake.lightbox('#video-overlay-link');
+
+      parent.jQuery('body').addClass('skin-long');
+
+      // countdown
+      var startTime = [06, 12, 2018, 12, 16]; // day, month, year, hours, minutes
+      var endTime = [06, 12, 2018, 12, 17]; // day, month, year, hours, minutes
+
+      var startDate = new Date(startTime[2], startTime[1] - 1, startTime[0], startTime[3], startTime[4], 0, 0);
+      var endDate = new Date(endTime[2], endTime[1] - 1, endTime[0], endTime[3], endTime[4], 0, 0);
+
+      var streamEmbedSet = false;
+      var streamEndSet = false;
+      var hasEnded = false;
+
+      function dateCompare(date1, date2) {
+        return date1 >= date2;
+      }
+
+      function runInterval() {
+        // Current Date
+        var today = new Date();
+        var todayUTC = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(),
+          today.getSeconds(), 0);
+        // Start / End Time
+        var streamLive = dateCompare(todayUTC, startDate);
+        var streamEnd = dateCompare(todayUTC, endDate);
+        // Show Stream if time > start time, embed has not yet been triggered and current time is not greater than the end date
+        if (streamLive === true && streamEmbedSet === false && streamEnd === false) {
+          start();
+        }
+        // Hide Stream if time > end time, embed has been set and function has not been called
+        if (streamEnd === true && streamEmbedSet === true && streamEndSet === false) {
+          end();
+        }
+
+        if(streamEnd && !hasEnded) {
+          end();
+        }
+      }
+      runInterval();
+
+      setInterval(function () {
+        runInterval();
+      }, 3000);
+
+      function start() {
+        console.log('start');
+        streamEmbedSet = true;
+      }
+
+      function end() {
+        console.log('end');
+        streamEndSet = true;
+        hasEnded = true;
+      }
+    });
+  </script>
+  <script src="https://cdn.gamer-network.net/2018/plugins/overtake/1.3/overtake.min.js"></script>
+</body>
+
+</html>

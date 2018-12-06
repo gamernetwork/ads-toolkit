@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    :root {
+      --item-width: 300px;
+      --item-height: 250px;
+    }
+    html {
+      box-sizing: border-box;
+    }
+    *, 
+    *:before,
+    *:after {
+      margin: 0;
+      box-sizing: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    #wrapper {
+      position: relative;
+      top: 0; left: 0;
+      width: 411px;
+      max-width: 100%;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #010101;
+    }
+    #gallery {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
+    }
+    #wrapper:before {
+      position: absolute;
+      top: 0; right: 0;
+      content: '';
+      width: 2rem;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, #010101);
+      z-index: 1;
+    }
+    #wrapper:after {
+      position: absolute;
+      top: 0; left: 0;
+      content: '';
+      width: 2rem;
+      height: 100%;
+      background: linear-gradient(270deg, transparent, #010101);
+    }
+    #gallery-track {
+      display: flex;
+      flex-direction: row;
+      width: calc((var(--item-width) * 6) + 6 * 1rem);
+      will-change: transform;
+      transform: translate3d(0,0,0) rotate(0.0001deg);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+    #gallery-track div {
+      width: var(--item-width);
+      height: var(--item-height);
+      margin-right: 1rem;
+      background: #333;
+      display: inline-block;
+      color: #fff;
+      background-size: cover;
+      background-position: center center;
+    }
+    #gallery-track div:nth-of-type(1) {
+      background-image: url('https://images.unsplash.com/photo-1538755775552-ab005e33597c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cccc08868496bdb438e947f055961a62&auto=format&fit=crop&w=1267&q=80');
+    }
+    #gallery-track div:nth-of-type(2) {
+      background-image: url('https://images.unsplash.com/photo-1532775946639-ebb276eb9a1c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5f28b135055671caefc5bc9aa14356fe&auto=format&fit=crop&w=1500&q=80');
+    }
+    #gallery-track div:nth-of-type(3) {
+      background-image: url('https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4cd3d445041467403058c0d8356b1f9b&auto=format&fit=crop&w=1500&q=80');
+    }
+    #gallery-track div:nth-of-type(4) {
+      background-image: url('https://images.unsplash.com/photo-1502252430442-aac78f397426?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dc1e8b41b91dc1770d5771c62480ee5b&auto=format&fit=crop&w=1500&q=80');
+    }
+    #gallery-track div:nth-of-type(5) {
+      background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bf3ecd34b3757e384e703b2e79243fb7&auto=format&fit=crop&w=1778&q=80');
+    }
+    #gallery-track div:nth-of-type(6) {
+      background-image: url('https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e4bb45f83ac28335f5bbac4f520cd97f&auto=format&fit=crop&w=634&q=80');
+    }
+    .debug {
+      position: fixed;
+      top: 0; left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <p class="debug"></p>
+    <div id="gallery">
+      <div id="gallery-track">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      const items = document.querySelector('#gallery-track').querySelectorAll('div');
+      // helpers
+      const helpers = {
+        // https://github.com/wagerfield/parallax/blob/master/src/parallax.js
+        clamp(value, min, max) {
+          return min < max
+            ? (value < min ? min : value > max ? max : value)
+            : (value < max ? max : value > min ? min : value)
+        },
+        debug(x, y) {
+          console.log(x, y);
+        },
+        scale(num, in_min, in_max, out_min, out_max) {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+      }
+      // gallery
+      class Gallery {
+        constructor(el) {
+          this.el = el;
+          this.width = this.el.offsetWidth;
+          this.inputX = 0;
+          this.calibrationX = 0;
+          this.calibratedX = 0;
+          this.velocityX = 0;
+          this.calibrate = true;
+          this.scalarX = 10.0;
+          this.multiplier = 100;
+          this.friction = 0.1;
+          this.onMotion = this.onMotion.bind(this);
+          this.rotate = this.rotate.bind(this);
+          this.onAnim = this.onAnim.bind(this);
+          this.window = window;
+
+          this.hit = false;
+          this.reverseForce = 1;
+          this.initialise();
+        }
+        initialise() {
+          this.window.addEventListener('deviceorientation', this.onMotion);
+          this.onAnim();
+        }
+        onMotion(event) {
+          let gamma = event.gamma;
+          this.rotate(gamma);
+        }
+        rotate(gamma) {
+          let x = (gamma || 0) / 30; // -180 :: 180
+          if(this.calibrate) {
+            this.calibrate = false;
+            this.calibrationX = x;
+          }
+          this.inputX = x;
+        }
+        onAnim() {
+          this.calibratedX = this.inputX - this.calibrationX;
+          this.velocityX += (this.calibratedX * this.friction) * this.multiplier * this.reverseForce;
+          this.el.style.transform = `translate3d(${(this.velocityX)}px, 0, 0)`;
+          requestAnimationFrame(this.onAnim);
+        }
+      }
+      const gallery = new Gallery(document.getElementById('gallery-track'));
+    })();
+  </script>
+</body>
+</html>

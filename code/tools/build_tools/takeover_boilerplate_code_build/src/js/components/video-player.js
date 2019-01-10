@@ -10,8 +10,6 @@ export function videoLightbox(el, analytics, site) {
   const analytics_ref = analytics;
   const this_site = site;
 
-  console.log(this_site);
-
   // Video Popup
   let videoLink;
   let getDur;
@@ -28,7 +26,7 @@ export function videoLightbox(el, analytics, site) {
         window.ga('showcase.send', 'event', {
           'eventCategory': analytics_ref,
           'eventAction': 'Video Started Playing',
-          'eventLabel': '%%SITE%%'
+          'eventLabel': this_site
         });
         hasEnded = false;
         parent.jQuery.fancybox({

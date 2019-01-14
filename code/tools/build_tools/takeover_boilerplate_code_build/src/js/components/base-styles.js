@@ -93,6 +93,10 @@ export function applyBaseStyles(props, clickUrlEsc) {
       parent.jQuery('#gn_takeover').css('height', '1316px');
     }
 
+    if(this_site == 'usgamer.net') {
+      parent.jQuery('#gn_takeover').css('height', '1316px');
+    }
+
     // Attatch click listener to #gn_takeover
     parent.jQuery('#gn_takeover').click(function () {
       window.open(clickUrlEsc + takeover_skin_link, '_blank');

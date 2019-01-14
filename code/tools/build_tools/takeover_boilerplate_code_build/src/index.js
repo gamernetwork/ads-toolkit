@@ -1,7 +1,7 @@
 import 'core-js/fn/string/includes';
 
 import {applyBaseStyles} from './js/components/base-styles';
-import {syncIframes} from './js/components/sync-iframes';
+// import {syncIframes} from './js/components/sync-iframes';
 import {videoLightbox, appendLightboxSource} from './js/components/video-player';
 import {addAnalytics} from './js/components/analytics';
 
@@ -28,7 +28,7 @@ export const init = (props, clickUrlEsc) => {
     }, clickUrlEsc)
   );
   appendLightboxSource();
-  syncIframes(props.site, props.skinImg, props.dev);
+  // syncIframes(props.site, props.skinImg, props.dev);
 
   lightbox = el => {
     videoLightbox(el, props.analytics, props.site);

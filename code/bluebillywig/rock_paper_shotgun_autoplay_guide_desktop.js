@@ -71,7 +71,7 @@ waitForBBW().then(() => {
     .querySelector("#first_sidebar_ad")
     .insertAdjacentHTML(
       "beforebegin",
-      `<div class="bbw_video_sidebar_text" style="width: 300px; margin-bottom: 0.4em; opacity: 0;"><p style="color:white; font-size: 0.9em; line-height: 1.3; padding: 0.1em 0.2em 0.2em; width: 280px;"><span class="bb_player_text_prefix"><strong>Playing next${separator()}</strong></span>${checkTitleLength(
+      `<div class="bbw_video_sidebar_text" style="width: 300px; margin-bottom: 0.4em; opacity: 0;"><p style="color:white; font-size: 0.9em; line-height: 1.3; padding: 0.1em 0.2em 0.2em; width: 268px;"><span class="bb_player_text_prefix"><strong>Playing next${separator()}</strong></span>${checkTitleLength(
         nextTitle
       )}</p></div>`
     );

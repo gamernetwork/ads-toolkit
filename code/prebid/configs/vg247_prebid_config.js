@@ -10,6 +10,7 @@ prebid_units = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "VG_LB_1", adUnitPath: "/43340684/VG_LB_1" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458368" } },
                 { bidder: "districtmDMX", params: { dmxid: 568173 , memberid: 101983 } },
@@ -37,6 +38,7 @@ prebid_units = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "VG_HP", adUnitPath: "/43340684/VG_HP" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458369" } },
                 { bidder: "districtmDMX", params: { dmxid: 568174, memberid: 101983 } },
@@ -65,6 +67,7 @@ prebid_units = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "VG_LB_2", adUnitPath: "/43340684/VG_LB_2" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458370" } },
                 { bidder: "districtmDMX", params: { dmxid: 568175, memberid: 101983 } },
@@ -90,6 +93,7 @@ prebid_units = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "VG_Lazy_Load_HP_MPU", adUnitPath: "/43340684/VG_Lazy_Load_HP_MPU" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458371" } },
                 { bidder: "districtmDMX", params: { dmxid: 568174, memberid: 101983 } },
@@ -120,6 +124,7 @@ prebid_units = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "VG_MPU_MOB", adUnitPath: "/43340684/VG_MPU_MOB" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458371" } },
                 { bidder: "districtmDMX", params: { dmxid: 568176, memberid: 101983 } },
@@ -139,6 +144,7 @@ prebid_units = {
         VG_Lazy_Load_HP_MPU: {
             code: "/43340684/VG_Lazy_Load_HP_MPU",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "VG_Lazy_Load_HP_MPU", adUnitPath: "/43340684/VG_Lazy_Load_HP_MPU" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458371" } },
                 { bidder: "districtmDMX", params: { dmxid: 568176, memberid: 101983 } },
@@ -158,6 +164,7 @@ prebid_units = {
         VG_STICKY_LB: {
             code: "/43340684/VG_STICKY_LB",
             mediaTypes: { banner: { sizes: [[320, 50]] } },
+            pubstack: { adUnitName: "VG_STICKY_LB", adUnitPath: "/43340684/VG_STICKY_LB" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458372" } },
                 { bidder: "districtmDMX", params: { dmxid: 568177, memberid: 101983 } },
@@ -174,6 +181,7 @@ prebid_units = {
         VG_MPU_LAST: {
             code: "/43340684/VG_MPU_LAST",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "VG_MPU_LAST", adUnitPath: "/43340684/VG_MPU_LAST" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458371" } },
                 { bidder: "districtmDMX", params: { dmxid: 568176, memberid: 101983 } },
@@ -192,6 +200,7 @@ prebid_units = {
         VG_MPU_FEED: {
             code: "/43340684/VG_MPU_FEED",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "VG_MPU_FEED", adUnitPath: "/43340684/VG_MPU_FEED" },
             bids: [
                 { bidder: "districtm", params: { placementId: "20458371" } },
                 { bidder: "districtmDMX", params: { dmxid: 568176, memberid: 101983 } },

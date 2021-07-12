@@ -10,6 +10,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_LB_1", adUnitPath: "/43340684/EGNET_LB_1" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143633" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143633, memberid: 101983 } },
@@ -23,6 +24,9 @@ prebid_config = {
                 { bidder: "ix", params: { siteId: "544548", size: [970, 250] } },
                 { bidder: "ix", params: { siteId: "544548", size: [728, 90] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a9699f00175750d02821d0371ed01cb" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"526364472" } },
+                { bidder: "sharethrough", params: { pkey: "nPb54QCkAWyY9U9BX64csr3p" } },
             ],
         },
         EGNET_HP: {
@@ -35,6 +39,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_HP", adUnitPath: "/43340684/EGNET_HP" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143634" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143634, memberid: 101983 } },
@@ -48,6 +53,9 @@ prebid_config = {
                 { bidder: "ix", params: { siteId: "545792", size: [300, 250] } },
                 { bidder: "ix", params: { siteId: "545792", size: [300, 600] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96900601757509a2be1d03a2210340" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"364068531" } },
+                { bidder: "sharethrough", params: { pkey: "zgYJ94JniiT2urVFS4ZW8A1d" } },
             ],
         },
         EGNET_LB_2: {
@@ -60,6 +68,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_LB_2", adUnitPath: "/43340684/EGNET_LB_2" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143635" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143635, memberid: 101983 } },
@@ -73,6 +82,9 @@ prebid_config = {
                 { bidder: "ix", params: { siteId: "545796", size: [970, 250] } },
                 { bidder: "ix", params: { siteId: "545796", size: [728, 90] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d03fd55033a" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"137907487" } },
+                { bidder: "sharethrough", params: { pkey: "LhZ8rfH2gZrCcQRk1ca1owps" } },
             ],
         },
         EGNET_LEADERBOARD_LAST: {
@@ -85,6 +97,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_LEADERBOARD_LAST", adUnitPath: "/43340684/EGNET_LEADERBOARD_LAST" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143635" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143635, memberid: 101983 } },
@@ -98,6 +111,9 @@ prebid_config = {
                 { bidder: "ix", params: { siteId: "545796", size: [970, 250] } },
                 { bidder: "ix", params: { siteId: "545796", size: [728, 90] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d03d2260339" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"713783925" } },
+                { bidder: "sharethrough", params: { pkey: "LhZ8rfH2gZrCcQRk1ca1owps" } },
             ],
         },
         EGNET_Lazy_Load_HP_MPU: {
@@ -110,6 +126,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_Lazy_Load_HP_MPU", adUnitPath: "/43340684/EGNET_Lazy_Load_HP_MPU" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -123,11 +140,15 @@ prebid_config = {
                 { bidder: "ix", params: { siteId: "545794", size: [300, 250] } },
                 { bidder: "ix", params: { siteId: "545794", size: [300, 600] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a9699f00175750d02821d046cfa01cd" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"359674724" } },
+                { bidder: "sharethrough", params: { pkey: "zgYJ94JniiT2urVFS4ZW8A1d" } },
             ],
         },
         EGNET_MPU_1: {
             code: "/43340684/EGNET_MPU_1",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "EGNET_MPU_1", adUnitPath: "/43340684/EGNET_MPU_1" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -139,6 +160,9 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168286", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545793", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a9699f00175750d02821d04263701cc" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"366716681" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
     },
@@ -146,6 +170,7 @@ prebid_config = {
         EGNET_TAB_TOP: {
             code: "/43340684/EGNET_TAB_TOP",
             mediaTypes: { banner: { sizes: [[728, 90]] } },
+            pubstack: { adUnitName: "EGNET_TAB_TOP", adUnitPath: "/43340684/EGNET_TAB_TOP" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143633" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143633, memberid: 101983 } },
@@ -154,11 +179,13 @@ prebid_config = {
                 { bidder: "conversant", params: { site_id: "109747", secure: 1 } },
                 { bidder: "openx", params: { unit: "541168279", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "544548", size: [728, 90] } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
             ],
         },
         EGNET_TAB_LL: {
             code: "/43340684/EGNET_TAB_LL",
             mediaTypes: { banner: { sizes: [[728, 90]] } },
+            pubstack: { adUnitName: "EGNET_TAB_LL", adUnitPath: "/43340684/EGNET_TAB_LL" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143635" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143635, memberid: 101983 } },
@@ -167,6 +194,7 @@ prebid_config = {
                 { bidder: "conversant", params: { site_id: "109747", secure: 1 } },
                 { bidder: "openx", params: { unit: "541168284", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545796", size: [728, 90] } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
             ],
         },
         EGNET_MPU_MOB: {
@@ -179,6 +207,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_MPU_MOB", adUnitPath: "/43340684/EGNET_MPU_MOB" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -190,11 +219,15 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168291", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d04c2e3033c" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"334842374" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
         EGNET_Lazy_Load_HP_MPU: {
             code: "/43340684/EGNET_Lazy_Load_HP_MPU",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "EGNET_Lazy_Load_HP_MPU", adUnitPath: "/43340684/EGNET_Lazy_Load_HP_MPU" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -206,6 +239,9 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168288", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d049c8f033b" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"866268511" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
     },
@@ -220,6 +256,7 @@ prebid_config = {
                     ],
                 },
             },
+            pubstack: { adUnitName: "EGNET_MPU_MOB", adUnitPath: "/43340684/EGNET_MPU_MOB" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143641" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143641, memberid: 101983 } },
@@ -231,11 +268,15 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168291", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d04c2e3033c" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"334842374" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
         EGNET_Lazy_Load_HP_MPU: {
             code: "/43340684/EGNET_Lazy_Load_HP_MPU",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "EGNET_Lazy_Load_HP_MPU", adUnitPath: "/43340684/EGNET_Lazy_Load_HP_MPU" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -247,11 +288,15 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168288", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96945901757509a7551d049c8f033b" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"866268511" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
         EGNET_STICKY_LB: {
             code: "/43340684/EGNET_STICKY_LB",
             mediaTypes: { banner: { sizes: [[320, 50]] } },
+            pubstack: { adUnitName: "EGNET_STICKY_LB", adUnitPath: "/43340684/EGNET_STICKY_LB" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143637" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143637, memberid: 101983 } },
@@ -260,11 +305,15 @@ prebid_config = {
                 { bidder: "conversant", params: { site_id: "109747", secure: 1 } },
                 { bidder: "openx", params: { unit: "541208109", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545798", size: [320, 50] } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"131851077" } },
+                { bidder: "sharethrough", params: { pkey: "BboWPeW9y5MKfNPm6tXHSszR" } },
             ],
         },
         EGNET_MPU_LAST: {
             code: "/43340684/EGNET_MPU_LAST",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "EGNET_MPU_LAST", adUnitPath: "/43340684/EGNET_MPU_LAST" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -276,11 +325,15 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168295", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96900601757509a2be1d04e9ce0341" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"149888219" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
         EGNET_MPU_FEED: {
             code: "/43340684/EGNET_MPU_FEED",
             mediaTypes: { banner: { sizes: [[300, 250]] } },
+            pubstack: { adUnitName: "EGNET_MPU_FEED", adUnitPath: "/43340684/EGNET_MPU_FEED" },
             bids: [
                 { bidder: "districtm", params: { placementId: "19143636" } },
                 { bidder: "districtmDMX", params: { dmxid: 19143636, memberid: 101983 } },
@@ -292,6 +345,9 @@ prebid_config = {
                 { bidder: "openx", params: { unit: "541168297", delDomain: "gamer-d.openx.net" } },
                 { bidder: "ix", params: { siteId: "545797", size: [300, 250] } },
                 { bidder: "onemobile", params: { dcn: "8a9699f00175750d02821d0139d401c9", pos: "8a96900601757509a2be1d052ce60342" } },
+                { bidder: "brightcom" , params: { publisherId: "20088" } },
+                { bidder: "medianet", params:{ cid: "8CUSVGW2K", crid:"377686684" } },
+                { bidder: "sharethrough", params: { pkey: "8kkttz5JJ6j31R7DLorqfht1" } },
             ],
         },
     },

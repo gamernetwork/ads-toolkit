@@ -1,0 +1,81 @@
+# line_item_manager configuration
+# version: '0.2.3'
+# Publisher (optional)
+# This can be specified on the command line like this:
+#   --network-code <code>
+#   --network-name <name>
+#
+publisher:
+  network_code: 43340684
+  network_name: "Eurogamer Network Limited - AdX EMEA"
+###############################################################################
+# Advertiser (required)
+# Allowed Templating Key Words: Bidder
+###############################################################################
+advertiser: # at least one of the following is required {id, name}, id is checked first
+  name: "Prebid"
+  id: 220082044
+  # type: "AD_NETWORK" # optional: defaults to "ADVERTISER"
+###############################################################################
+# Creatives (required)
+# Allowed Templating Key Words: Bidder, Media, Misc
+#
+# For additional explanations on settings see the following:
+#   banner: https://docs.prebid.org/adops/step-by-step.html
+#   video: https://docs.prebid.org/adops/setting-up-prebid-video-in-dfp.html
+###############################################################################
+creative: # at least one of the following types is required {video, banner}
+  name: "Prebid Video Creative"
+  video:
+    sizes: # list
+      - height: 480
+        width: 640
+      - height: 360
+        width: 640
+      - height: 300
+        width: 400
+    vast_xml_url: "https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:{{ hb_uuid }}%%"
+
+###############################################################################
+# Orders (required)
+# Allowed Templating Key Words: Bidder, Media, Order, Misc
+###############################################################################
+order:
+  name: "PREBID_VIDEO_2_£{{ cpm_min }}_£{{ cpm_max }}"
+###############################################################################
+# Line Items (required)
+# Allowed Templating Key Words: Bidder, Media, CPM, Misc
+#
+# Supported Types: price_priority, standard
+# datetimes use: "%m/%d/%y %H:%M" (ex. 11/17/20 21:28)
+#   - default timezone is UTC
+# timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+###############################################################################
+line_item:
+  name: "PREBID_VIDEO_2_{{ cpm }}"
+  item_type: "price_priority"
+  # Optional
+  # priority: 12
+  # start_datetime: "01/01/22 00:00"
+  # end_datetime: "12/17/20 21:28"
+  # timezone: "GMT"
+###############################################################################
+# Rate (required)
+# Allowed Templating Key Words: None
+#
+# Granularity type definitions can be found here:
+#   https://docs.prebid.org/prebid-mobile/adops-price-granularity.html
+#
+# NOTE: granularity in Prebid.js config must align with this granularity
+###############################################################################
+rate:
+  currency: "GBP" # required
+  granularity:
+    type: "custom" # required, choices: "low", "med", "high", "auto", "dense", "custom"
+    custom:
+      - min: 0.01
+        max: 20.00
+        interval: 0.01
+  # optional properties
+  # vcpm: 100000 # viewable impressions will be enabled
+

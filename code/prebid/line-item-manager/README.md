@@ -22,14 +22,14 @@ If that isn't working properly you might have an older version of python set to 
 
 ## Running
 
-Edit `my_config.yml` with the configurarion you need.
+Edit `banner_config.yml` or `video_config.yml` with the configurarion you need, or create a new one.
 
 Run `cp gam_creds.json.example gam_creds.json` and populate the `gam_creds.json` whith your Google Ad Manager credentials.
 
 ### Dry run
 First of all to make sure you have everything set up correctly run
 
-`line_item_manager create my_config.yml --single-order --–dry-run`
+`line_item_manager create my_config.yml --single-order --dry-run`
 
 and check the console for errors
 
